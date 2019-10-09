@@ -15,9 +15,7 @@ class App extends React.Component {
 
   loadHome = () => {
     return (
-      <Home
-        callbackUser={this.callbackUser}
-      />
+      <Home />
     );
   }
 
@@ -26,6 +24,7 @@ class App extends React.Component {
       <main>
         <Switch>
           <Route exact path="/" render={this.loadHome} />
+          <Route exact path="/prueba" render={this.loadHome} />
         </Switch>
       </main>
     );
