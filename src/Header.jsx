@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Header = ({
-  activeBlock, moduleName, sedimentaryBasin, blockType, callbackPage,
+  activeBlock, moduleName, sedimentaryBasin, blockType,
 }) => (
   <header>
     <h3>
@@ -29,7 +29,6 @@ Header.propTypes = {
   blockType: PropTypes.string,
   moduleName: PropTypes.string,
   sedimentaryBasin: PropTypes.string,
-  callbackPage: PropTypes.func.isRequired,
 };
 
 Header.defaultProps = {
