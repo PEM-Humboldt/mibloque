@@ -380,8 +380,19 @@ footer h2 {
 	border-right: 1px solid #fff;
 }
 
+.leaflet-container {
+	height: inherit;
+	padding: 5px;
+	border: 0px solid #EDA539;
+	background-color: #eeeeec;
+	-webkit-flex: 3 1 60%;
+					flex: 3 1 60%;
+ -webkit-order: 1;
+				 order: 1;
+  z-index: 0;
+}
+
 .map {
-	background-color: #e6e6e6;
 	width: 100%;
 	height: 100%;
 	position: absolute;
