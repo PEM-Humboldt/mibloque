@@ -4,6 +4,8 @@ import { Switch, Route } from 'react-router-dom';
 
 import Home from './Home';
 import Summary from './Summary';
+import IndicatorsDash from './IndicatorsDash';
+import Indicator from './Indicator';
 import './assets/main.css';
 
 class App extends React.Component {
@@ -17,6 +19,24 @@ class App extends React.Component {
   loadHome = () => {
     return (
       <Home />
+    );
+  }
+
+  loadIndicatorsDash = () => {
+    const { activeBlock } = this.state;
+    return (
+      <IndicatorsDash
+        activeBlock = {activeBlock}
+      />
+    );
+  }
+
+  loadIndicator = () => {
+    const { activeBlock } = this.state;
+    return (
+      <Indicator
+        activeBlock = {activeBlock}
+      />
     );
   }
 
@@ -34,6 +54,8 @@ class App extends React.Component {
       <main>
         <Switch>
           <Route exact path="/" render={this.loadHome} />
+          <Route exact path="/indicatorsDash" render={this.loadIndicatorsDash} />
+          <Route exact path="/indicator" render={this.loadIndicator} />
           <Route exact path="/summary" render={this.loadSummary} />
         </Switch>
       </main>
