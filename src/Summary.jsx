@@ -4,6 +4,7 @@ import React from 'react';
 import CloseIcon from '@material-ui/icons/Close';
 import MapViewer from './commons/MapViewer';
 import Modal from '@material-ui/core/Modal';
+import { Link } from 'react-router-dom';
 import Layout from './Layout';
 
 // Images to import
@@ -89,7 +90,9 @@ class Summary extends React.Component {
                     <MapViewer /> 
                 </div>
                 <div className="blockdata">
+                  <Link to="/indicatorsDash">
                     <button className="generalbtn absright">indicadores</button>
+                  </Link>
                     <h1>Sobre el bloque</h1>
                     <div className="line"></div>
                     <h5 className="hectareas"><b>101,096</b> ha</h5>
