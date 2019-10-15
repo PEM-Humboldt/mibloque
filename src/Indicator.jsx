@@ -1,8 +1,6 @@
 /** eslint verified */
 import React from 'react';
 
-import CloseIcon from '@material-ui/icons/Close';
-import Modal from '@material-ui/core/Modal';
 import Layout from './Layout';
 
 class IndicatorsDash extends React.Component {
@@ -11,7 +9,6 @@ class IndicatorsDash extends React.Component {
       this.state = {
         moduleName: 'indicators',
         activeBlock: null,
-        connError: false,
       };
     }
   
@@ -25,7 +22,7 @@ class IndicatorsDash extends React.Component {
     }
   
     render() {
-      const { moduleName, connError } = this.state;
+      const { moduleName } = this.state;
       return (
         <Layout
           moduleName={moduleName}

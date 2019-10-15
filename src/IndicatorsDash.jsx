@@ -3,7 +3,13 @@ import React from 'react';
 
 import CloseIcon from '@material-ui/icons/Close';
 import Modal from '@material-ui/core/Modal';
+
+import Masonry from 'react-masonry-component';
 import Layout from './Layout';
+
+const masonryOptions = {
+  transitionDuration: 0,
+};
 
 class IndicatorsDash extends React.Component {
     constructor(props) {
@@ -83,15 +89,19 @@ class IndicatorsDash extends React.Component {
                     <a href="http://www.anh.gov.co/">Bioma</a>
                 </div>
                 <div className="boxeswrapper">
-                    <div className="boxes">
-                        <h6>Especies endémicas por Bioma</h6>
-                    </div>
+                <Masonry
+                  options={masonryOptions}
+                >
+                  <div className="boxes">
+                    <h6>Especies endémicas por Bioma</h6>
+                  </div>
                     <div className="boxes box2">
                         
                     </div>
                     <div className="boxes box3">
                         
                     </div>
+                </Masonry>
                 </div>
             </section>
         </Layout>
