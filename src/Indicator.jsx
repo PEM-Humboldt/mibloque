@@ -26,6 +26,8 @@ class IndicatorsDash extends React.Component {
       return (
         <Layout
           moduleName={moduleName}
+          activateHome
+          activateIndicators
         >
         <section className="sectionintern">
           <div className="internheader"></div>
