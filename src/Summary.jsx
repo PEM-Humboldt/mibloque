@@ -7,6 +7,9 @@ import Modal from '@material-ui/core/Modal';
 import { Link } from 'react-router-dom';
 import Layout from './Layout';
 
+// Data mockups
+import { areaData } from './assets/mockups/summaryData';
+
 // Images to import
 import protegidas from './assets/img/protegidas.png';
 import reservas from './assets/img/reservas.png';
@@ -15,6 +18,9 @@ import etnicas from './assets/img/etnicas.png';
 import campesinas from './assets/img/campesinas.png';
 import infraestructura from './assets/img/infraestructura.png';
 import ordenamiento from './assets/img/ordenamiento.png';
+
+// Thousands number format
+const numberWithCommas = x => x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
 class Summary extends React.Component {
   constructor(props) {
@@ -95,18 +101,24 @@ class Summary extends React.Component {
                   </Link>
                     <h1>Sobre el bloque</h1>
                     <div className="line"></div>
-                    <h5 className="hectareas"><b>101,096</b> ha</h5>
+                    <h5 className="hectareas"><b>{numberWithCommas(areaData.area)}</b> ha</h5>
                     <div className="iconos">
-                        <img className="nogo" src={protegidas} alt="Áreas protegidas" title="Áreas protegidas"></img>
-                        <img src={reservas} alt="Reservas forestales" title="Reservas forestales"></img>
-                        <img src={estrategicos} alt="Ecosistemas estratégicos" title="Ecosistemas estratégicos"></img>
-                        <img src={etnicas} alt="Territorios étnicos" title="Territorios étnicos"></img>
-                        <img src={campesinas} alt="Zonas de reserva campesina" title="Zonas de reserva campesina"></img>
-                        <img src={infraestructura} alt="Proyectos e infraestructura" title="Proyectos e infraestructura"></img>
-                        <img src={ordenamiento} alt="Ordenamiento" title="Ordenamiento"></img>
+                        <img className={areaData.categories.find(item => item === 1) ? '' : 'nogo'}
+                          src={protegidas} alt="Áreas protegidas" title="Áreas protegidas"></img>
+                        <img className={areaData.categories.find(item => item === 2) ? '' : 'nogo'}
+                          src={reservas} alt="Reservas forestales" title="Reservas forestales"></img>
+                        <img className={areaData.categories.find(item => item === 3) ? '' : 'nogo'}
+                          src={estrategicos} alt="Ecosistemas estratégicos" title="Ecosistemas estratégicos"></img>
+                        <img className={areaData.categories.find(item => item === 4) ? '' : 'nogo'}
+                          src={etnicas} alt="Territorios étnicos" title="Territorios étnicos"></img>
+                        <img className={areaData.categories.find(item => item === 5) ? '' : 'nogo'}
+                          src={campesinas} alt="Zonas de reserva campesina" title="Zonas de reserva campesina"></img>
+                        <img className={areaData.categories.find(item => item === 6) ? '' : 'nogo'}
+                          src={infraestructura} alt="Proyectos e infraestructura" title="Proyectos e infraestructura"></img>
+                        <img className={areaData.categories.find(item => item === 7) ? '' : 'nogo'}
+                          src={ordenamiento} alt="Ordenamiento" title="Ordenamiento"></img>
                     </div>
-                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at.<br />
-                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+                    <p>{areaData.description}</p>
                     <h1>Biomas</h1>
                     <div className="line"></div>
                 </div>
