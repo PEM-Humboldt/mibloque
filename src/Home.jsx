@@ -1,6 +1,10 @@
 /** eslint verified */
 import React from 'react';
 import Layout from './Layout';
+import { Link } from 'react-router-dom';
+
+// Data mockups
+import { arrayData } from './assets/mockups/homeData';
 
 class Home extends React.Component {
   constructor(props) {
@@ -31,8 +35,11 @@ class Home extends React.Component {
             <input id="" type="search" placeholder="Identificador del bloque" />
             <div className="formbtns">
               <a href="/" className="sidebtn">cuencas sedimentarias</a>
-              <input type="submit" key="1-o" value="ir a mi bloque"></input>
+              <Link to="/summary">                    
+                    <input type="submit" key="1-o" value="ir a mi bloque"></input>
+                  </Link>
             </div>
+            {console.log(arrayData)}
           </form>
         </section>
         {moduleName}
