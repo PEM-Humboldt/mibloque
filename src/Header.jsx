@@ -1,9 +1,14 @@
 /** eslint verified */
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+
+// Images to import
+import backIcon from './assets/img/back.png';
+import homeIcon from './assets/img/home.png';
 
 const Header = ({
-  activeBlock, moduleName, sedimentaryBasin, blockType,
+  activeBlock, activateHome, activateSummary, activateIndicators, moduleName, sedimentaryBasin, blockType,
 }) => (
   <header>
     <h3>
@@ -12,14 +17,22 @@ const Header = ({
     </h3>
     {moduleName && (<nav>
       <h2>
-        {activeBlock}
+        {activeBlock} LLA 0970
       </h2>
       <h4>
-        {sedimentaryBasin}
+        {sedimentaryBasin} CS: Llanos Orientales
+        <br />
         <b>
-          {blockType}
-        </b>
+          {blockType} EXPLOTACIÓN
+        </b>        
       </h4>
+      <div className='navbtns'>
+          {activateSummary && (<Link to="/summary">
+            <img src={backIcon} alt="Visor de Mi Bloque" />
+            </Link>)}
+          {activateIndicators && (<Link to="/indicatorsDash"><img src={backIcon} /></Link>)}
+          {activateHome && (<Link to="/"><img src={homeIcon} /></Link>)}
+        </div>
     </nav>)}
   </header>
 );
@@ -33,6 +46,9 @@ Header.propTypes = {
 
 Header.defaultProps = {
   activeBlock: '',
+  activateHome: false,
+  activateIndicators: false,
+  activateSummary: false,
 };
 
 export default Header;

@@ -57,6 +57,7 @@ class Summary extends React.Component {
     return (
       <Layout
         moduleName={moduleName}
+        activateHome
       >
         <Modal
         aria-labelledby="simple-modal-title"

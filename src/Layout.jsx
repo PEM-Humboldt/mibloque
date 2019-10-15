@@ -7,6 +7,9 @@ import Header from './Header';
 
 const Layout = ({
   activeBlock,
+  activateHome,
+  activateIndicators,
+  activateSummary, 
   children,
   moduleName,
 }) => (
@@ -14,6 +17,9 @@ const Layout = ({
     <Header
       moduleName={moduleName}
       activeBlock={activeBlock}
+      activateHome={activateHome}
+      activateIndicators={activateIndicators}
+      activateSummary={activateSummary}
     />
     {children}
     <Footer />

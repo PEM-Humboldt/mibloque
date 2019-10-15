@@ -53,6 +53,8 @@ class IndicatorsDash extends React.Component {
       return (
         <Layout
           moduleName={moduleName}
+          activateHome
+          activateSummary
         >
           <Modal
           aria-labelledby="simple-modal-title"
