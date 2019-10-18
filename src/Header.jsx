@@ -30,8 +30,8 @@ const Header = ({
           {activateSummary && (<Link to="/summary">
             <img src={backIcon} alt="Visor de Mi Bloque" />
             </Link>)}
-          {activateIndicators && (<Link to="/indicatorsDash"><img src={backIcon} /></Link>)}
-          {activateHome && (<Link to="/"><img src={homeIcon} /></Link>)}
+          {activateIndicators && (<Link to="/indicatorsDash"><img src={backIcon} alt="Volver a Indicadores" /></Link>)}
+          {activateHome && (<Link to="/"><img src={homeIcon} alt="Volver al inicio" /></Link>)}
         </div>
     </nav>)}
   </header>
