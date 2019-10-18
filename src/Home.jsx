@@ -4,7 +4,7 @@ import Layout from './Layout';
 import { Link } from 'react-router-dom';
 
 // Data mockups
-import { arrayData } from './assets/mockups/homeData';
+import { arrayData, sedimentaryBasin } from './assets/mockups/homeData';
 
 class Home extends React.Component {
   constructor(props) {
@@ -12,11 +12,23 @@ class Home extends React.Component {
     this.state = {
       moduleName: '',
       activeBlock: '',
+      toggledBar: true,
     };
   }
 
+  showSideBar = () => {
+    const { toggledBar } = this.state;
+    this.setState({ toggledBar : !toggledBar });
+  }
+
+  hideSideBar = () => {
+    const { toggledBar } = this.state;
+    this.setState({ toggledBar : !toggledBar });
+  }
+
   render() {
-    const { activeBlock, moduleName } = this.state;
+    const { activeBlock, moduleName, toggledBar } = this.state;
+    const isToggled = toggledBar;
     return (
       <Layout
         moduleName={moduleName}
@@ -34,18 +46,61 @@ class Home extends React.Component {
             <p>Busca tu bloque con su <b>identificador único.</b><br />El buscador muestra opciones desde tres caracteres de coincidencia.</p>
             <input id="" type="search" placeholder="Identificador del bloque" />
             <div className="formbtns">
-              <a href="/" className="sidebtn">cuencas sedimentarias</a>
+              <button id='sideBarOpen' className={isToggled ? 'sidebtn' : 'close'} onClick={isToggled ? this.hideSideBar : this.showSideBar}>cuencas sedimentarias</button>
               <Link to="/summary">                    
                     <input type="submit" key="1-o" value="ir a mi bloque"></input>
                   </Link>
             </div>
             {console.log(arrayData)}
+            {console.log(sedimentaryBasin)}
           </form>
         </section>
-        {moduleName}
-      </Layout>
-    );
-  }
-}
+        <div className={`sideguide ${isToggled ? 'vis' : ''}`}>
+      <button id='sideBarClose' className='close' onClick={this.hideSideBar}>X</button>
+      <h1>Abreviaturas de cuencas sedimentarias</h1>
+      <div className="line"></div>
+      <div className="col1">
+        AMA<br />
+        ANP<br />
+        CAG PUT<br />
+        CAT<br />
+        CAU PAT<br />
+        CES RAN<br />
+        CHO<br />
+        COR<br />
+        GUA<br />
+        LLA<br />
+        SIN SJ<br />
+        TUM<br />
+        URA<br />
+        VIM<br />
+        VMM<br />
+        VSM<br />
+        VAU AMAZ
+      </div>
+      <div className="col2">
+        AMAGA<br />
+        AREA NO PROSPECTIVA<br />
+        CAGUAN-PUTUMAYO<br />
+        CATATUMBO<br />
+        CAUCA PATIA<br />
+        CESAR RANCHERIA<br />
+        CHOCO<br />
+        CORDILLERA ORIENTAL<br />
+        GUAJIRA<br />
+        LLANOS ORIENTALES<br />
+        SINU-SAN JACINTO<br />
+        TUMACO<br />
+        URABA<br />
+        VALLE INFERIOR DEL MAGDALENA<br />
+        VALLE MEDIO DEL MAGDALENA<br />
+        VALLE SUPERIOR DEL MAGDALENA<br />
+        VAUPES-AMAZONAS
+      </div>
+    </div>
+    {moduleName}
+  </Layout>
+  );
+}}
 
 export default Home;
