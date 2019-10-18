@@ -7,6 +7,8 @@ import Modal from '@material-ui/core/Modal';
 import Masonry from 'react-masonry-component';
 import Layout from './Layout';
 
+import { arrayData } from './assets/mockups/indicatorsDash';
+
 const masonryOptions = {
   transitionDuration: 0,
 };
@@ -18,9 +20,14 @@ class IndicatorsDash extends React.Component {
         moduleName: 'indicators',
         activeBlock: null,
         connError: false,
+        data: null,
       };
     }
-  
+
+    UNSAFE_componentWillMount() {
+      this.setState({ data: arrayData});
+    }
+
     componentDidMount() {
       const { activeBlock } = this.props;
       this.setState((prevState) => {
@@ -49,7 +56,7 @@ class IndicatorsDash extends React.Component {
     };
   
     render() {
-      const { moduleName, connError } = this.state;
+      const { moduleName, connError, data } = this.state;
       return (
         <Layout
           moduleName={moduleName}
@@ -94,15 +101,25 @@ class IndicatorsDash extends React.Component {
                 <Masonry
                   options={masonryOptions}
                 >
-                  <div className="boxes">
-                    <h6>Especies endémicas por Bioma</h6>
-                  </div>
-                    <div className="boxes box2">
-                        
-                    </div>
-                    <div className="boxes box3">
-                        
-                    </div>
+                  {data.map((item) => {
+                    let validClass = null;
+                      switch (item.type){
+                        case '1':
+                          validClass = 'boxes'
+                        break;
+                        case '2':
+                          validClass = 'boxes box2'
+                        break;
+                        case '3':
+                          validClass = 'boxes box3'
+                        break;
+                        default:
+                          validClass = 'boxes'
+                        break;
+                      }
+                    return(<div className={validClass} key={item.id}></div>)}
+                    )}
+                    {console.log(data)}
                 </Masonry>
                 </div>
             </section>
