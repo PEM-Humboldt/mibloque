@@ -39,4 +39,16 @@ const arrayData = [
     },
   ];
 
-export { areaData, arrayData };
+const graphData1 = [
+  {area: "357635.0000000", percentage: 1, type: "Total"},
+];
+
+const graphData2 = [
+  {area: "2186.0000000", type: "X", percentage: 0.006112377144295161},
+];
+
+const graphData3 = [
+  {area: "137991.0000000", type: "N", percentage: 0.38584310819690465},
+];
+
+export { areaData, arrayData, graphData1, graphData2, graphData3 };

@@ -6,9 +6,10 @@ import MapViewer from './commons/MapViewer';
 import Modal from '@material-ui/core/Modal';
 import { Link } from 'react-router-dom';
 import Layout from './Layout';
+import SmallBarStackGraph from './graps/SmallBarStackGraph';
 
 // Data mockups
-import { areaData } from './assets/mockups/summaryData';
+import { areaData, graphData1 } from './assets/mockups/summaryData';
 
 // Images to import
 import protegidas from './assets/img/protegidas.png';
@@ -60,7 +61,7 @@ class Summary extends React.Component {
   };
 
   render() {
-    const { moduleName, connError } = this.state;
+    const { moduleName, connError,  } = this.state;
     return (
       <Layout
         moduleName={moduleName}
@@ -120,6 +121,16 @@ class Summary extends React.Component {
                     </div>
                     <p>{areaData.description}</p>
                     <h1>Biomas</h1>
+                    <SmallBarStackGraph
+                      dataJSON={graphData1}
+                      graphTitle={'Zonobioma Húmedo Tropical'}
+                      color={'#5f8f2c'}
+                      labelY={'Hola'}
+                      width='400'
+                      height='150'
+                      units='ha'
+                      graphDescription=''
+                    />
                     <div className="line"></div>
                 </div>
              </section>

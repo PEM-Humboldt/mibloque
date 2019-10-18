@@ -5,6 +5,10 @@
   "dependencies": {
     "@material-ui/core": "^4.5.0",
     "@material-ui/icons": "^4.4.3",
+    "@vx/event": "^0.0.192",
+    "@vx/group": "0.0.192",
+    "@vx/scale": "0.0.192",
+    "@vx/shape": "0.0.192",
     "eslint": "6.5.1",
     "leaflet": "^1.5.1",
     "prop-types": "15.7.2",
