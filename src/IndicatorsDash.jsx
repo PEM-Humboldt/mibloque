@@ -68,8 +68,6 @@ class IndicatorsDash extends React.Component {
         'bioma' :'Bioma'
       };
 
-     console.log('activeTab: ' + activeTab);
-
       const massonryComp = (
         <Masonry options={masonryOptions}>
           {data.filter(post => activeTab === 'all' || activeTab === post.class).map((item) => {
@@ -96,7 +94,6 @@ class IndicatorsDash extends React.Component {
                     )
             }
           )}
-          {console.log(data)}
         </Masonry>
       );
 
@@ -104,8 +101,7 @@ class IndicatorsDash extends React.Component {
         <Layout
           moduleName={moduleName}
           activateHome
-          activateSummary
-        >
+          activateSummary>
           <Modal
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"
@@ -132,15 +128,6 @@ class IndicatorsDash extends React.Component {
           </Modal>
             <section className="sectionintern">
                 <div className="internheader"></div>
-                {/*<div className="filtros">
-                    <a className="filteron" href="http://www.anh.gov.co/">Todos</a>
-                    <a href="http://www.anh.gov.co/">Riesgo Biodiversidad</a>
-                    <a href="http://www.anh.gov.co/">Costo de Compensación</a>
-                    <a href="http://www.anh.gov.co/">Oportunidad</a>
-                    <a href="http://www.anh.gov.co/">Monitoreo</a>
-                    <a href="http://www.anh.gov.co/">Bioma</a>
-                </div>
-                */}
                 <div className="filtros">
                     {Object.keys(tabs).map( tabKey => (
                         <a
@@ -162,33 +149,6 @@ class IndicatorsDash extends React.Component {
                       {activeTab === tabKey && massonryComp}
                     </div>
                   ))}
-
-                  {/*
-                  <Masonry options={masonryOptions}>
-                    {data.map((item) => {
-                        let validClass = null;
-                          switch (item.type){
-                            case '1':
-                              validClass = 'boxes'
-                            break;
-                            case '2':
-                              validClass = 'boxes box2'
-                            break;
-                            case '3':
-                              validClass = 'boxes box3'
-                            break;
-                            default:
-                              validClass = 'boxes'
-                            break;
-                          }
-                        return(
-                          <div className={validClass} key={item.id}></div>
-                              )
-                      }
-                    )}
-                      {console.log(data)}
-                  </Masonry>
-                  */}
                 </div>
             </section>
         </Layout>
