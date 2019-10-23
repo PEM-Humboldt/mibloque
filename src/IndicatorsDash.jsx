@@ -21,6 +21,7 @@ class IndicatorsDash extends React.Component {
         activeBlock: null,
         connError: false,
         data: null,
+        activeTab: 'all',
       };
     }
 
@@ -56,13 +57,51 @@ class IndicatorsDash extends React.Component {
     };
   
     render() {
-      const { moduleName, connError, data } = this.state;
+      const { moduleName, connError, data, activeTab } = this.state;
+
+      const tabs = {
+        'all': 'Todas',
+        'riesgo': 'Riesgo Biodiversidad',
+        'costo': 'Costo de Compensación',
+        'oportunidad' :'Oportunidad',
+        'monitoreo' :'Monitoreo',
+        'bioma' :'Bioma'
+      };
+
+      const massonryComp = (
+        <Masonry options={masonryOptions}>
+          {data.filter(post => activeTab === 'all' || activeTab === post.class).map((item) => {
+              let validClass = null;
+                switch (item.type){
+                  case '1':
+                    validClass = 'boxes'
+                  break;
+                  case '2':
+                    validClass = 'boxes box2'
+                  break;
+                  case '3':
+                    validClass = 'boxes box3'
+                  break;
+                  default:
+                    validClass = 'boxes'
+                  break;
+                }
+              return(
+                      <div className={validClass} key={item.id}>
+                         <h2>{item.name}</h2>
+                         <h3>{item.class}</h3>
+                      </div>
+                    )
+            }
+          )}
+        </Masonry>
+      );
+
       return (
         <Layout
           moduleName={moduleName}
           activateHome
-          activateSummary
-        >
+          activateSummary>
           <Modal
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"
@@ -90,37 +129,26 @@ class IndicatorsDash extends React.Component {
             <section className="sectionintern">
                 <div className="internheader"></div>
                 <div className="filtros">
-                    <a className="filteron" href="http://www.anh.gov.co/">Todos</a>
-                    <a href="http://www.anh.gov.co/">Riesgo Biodiversidad</a>
-                    <a href="http://www.anh.gov.co/">Costo de Compensación</a>
-                    <a href="http://www.anh.gov.co/">Oportunidad</a>
-                    <a href="http://www.anh.gov.co/">Monitoreo</a>
-                    <a href="http://www.anh.gov.co/">Bioma</a>
-                </div>
+                    {Object.keys(tabs).map( tabKey => (
+                        <a
+                          key={tabKey}
+                          href={'#'+tabKey}
+                          className={tabKey===activeTab && 'filteron'}
+                          onClick={() => this.setState({ activeTab: tabKey})} >
+                          {tabs[tabKey]}
+                        </a>
+                    ))}
+                </div> 
+
                 <div className="boxeswrapper">
-                <Masonry
-                  options={masonryOptions}
-                >
-                  {data.map((item) => {
-                    let validClass = null;
-                      switch (item.type){
-                        case '1':
-                          validClass = 'boxes'
-                        break;
-                        case '2':
-                          validClass = 'boxes box2'
-                        break;
-                        case '3':
-                          validClass = 'boxes box3'
-                        break;
-                        default:
-                          validClass = 'boxes'
-                        break;
-                      }
-                    return(<div className={validClass} key={item.id}></div>)}
-                    )}
-                    {console.log(data)}
-                </Masonry>
+                  
+                  {/* For each tab, we generate a row */}
+                  {Object.keys(tabs).map( tabKey => (
+                    <div id={tabKey} key={tabKey}>
+                      {/* We render masonry comp only if we are in current active tab key */}
+                      {activeTab === tabKey && massonryComp}
+                    </div>
+                  ))}
                 </div>
             </section>
         </Layout>
