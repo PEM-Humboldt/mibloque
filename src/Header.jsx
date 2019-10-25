@@ -28,16 +28,23 @@ const Header = ({
         </b>
       </h4>
       <div className="navbtns">
-        {activateSummary && (
-          <Link to="/summary">
-            <img src={backIcon} alt="Visor de Mi Bloque" />
-          </Link>
-        )}
+        {activateSummary
+          && (
+            <Link to="/summary">
+              <img
+                src={backIcon}
+                alt="Visor de Mi Bloque"
+              />
+            </Link>
+          )}
         {activateIndicators
           && (
-          <Link to="/indicatorsDash">
-            <img src={backIcon} alt="Volver a Indicadores" />
-          </Link>
+            <Link to="/indicatorsDash">
+              <img
+                src={backIcon}
+                alt="Volver a Indicadores"
+              />
+            </Link>
           )}
         {activateHome
           && (
