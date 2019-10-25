@@ -28,7 +28,7 @@ class Summary extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeBlock: null,
+      activeBlock: {},
       connError: false,
     };
   }
@@ -61,11 +61,11 @@ class Summary extends React.Component {
   };
 
   render() {
-    const { moduleName, connError } = this.state;
+    const { activeBlock, connError } = this.state;
     return (
       <Layout
-        moduleName={moduleName}
         activateHome
+        activeBlock={activeBlock}
       >
         <Modal
           aria-labelledby="simple-modal-title"
@@ -184,7 +184,7 @@ class Summary extends React.Component {
 }
 
 Summary.propTypes = {
-  activeBlock: PropTypes.string,
+  activeBlock: PropTypes.object,
 };
 
 Summary.defaultProps = {
