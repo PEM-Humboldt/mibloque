@@ -8,10 +8,10 @@ import App from './App';
 // Eslint disallows JSX in .js files. But create-react-app only accepts index.js as entry point
 /* eslint-disable react/jsx-filename-extension */
 ReactDOM.render(
-    (
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    ),
-    document.getElementById('root'),
-  );
+  (
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  ),
+  document.getElementById('root'),
+);

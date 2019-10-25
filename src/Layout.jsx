@@ -9,13 +9,11 @@ const Layout = ({
   activeBlock,
   activateHome,
   activateIndicators,
-  activateSummary, 
+  activateSummary,
   children,
-  moduleName,
 }) => (
   <div>
     <Header
-      moduleName={moduleName}
       activeBlock={activeBlock}
       activateHome={activateHome}
       activateIndicators={activateIndicators}
@@ -29,13 +27,17 @@ const Layout = ({
 Layout.propTypes = {
   children: PropTypes.any,
   activeBlock: PropTypes.string,
-  moduleName: PropTypes.string,
+  activateHome: PropTypes.bool,
+  activateIndicators: PropTypes.bool,
+  activateSummary: PropTypes.bool,
 };
 
 Layout.defaultProps = {
   children: null,
   activeBlock: '',
-  moduleName: '',
+  activateHome: false,
+  activateIndicators: false,
+  activateSummary: false,
 };
 
 export default Layout;

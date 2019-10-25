@@ -1,12 +1,13 @@
 /** eslint verified */
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import CloseIcon from '@material-ui/icons/Close';
-import MapViewer from './commons/MapViewer';
 import Modal from '@material-ui/core/Modal';
 import { Link } from 'react-router-dom';
+import MapViewer from './commons/MapViewer';
 import Layout from './Layout';
-import SmallBarStackGraph from './graps/SmallBarStackGraph';
+import RenderGraph from './graphs/RenderGraph';
 
 // Data mockups
 import { areaData, graphData1 } from './assets/mockups/summaryData';
@@ -21,13 +22,12 @@ import infraestructura from './assets/img/infraestructura.png';
 import ordenamiento from './assets/img/ordenamiento.png';
 
 // Thousands number format
-const numberWithCommas = x => x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+const numberWithCommas = (x) => x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
 class Summary extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      moduleName: 'summary',
       activeBlock: null,
       connError: false,
     };
@@ -36,9 +36,9 @@ class Summary extends React.Component {
   componentDidMount() {
     const { activeBlock } = this.props;
     this.setState((prevState) => {
-        const newState = { ...prevState };
-        newState.activeBlock = { activeBlock };
-        return newState;
+      const newState = { ...prevState };
+      newState.activeBlock = { activeBlock };
+      return newState;
     });
   }
 
@@ -56,87 +56,139 @@ class Summary extends React.Component {
    *
    * @param {String} state state value that controls the modal you want to close
    */
-  handleCloseModal = state => () => {
+  handleCloseModal = (state) => () => {
     this.setState({ [state]: false });
   };
 
   render() {
-    const { moduleName, connError,  } = this.state;
+    const { moduleName, connError } = this.state;
     return (
       <Layout
         moduleName={moduleName}
         activateHome
       >
         <Modal
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-        open={connError}
-        onClose={this.handleCloseModal('connError')}
-        disableAutoFocus
+          aria-labelledby="simple-modal-title"
+          aria-describedby="simple-modal-description"
+          open={connError}
+          onClose={this.handleCloseModal('connError')}
+          disableAutoFocus
         >
-            <div className="generalAlarm">
+          <div className="generalAlarm">
             <h2>
-                <b>Sin conexión al servidor</b>
-                <br />
+              <b>Sin conexión al servidor</b>
+              <br />
                 Intenta de nuevo en unos minutos.
             </h2>
             <button
-                type="button"
-                className="closebtn"
-                onClick={this.handleCloseModal('connError')}
-                data-tooltip
-                title="Cerrar"
+              type="button"
+              className="closebtn"
+              onClick={this.handleCloseModal('connError')}
+              data-tooltip
+              title="Cerrar"
             >
-                <CloseIcon />
+              <CloseIcon />
             </button>
-            </div>
+          </div>
         </Modal>
-            <section className="sectionintern">
-                <div className="internheader"></div>
-                <div className="map">
-                    <MapViewer /> 
-                </div>
-                <div className="blockdata">
-                  <Link to="/indicatorsDash">
-                    <button className="generalbtn absright">indicadores</button>
-                  </Link>
-                    <h1>Sobre el bloque</h1>
-                    <div className="line"></div>
-                    <h5 className="hectareas"><b>{numberWithCommas(areaData.area)}</b> ha</h5>
-                    <div className="iconos">
-                        <img className={areaData.categories.find(item => item === 1) ? '' : 'nogo'}
-                          src={protegidas} alt="Áreas protegidas" title="Áreas protegidas"></img>
-                        <img className={areaData.categories.find(item => item === 2) ? '' : 'nogo'}
-                          src={reservas} alt="Reservas forestales" title="Reservas forestales"></img>
-                        <img className={areaData.categories.find(item => item === 3) ? '' : 'nogo'}
-                          src={estrategicos} alt="Ecosistemas estratégicos" title="Ecosistemas estratégicos"></img>
-                        <img className={areaData.categories.find(item => item === 4) ? '' : 'nogo'}
-                          src={etnicas} alt="Territorios étnicos" title="Territorios étnicos"></img>
-                        <img className={areaData.categories.find(item => item === 5) ? '' : 'nogo'}
-                          src={campesinas} alt="Zonas de reserva campesina" title="Zonas de reserva campesina"></img>
-                        <img className={areaData.categories.find(item => item === 6) ? '' : 'nogo'}
-                          src={infraestructura} alt="Proyectos e infraestructura" title="Proyectos e infraestructura"></img>
-                        <img className={areaData.categories.find(item => item === 7) ? '' : 'nogo'}
-                          src={ordenamiento} alt="Ordenamiento" title="Ordenamiento"></img>
-                    </div>
-                    <p>{areaData.description}</p>
-                    <h1>Biomas</h1>
-                    <SmallBarStackGraph
-                      dataJSON={graphData1}
-                      graphTitle={'Zonobioma Húmedo Tropical'}
-                      color={'#5f8f2c'}
-                      labelY={'Hola'}
-                      width='400'
-                      height='150'
-                      units='ha'
-                      graphDescription=''
-                    />
-                    <div className="line"></div>
-                </div>
-             </section>
+        <section className="sectionintern">
+          <div className="internheader" />
+          <div className="map">
+            <MapViewer />
+          </div>
+          <div className="blockdata">
+            <Link to="/indicatorsDash">
+              <button
+                type="button"
+                key="indBtn"
+                className="generalbtn absright"
+              >
+                indicadores
+              </button>
+            </Link>
+            <h1>Sobre el bloque</h1>
+            <div className="line" />
+            <h5 className="hectareas">
+              <b>{numberWithCommas(areaData.area)}</b>
+              {' '}
+              ha
+            </h5>
+            <div className="iconos">
+              <img
+                className={areaData.categories.find((item) => item === 1) ? '' : 'nogo'}
+                src={protegidas}
+                alt="Áreas protegidas"
+                title="Áreas protegidas"
+              />
+              <img
+                className={areaData.categories.find((item) => item === 2) ? '' : 'nogo'}
+                src={reservas}
+                alt="Reservas forestales"
+                title="Reservas forestales"
+              />
+              <img
+                className={areaData.categories.find((item) => item === 3) ? '' : 'nogo'}
+                src={estrategicos}
+                alt="Ecosistemas estratégicos"
+                title="Ecosistemas estratégicos"
+              />
+              <img
+                className={areaData.categories.find((item) => item === 4) ? '' : 'nogo'}
+                src={etnicas}
+                alt="Territorios étnicos"
+                title="Territorios étnicos"
+              />
+              <img
+                className={areaData.categories.find((item) => item === 5) ? '' : 'nogo'}
+                src={campesinas}
+                alt="Zonas de reserva campesina"
+                title="Zonas de reserva campesina"
+              />
+              <img
+                className={areaData.categories.find((item) => item === 6) ? '' : 'nogo'}
+                src={infraestructura}
+                alt="Proyectos e infraestructura"
+                title="Proyectos e infraestructura"
+              />
+              <img
+                className={areaData.categories.find((item) => item === 7) ? '' : 'nogo'}
+                src={ordenamiento}
+                alt="Ordenamiento"
+                title="Ordenamiento"
+              />
+            </div>
+            <p>{areaData.description}</p>
+            <h1>Biomas</h1>
+            <div className="line" />
+            <br />
+            <div>
+              {graphData1
+                ? RenderGraph(
+                  graphData1, '', '', 'SmallBarStackGraph',
+                  'Zoonobioma', ['#5f8f2c', '#fff'], null, null,
+                  '', '%',
+                ) : 'Cargando...'}
+            </div>
+            <br />
+            {graphData1
+              ? RenderGraph(
+                graphData1, '', '', 'SmallBarStackGraph',
+                'Zoonobioma', ['#5f8f2c', '#fff'], null, null,
+                '', '%',
+              ) : 'Cargando...'}
+          </div>
+        </section>
       </Layout>
     );
   }
 }
+
+Summary.propTypes = {
+  activeBlock: PropTypes.string,
+};
+
+Summary.defaultProps = {
+  activeBlock: null,
+};
 
 export default Summary;

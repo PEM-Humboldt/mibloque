@@ -6,7 +6,7 @@ import { scaleBand, scaleLinear, scaleOrdinal } from '@vx/scale';
 import { withTooltip, TooltipWithBounds } from '@vx/tooltip';
 import { localPoint } from '@vx/event';
 
-const numberWithCommas = x => x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+const numberWithCommas = (x) => x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 /**
  * Function to render tooltip inside the graph
  *
@@ -62,10 +62,10 @@ export default withTooltip(
     };
 
     const data = [prepareData(dataJSON, labelY)];
-    const keys = dataJSON.map(item => item.key || item.type);
+    const keys = dataJSON.map((item) => item.key || item.type);
     const totals = dataJSON.reduce((total, current) => total
       + parseFloat(current.area || current.percentage), 0);
-    const userColors = colors || dataJSON.map(item => item.color);
+    const userColors = colors || dataJSON.map((item) => item.color);
 
     // bounds
     const xMax = width - margin.left - margin.right;
@@ -107,9 +107,9 @@ export default withTooltip(
                   hideTooltip();
                 }, 300);
               }}
-              onMouseMove={dataSelected => (e) => {
+              onMouseMove={(dataSelected) => (e) => {
                 const value = Object.values(dataJSON)
-                  .filter(item => (item.key || item.type) === dataSelected.key);
+                  .filter((item) => (item.key || item.type) === dataSelected.key);
                 if (tooltipTimeout) clearTimeout(tooltipTimeout);
                 handleMouseOver(e, value, showTooltip);
               }}
