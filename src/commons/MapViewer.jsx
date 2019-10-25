@@ -1,7 +1,7 @@
 /** eslint verified */
 import React from 'react';
 import PropTypes from 'prop-types';
-
+// Leaflet imports
 import 'leaflet/dist/leaflet.css';
 import { Map, TileLayer } from 'react-leaflet';
 

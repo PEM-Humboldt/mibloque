@@ -26,7 +26,7 @@ const Layout = ({
 
 Layout.propTypes = {
   children: PropTypes.any,
-  activeBlock: PropTypes.string,
+  activeBlock: PropTypes.object,
   activateHome: PropTypes.bool,
   activateIndicators: PropTypes.bool,
   activateSummary: PropTypes.bool,
