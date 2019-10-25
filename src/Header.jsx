@@ -8,44 +8,61 @@ import backIcon from './assets/img/back.png';
 import homeIcon from './assets/img/home.png';
 
 const Header = ({
-  activeBlock, activateHome, activateSummary, activateIndicators, moduleName, sedimentaryBasin, blockType,
+  activeBlock, activateHome, activateSummary, activateIndicators,
 }) => (
   <header>
     <h3>
       <b>mi</b>
       bloque
     </h3>
-    {moduleName && (<nav>
+    {activeBlock && (
+    <nav>
       <h2>
-        {activeBlock} LLA 0970
+        {activeBlock.id}
       </h2>
       <h4>
-        {sedimentaryBasin} CS: Llanos Orientales
+        {activeBlock.sedimentaryBasin}
         <br />
         <b>
-          {blockType} EXPLOTACIÓN
-        </b>        
+          {activeBlock.rating}
+        </b>
       </h4>
-      <div className='navbtns'>
-          {activateSummary && (<Link to="/summary">
+      <div className="navbtns">
+        {activateSummary && (
+          <Link to="/summary">
             <img src={backIcon} alt="Visor de Mi Bloque" />
-            </Link>)}
-          {activateIndicators && (<Link to="/indicatorsDash"><img src={backIcon} alt="Volver a Indicadores" /></Link>)}
-          {activateHome && (<Link to="/"><img src={homeIcon} alt="Volver al inicio" /></Link>)}
-        </div>
-    </nav>)}
+          </Link>
+        )}
+        {activateIndicators
+          && (
+          <Link to="/indicatorsDash">
+            <img src={backIcon} alt="Volver a Indicadores" />
+          </Link>
+          )}
+        {activateHome
+          && (
+            <Link to="/">
+              <img
+                src={homeIcon}
+                alt="Volver al inicio"
+              />
+            </Link>
+          )}
+      </div>
+    </nav>
+    )}
   </header>
 );
 
 Header.propTypes = {
-  activeBlock: PropTypes.string,
-  blockType: PropTypes.string,
-  moduleName: PropTypes.string,
-  sedimentaryBasin: PropTypes.string,
+  activeBlock: PropTypes.object,
+  activateHome: PropTypes.bool,
+  activateIndicators: PropTypes.bool,
+  activateSummary: PropTypes.bool,
 };
 
 Header.defaultProps = {
-  activeBlock: '',
+  activeBlock: {},
   activateHome: false,
   activateIndicators: false,
   activateSummary: false,
