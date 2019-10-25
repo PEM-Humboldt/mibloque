@@ -8,7 +8,7 @@ class Indicator extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeBlock: null,
+      activeBlock: {},
     };
   }
 
@@ -22,10 +22,10 @@ class Indicator extends React.Component {
   }
 
   render() {
-    const { moduleName } = this.state;
+    const { activeBlock } = this.state;
     return (
       <Layout
-        moduleName={moduleName}
+        activeBlock={activeBlock}
         activateHome
         activateIndicators
       >
@@ -66,11 +66,11 @@ class Indicator extends React.Component {
 }
 
 Indicator.propTypes = {
-  activeBlock: PropTypes.string,
+  activeBlock: PropTypes.object,
 };
 
 Indicator.defaultProps = {
-  activeBlock: null,
+  activeBlock: {},
 };
 
 export default Indicator;
