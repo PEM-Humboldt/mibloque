@@ -16,17 +16,13 @@ class App extends React.Component {
     };
   }
 
-  loadHome = () => {
-    return (
-      <Home />
-    );
-  }
+  loadHome = () => (<Home />)
 
   loadIndicatorsDash = () => {
     const { activeBlock } = this.state;
     return (
       <IndicatorsDash
-        activeBlock = {activeBlock}
+        activeBlock={activeBlock}
       />
     );
   }
@@ -35,7 +31,7 @@ class App extends React.Component {
     const { activeBlock } = this.state;
     return (
       <Indicator
-        activeBlock = {activeBlock}
+        activeBlock={activeBlock}
       />
     );
   }
@@ -43,13 +39,13 @@ class App extends React.Component {
   loadSummary = () => {
     const { activeBlock } = this.state;
     return (
-      <Summary 
-        activeBlock = {activeBlock}
+      <Summary
+        activeBlock={activeBlock}
       />
     );
   }
 
-  render () {
+  render() {
     return (
       <main>
         <Switch>

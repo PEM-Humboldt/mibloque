@@ -1,13 +1,13 @@
 /** eslint verified */
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Layout from './Layout';
 
-class IndicatorsDash extends React.Component {
+class Indicator extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      moduleName: 'indicators',
       activeBlock: null,
     };
   }
@@ -16,7 +16,7 @@ class IndicatorsDash extends React.Component {
     const { activeBlock } = this.props;
     this.setState((prevState) => {
       const newState = { ...prevState };
-      newState.activeBlock = { activeBlock };
+      newState.activeBlock = activeBlock;
       return newState;
     });
   }
@@ -65,4 +65,12 @@ class IndicatorsDash extends React.Component {
   }
 }
 
-export default IndicatorsDash;
+Indicator.propTypes = {
+  activeBlock: PropTypes.string,
+};
+
+Indicator.defaultProps = {
+  activeBlock: null,
+};
+
+export default Indicator;

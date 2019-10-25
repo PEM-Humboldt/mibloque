@@ -37,7 +37,7 @@ class Summary extends React.Component {
     const { activeBlock } = this.props;
     this.setState((prevState) => {
       const newState = { ...prevState };
-      newState.activeBlock = { activeBlock };
+      newState.activeBlock = activeBlock;
       return newState;
     });
   }
