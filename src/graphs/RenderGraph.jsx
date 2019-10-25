@@ -3,20 +3,20 @@ import React from 'react';
 import { ParentSize } from '@vx/responsive';
 import GraphLoader from './GraphLoader';
 
-/**
- * Function to render a graph
- *
- * @param {any} data Graph data, it can be null (data hasn't loaded), false (data not available)
- *  or an Object with the data.
- * @param {string} labelX axis X label
- * @param {string} labelY axis Y label
- * @param {string} graph graph type
- * @param {string} graphTitle graph title
- * @param {array} colors colors to sort elements inside the graph
- */
 const RenderGraph = (
-  data, labelX, labelY, graph, graphTitle, colors,
-  handlerInfoGraph, openInfoGraph, graphDescription, units,
+  /**
+   * Set the Parent size to render a graph
+   *
+   * @param {any} data Graph data, it can be null (data hasn't loaded), false (data not available)
+   *  or an Object with the data.
+   * @param {string} labelX axis X label
+   * @param {string} labelY axis Y label
+   * @param {string} graph graph type
+   * @param {string} graphTitle graph title
+   * @param {array} colors color palette to sort elements inside the graph
+   * @param {string} units to show in axis X
+   */
+  data, labelX, labelY, graph, graphTitle, colors, units,
 ) => {
   // While data is being retrieved
   let errorMessage = null;
@@ -35,7 +35,7 @@ const RenderGraph = (
     );
   }
   return (
-    <ParentSize className="nocolor">
+    <ParentSize>
       {(parent) => (
         parent.width && (
           <GraphLoader
@@ -47,9 +47,6 @@ const RenderGraph = (
             labelY={labelY}
             graphTitle={graphTitle}
             colors={colors}
-            handlerInfoGraph={handlerInfoGraph}
-            openInfoGraph={openInfoGraph}
-            graphDescription={graphDescription}
             units={units}
           />
         )
