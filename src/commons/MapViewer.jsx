@@ -1,5 +1,7 @@
 /** eslint verified */
 import React from 'react';
+import PropTypes from 'prop-types';
+// Leaflet imports
 import 'leaflet/dist/leaflet.css';
 import { Map, TileLayer } from 'react-leaflet';
 
@@ -54,7 +56,7 @@ class MapViewer extends React.Component {
 
   static getDerivedStateFromProps(nextProps, prevState) {
     let newActiveLayers = MapViewer.infoFromLayers(nextProps.layers, 'active');
-    newActiveLayers = Object.keys(newActiveLayers).filter(name => newActiveLayers[name]);
+    newActiveLayers = Object.keys(newActiveLayers).filter((name) => newActiveLayers[name]);
     const { layers: oldLayers, activeLayers } = prevState;
     if (newActiveLayers.join() === activeLayers.join()) {
       return { update: false };
@@ -96,8 +98,12 @@ class MapViewer extends React.Component {
   }
 }
 
+MapViewer.propTypes = {
+  layers: PropTypes.array,
+};
+
 MapViewer.defaultProps = {
-  layers: []
+  layers: [],
 };
 
 export default MapViewer;
