@@ -12,11 +12,15 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeBlock: 'Pruebo',
+      activeBlock: null,
     };
   }
 
-  loadHome = () => (<Home />)
+  setActiveBlock = (value) => {
+    this.setState({ activeBlock: value });
+  }
+
+  loadHome = () => (<Home setActiveBlock={this.setActiveBlock} />)
 
   loadIndicatorsDash = () => {
     const { activeBlock } = this.state;
