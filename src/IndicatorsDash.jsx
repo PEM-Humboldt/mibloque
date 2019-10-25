@@ -32,11 +32,7 @@ class IndicatorsDash extends React.Component {
 
   componentDidMount() {
     const { activeBlock } = this.props;
-    this.setState((prevState) => {
-      const newState = { ...prevState };
-      newState.activeBlock = activeBlock;
-      return newState;
-    });
+    this.setState({ activeBlock });
   }
 
     /**
