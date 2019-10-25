@@ -167,7 +167,8 @@ class Summary extends React.Component {
                   graphData1, '', '', 'SmallBarStackGraph',
                   'Zoonobioma', ['#5f8f2c', '#fff'], null, null,
                   '', '%',
-                ) : 'Cargando...'}
+                )
+                : 'Cargando...'}
             </div>
             <br />
             {graphData1
@@ -175,7 +176,8 @@ class Summary extends React.Component {
                 graphData1, '', '', 'SmallBarStackGraph',
                 'Zoonobioma', ['#5f8f2c', '#fff'], null, null,
                 '', '%',
-              ) : 'Cargando...'}
+              )
+              : 'Cargando...'}
           </div>
         </section>
       </Layout>
