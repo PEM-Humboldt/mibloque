@@ -38,10 +38,6 @@ class Summary extends React.Component {
     this.setState({ activeBlock });
   }
 
-  componentWillUnmount() {
-    5
-  }
-
   /**
    * Report a connection error from one of the child components
    */
