@@ -81,7 +81,7 @@ const arrayData = [
     class: 'monitoreo',
   },
   {
-    id: 'ind10',
+    id: 'ind11',
     name: 'Indicator 10',
     sedimentaryBasin: 'Llanos Orientales',
     rating: 'EXPLOTACIÓN',

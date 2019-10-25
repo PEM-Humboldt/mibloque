@@ -8,7 +8,7 @@ import Modal from '@material-ui/core/Modal';
 import Masonry from 'react-masonry-component';
 import Layout from './Layout';
 
-import { arrayData } from './assets/mockups/indicatorsDash';
+import { arrayData } from './assets/mockups/indicatorsDashData';
 
 const masonryOptions = {
   transitionDuration: 0,
@@ -18,8 +18,7 @@ class IndicatorsDash extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      moduleName: 'indicators',
-      activeBlock: null,
+      activeBlock: {},
       connError: false,
       data: null,
       activeTab: 'all',
@@ -35,7 +34,7 @@ class IndicatorsDash extends React.Component {
     const { activeBlock } = this.props;
     this.setState((prevState) => {
       const newState = { ...prevState };
-      newState.activeBlock = { activeBlock };
+      newState.activeBlock = activeBlock;
       return newState;
     });
   }
@@ -60,7 +59,7 @@ class IndicatorsDash extends React.Component {
 
     render() {
       const {
-        moduleName, connError, data, activeTab,
+        activeBlock, connError, data, activeTab,
       } = this.state;
 
       const tabs = {
@@ -106,7 +105,7 @@ class IndicatorsDash extends React.Component {
 
       return (
         <Layout
-          moduleName={moduleName}
+          activeBlock={activeBlock}
           activateHome
           activateSummary
         >
@@ -141,7 +140,7 @@ class IndicatorsDash extends React.Component {
                 <a
                   key={tabKey}
                   href={`#${tabKey}`}
-                  className={tabKey === activeTab && 'filteron'}
+                  className={(tabKey === activeTab && 'filteron') || ''}
                   onClick={() => this.setState({ activeTab: tabKey })}
                 >
                   {tabs[tabKey]}
@@ -165,11 +164,11 @@ class IndicatorsDash extends React.Component {
 
 
 IndicatorsDash.propTypes = {
-  activeBlock: PropTypes.string,
+  activeBlock: PropTypes.object,
 };
 
 IndicatorsDash.defaultProps = {
-  activeBlock: null,
+  activeBlock: {},
 };
 
 export default IndicatorsDash;
