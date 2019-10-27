@@ -508,6 +508,10 @@ footer h2 {
 	font-size: 16px;
 }
 
+.nocolor {
+	color: transparent;
+  }
+
 /* Media Queries */
 
 @media screen and (max-width: 1360px){
