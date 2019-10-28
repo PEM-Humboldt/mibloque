@@ -62,7 +62,7 @@ class IndicatorsDash extends React.Component {
       bioma: 'Bioma',
     };
 
-    const massonryComp = (
+    const masonryComp = (
       <Masonry options={masonryOptions}>
         {data.filter((post) => activeTab === 'all' || activeTab === post.class).map((item) => {
           let validClass = null;
@@ -139,7 +139,7 @@ class IndicatorsDash extends React.Component {
             ))}
           </div>
           <div className="boxeswrapper">
-            {massonryComp}
+            {masonryComp}
           </div>
         </section>
       </Layout>
