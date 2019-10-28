@@ -99,11 +99,11 @@ class MapViewer extends React.Component {
 }
 
 MapViewer.propTypes = {
-  layers: PropTypes.array,
+  layers: PropTypes.object,
 };
 
 MapViewer.defaultProps = {
-  layers: [],
+  layers: {},
 };
 
 export default MapViewer;

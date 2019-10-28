@@ -1,7 +1,7 @@
 /** eslint verified */
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import L from 'leaflet';
 import CloseIcon from '@material-ui/icons/Close';
 import Modal from '@material-ui/core/Modal';
 import { Link } from 'react-router-dom';
@@ -10,7 +10,7 @@ import Layout from './Layout';
 import RenderGraph from './graphs/RenderGraph';
 
 // Data mockups
-import { areaData, graphData1 } from './assets/mockups/summaryData';
+import { areaData, graphData1, geometryDAGMA } from './assets/mockups/summaryData';
 
 // Images to import
 import protegidas from './assets/img/protegidas.png';
@@ -30,12 +30,29 @@ class Summary extends React.Component {
     this.state = {
       activeBlock: {},
       connError: false,
+      layers: {},
     };
   }
 
   componentDidMount() {
     const { activeBlock } = this.props;
-    this.setState({ activeBlock });
+    this.setState({
+      activeBlock,
+      layers: {
+        dagma: {
+          displayName: 'dagma',
+          id: 1,
+          active: true,
+          layer: L.geoJSON(geometryDAGMA, {
+            style: {
+              stroke: false,
+              fillColor: '#5f8f2c',
+              fillOpacity: 0.7,
+            },
+          }),
+        },
+      },
+    });
   }
 
   /**
@@ -57,7 +74,7 @@ class Summary extends React.Component {
   };
 
   render() {
-    const { activeBlock, connError } = this.state;
+    const { activeBlock, connError, layers } = this.state;
     return (
       <Layout
         activateHome
@@ -90,7 +107,9 @@ class Summary extends React.Component {
         <section className="sectionintern">
           <div className="internheader" />
           <div className="map">
-            <MapViewer />
+            <MapViewer
+              layers={layers}
+            />
           </div>
           <div className="blockdata">
             <Link to="/indicatorsDash">
@@ -167,13 +186,15 @@ class Summary extends React.Component {
                 : 'Cargando...'}
             </div>
             <br />
-            {graphData1
-              ? RenderGraph(
-                graphData1, '', '', 'SmallBarStackGraph',
-                'Zoonobioma', ['#5f8f2c', '#fff'], null, null,
-                '', '%',
-              )
-              : 'Cargando...'}
+            <div>
+              {graphData1
+                ? RenderGraph(
+                  graphData1, '', '', 'SmallBarStackGraph',
+                  'Zoonobioma', ['#5f8f2c', '#fff'], null, null,
+                  '', '%',
+                )
+                : 'Cargando...'}
+            </div>
           </div>
         </section>
       </Layout>
