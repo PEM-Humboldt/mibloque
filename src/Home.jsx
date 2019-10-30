@@ -56,7 +56,8 @@ class Home extends React.Component {
               <button
                 id="sideBarOpen"
                 type="button"
-                className={isToggled ? 'sidebtn' : 'close'}
+                className={isToggled ? 'sidebtn' : 'sidebtnact'}
+                // className={isToggled ? 'sidebtn' : 'close'}
                 onClick={isToggled ? this.hideSideBar : this.showSideBar}
               >
                 cuencas sedimentarias

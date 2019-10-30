@@ -257,13 +257,13 @@ h1 {
 	padding: 0 15px;
 }
 
-.sidebtn {
+.sidebtn, .sidebtnact {
 	font-size: 20px;
 	color: #EDA539;
 	line-height: 48px;
 }
 
-.sidebtn:hover, .sidebtn.active {
+.sidebtn:hover, .sidebtnact {
 	color: #577376;
 }
 
@@ -409,6 +409,7 @@ footer h2 {
 	box-sizing: border-box;
 	padding: 20px 30px;
 	border-left: 1px solid #577376;
+	overflow: scroll;
 }
 
 .absright {
@@ -442,7 +443,7 @@ footer h2 {
 }
 
 .nogo {
-	opacity: .4;
+	opacity: .3;
 }
 
 .filtros {
@@ -512,147 +513,254 @@ footer h2 {
 	color: transparent;
   }
 
+ .leaflet-container {
+ 	box-sizing: border-box;
+ }
+
+ .smgraphtitle {
+ 	color: #5DB2BA;
+ 	font-size: 16px;
+ }
+
 /* Media Queries */
 
 @media screen and (max-width: 1360px){
 
-    .columna {
-        padding: 30px;
-        margin: 20px;
-    }
-    
+	.columna {
+		padding: 30px;
+		margin: 20px;
+	}
+	
 }
 
 @media screen and (max-width: 1200px){
-    .columna {
-        width: 700px;
-        display: block;
-        margin: 0 auto;
-    }
+	.columna {
+		width: 700px;
+		display: block;
+		margin: 0 auto;
+	}
 
-    .sectionhome {
-        display: block;
-        box-sizing: border-box;
-        padding-top: 30px;
-    }
+	.sectionhome {
+		display: block;
+		box-sizing: border-box;
+		padding-top: 30px;
+	}
 
-    .sectionhome form {
-        display: block;
-        margin: 0 auto;
-        padding: 30px 0 50px;
-    }
+	.sectionhome form {
+		display: block;
+		margin: 0 auto;
+		padding: 30px 0 50px;
+	}
+}
+
+@media screen and (max-width: 1050px){
+	.filtros {
+		padding: 0 20px;
+	}
+
+	.filtros a {
+		font-size: 14px;
+		max-width: 130px;
+		padding: 15px 20px 0;
+	}
+
+	.boxeswrapper {
+		padding: 15px;
+	}
+}
+
+@media screen and (max-width: 820px){
+	nav {
+		padding: 0 15px;
+		margin-right: 0;
+	}
+
+	nav h2, nav h4 {
+		padding-right: 20px;
+		font-size: 15px;
+	}
 }
 
 @media screen and (max-width: 765px){
 
-    .columna {
-        width: 80%;
-    }
+	.columna {
+		width: 80%;
+	}
 
-    .mapasitio h2 {
-        font-size: 12px;
-        line-height: 25px;
-    }
+	.mapasitio h2 {
+		font-size: 12px;
+		line-height: 25px;
+	}
 
-    .logos img {
-        height: 70px;
-    }
+	.filtros {
+		height: auto !important;
+		padding: 0;
+		box-sizing: border-box;
+	}
 
-    .mapasitio {
-        margin-top: 18px;
-    }
+	.filtros a {
+		display: block;
+		max-width: 100%;
+		padding: 10px;
+		height: auto;
+	}
 
-    footer {
-        padding: 33px 25px;
-    }
+	header {
+		display: block;
+		padding: 0;
+		margin: 0;
+		height: auto;
+	}
 
-    .sectionhome form {
-        width: 90%;
-    }
+	nav {
+		display: block;
+		display: -webkit-flex;
+		display: -moz-flex;
+		display: -ms-flex;
+		display: -o-flex;
+		display: flex;
+		justify-content:space-between;
+		padding: 10px 20px;
+	}
 
-    .mancha {
-        width: 45%;
-        height: 55%;
-    }
+	.sectionintern {
+		min-height: calc(100vh - 315px);
+	}
+
+	.sectionhome {
+		min-height: calc(100vh - 249px);
+	}
+
+	.logos img {
+		height: 70px;
+	}
+
+	.mapasitio {
+		margin-top: 18px;
+	}
+
+	footer {
+		padding: 33px 25px;
+	}
+
+	.sectionhome form {
+		width: 90%;
+	}
+
+	.mancha {
+		width: 45%;
+		height: 55%;
+	}
 
 }
 
+@media screen and (max-width: 590px){ 
+	.blockdata {
+		width: 100%;
+	}
+
+	.blockdata p {
+		width: 95%;
+	}
+}
 @media screen and (max-width: 565px){ 
-    .mapasitio a:first-of-type {
-        display: none;
-    }
+	.mapasitio a:first-of-type {
+		display: none;
+	}
 
-    .vis {
-    padding: 20px 10px;
-    width: 100%;
-    position: relative;
-    height: auto;
-    }
+	.vis {
+	padding: 20px 10px;
+	width: 100%;
+	position: relative;
+	height: auto;
+	}
 
-    .sideguide h1 {
-        font-size: 24px;
-    }
+	.sideguide h1 {
+		font-size: 24px;
+	}
 
-    .sideguide .col1, .sideguide .col2 {
-        font-size: 13px;
-        line-height: 20px;
-    }
+	.sideguide .col1, .sideguide .col2 {
+		font-size: 13px;
+		line-height: 20px;
+	}
 
 }
 
-@media screen and (max-width: 421px){ 
-    .sectionhome form p {
-        width: 80%;
-    }
+@media screen and (max-width: 421px){
+	.sectionhome form p {
+		width: 80%;
+	}
 
-    .mancha {
-        width: 190px;
-        height: 310px;
-    }
+	.sectionintern {
+		display: table;
+	}
 
-    .formbtns a, .sectionhome input[type=submit], .sectionhome input[type=search] {
-        font-size: 13px;
-    }
+	.mancha {
+		width: 190px;
+		height: 310px;
+	}
 
-    .formbtns a {
-        color: #5C5042;
-    }
+	.formbtns a, .sectionhome input[type=submit], .sectionhome input[type=search] {
+		font-size: 13px;
+	}
 
-    footer {
-        display: block;
-    }
+	.formbtns a {
+		color: #5C5042;
+	}
 
-    .logos {
-        margin: 0 auto;
-        text-align: center;
-        display: -webkit-flex;
-        display: -moz-flex;
-        display: -ms-flex;
-        display: -o-flex;
-        display: flex;
-        justify-content: space-between;
-    }
+	.sidebtn, .sidebtnact {
+		font-size: 14px;
+	}
 
-    footer a img {
-        padding: 0 !important;
-    }
+	.sectionintern {
+		height: auto;
+		position: initial;
+		min-height: 0;
+	}
 
-    .mapasitio {
-        margin: 20px auto;
-        text-align: center;
-    }
+	.blockdata {
+		position: relative;
+	}
 
-    .mapasitio a {
-        display: inline-block !important;
-    }
+	footer {
+		display: block;
+	}
+
+	.logos {
+		margin: 0 auto;
+		text-align: center;
+		display: -webkit-flex;
+		display: -moz-flex;
+		display: -ms-flex;
+		display: -o-flex;
+		display: flex;
+		justify-content: space-between;
+	}
+
+	footer a img {
+		padding: 0 !important;
+	}
+
+	.mapasitio {
+		margin: 20px auto;
+		text-align: center;
+	}
+
+	.mapasitio a {
+		display: inline-block !important;
+	}
+
+	.absright {
+		position: relative;
+		margin: 0 0 15px 45px;	
+	}
 
 }
 
 @media screen and (max-width: 330px){ 
 
-    .formbtns {
-        padding: 0;
-    }
+	.formbtns {
+		padding: 0;
+	}
 
 }
-

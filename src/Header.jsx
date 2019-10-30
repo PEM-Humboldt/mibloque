@@ -11,10 +11,12 @@ const Header = ({
   activeBlock, activateHome, activateSummary, activateIndicators,
 }) => (
   <header>
-    <h3>
-      <b>mi</b>
-      bloque
-    </h3>
+    <Link to="/">
+      <h3>
+        <b>mi</b>
+        bloque
+      </h3>
+    </Link>
     {activeBlock && (
     <nav>
       <h2>
