@@ -7,8 +7,9 @@ import Modal from '@material-ui/core/Modal';
 
 import Masonry from 'react-masonry-component';
 import Layout from './Layout';
+import IndicatorCard from './IndicatorCard';
 
-import { arrayData } from './assets/mockups/indicatorsDashData';
+import arrayData from './assets/mockups/indicatorsDashData';
 
 const masonryOptions = {
   transitionDuration: '0.5s',
@@ -61,36 +62,20 @@ class IndicatorsDash extends React.Component {
       monitoreo: 'Monitoreo',
       bioma: 'Bioma',
     };
-
     const masonryComp = (
-      <Masonry options={masonryOptions}>
-        {data.filter((post) => activeTab === 'all' || activeTab === post.class).map((item) => {
-          let validClass = null;
-          switch (item.type) {
-            case '1':
-              validClass = 'boxes';
-              break;
-            case '2':
-              validClass = 'boxes box2';
-              break;
-            case '3':
-              validClass = 'boxes box3';
-              break;
-            default:
-              validClass = 'boxes';
-              break;
-          }
-          return (
-            <div className={validClass} key={item.id}>
-              <h2>
-                {item.name}
-              </h2>
-              <h3>
-                {item.class}
-              </h3>
-            </div>
-          );
-        })}
+      <Masonry
+        options={masonryOptions}
+      >
+        {data.filter((post) => activeTab === 'all' || post.group.includes(activeTab)).map((item) => (
+          <IndicatorCard
+            key={item.id}
+            id={item.id}
+            name={item.name}
+            sedimentaryBasin={item.sedimentaryBasin}
+            rating={item.rating}
+            type={item.type}
+          />
+        ))}
       </Masonry>
     );
 
@@ -146,7 +131,6 @@ class IndicatorsDash extends React.Component {
     );
   }
 }
-
 
 IndicatorsDash.propTypes = {
   activeBlock: PropTypes.object,
