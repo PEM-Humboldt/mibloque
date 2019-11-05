@@ -1,6 +1,10 @@
 /** eslint verified */
 import axios, { CancelToken } from 'axios';
 
+// Data mockups
+import { geometryDAGMA } from '../assets/mockups/summaryData';
+
+
 class RestAPI {
   /**
    * Request the user information
@@ -9,9 +13,9 @@ class RestAPI {
    * @param {String} password password in database
    */
 
-  /** ******************** */
-  /** MAPS - SEARCH MODULE */
-  /** ******************** */
+  /** *************** */
+  /** MAPS IN SUMMARY */
+  /** *************** */
 
   /**
    * Request area geometry by id
@@ -19,11 +23,7 @@ class RestAPI {
    * @param {String} areaId area id to request
    */
   static requestGeometryByArea(areaId) {
-    const source = CancelToken.source();
-    return {
-      request: RestAPI.makeGetRequest(`${areaId}/geometry`, { cancelToken: source.token }),
-      source,
-    };
+    return { areaId, geometryDAGMA };
   }
 
   /**
