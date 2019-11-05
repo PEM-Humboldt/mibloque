@@ -36,10 +36,10 @@ export default withTooltip(
     showTooltip,
     units,
     margin = {
-      top: 3,
-      left: 5,
-      right: 5,
-      bottom: 3,
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
     },
   }) => {
     if (width < 10) return null;
@@ -87,9 +87,10 @@ export default withTooltip(
 
     return (
       <div>
-        {graphTitle}
-        <br />
-        <svg width={width - 15} height={30}>
+        <div className="smgraphtitle">
+          {graphTitle}
+        </div>
+        <svg width={width - 15} height={25}>
           <Group top={margin.top} left={margin.left}>
             {`${Number((0.20 * 100).toFixed(2))} % `}
             <BarStackHorizontal
