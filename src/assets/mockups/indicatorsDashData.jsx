@@ -6,7 +6,7 @@ const arrayData = [
     sedimentaryBasin: 'Llanos Orientales',
     rating: 'EXPLOTACIÓN',
     type: '1',
-    class: 'riesgo',
+    group: ['costo'],
   },
   {
     id: 'ind2',
@@ -14,7 +14,7 @@ const arrayData = [
     sedimentaryBasin: 'Llanos Orientales',
     rating: 'EXPLOTACIÓN',
     type: '2',
-    class: 'costo',
+    group: ['riesgo'],
   },
   {
     id: 'ind3',
@@ -22,7 +22,7 @@ const arrayData = [
     sedimentaryBasin: 'Llanos Orientales',
     rating: 'EXPLOTACIÓN',
     type: '3',
-    class: 'oportunidad',
+    group: ['costo', 'monitoreo'],
   },
   {
     id: 'ind4',
@@ -30,15 +30,15 @@ const arrayData = [
     sedimentaryBasin: 'Llanos Orientales',
     rating: 'EXPLOTACIÓN',
     type: '1',
-    class: 'monitoreo',
+    group: ['riesgo', 'monitoreo'],
   },
   {
     id: 'ind5',
     name: 'Indicator 5',
     sedimentaryBasin: 'Llanos Orientales',
     rating: 'EXPLOTACIÓN',
-    type: '1',
-    class: 'bioma',
+    type: '3',
+    group: ['riesgo', 'costo', 'oportunidad'],
   },
   {
     id: 'ind6',
@@ -46,7 +46,7 @@ const arrayData = [
     sedimentaryBasin: 'Llanos Orientales',
     rating: 'EXPLOTACIÓN',
     type: '2',
-    class: 'costo',
+    group: ['riesgo', 'costo', 'oportunidad', 'monitoreo', 'bioma'],
   },
   {
     id: 'ind7',
@@ -54,15 +54,15 @@ const arrayData = [
     sedimentaryBasin: 'Llanos Orientales',
     rating: 'EXPLOTACIÓN',
     type: '2',
-    class: 'bioma',
+    group: ['monitoreo', 'costo'],
   },
   {
     id: 'ind8',
     name: 'Indicator 8',
     sedimentaryBasin: 'Llanos Orientales',
     rating: 'EXPLOTACIÓN',
-    type: '3',
-    class: 'riesgo',
+    type: '1',
+    group: ['riesgo', 'bioma'],
   },
   {
     id: 'ind9',
@@ -70,24 +70,24 @@ const arrayData = [
     sedimentaryBasin: 'Llanos Orientales',
     rating: 'EXPLOTACIÓN',
     type: '1',
-    class: 'oportunidad',
+    group: ['bioma', 'monitoreo', 'oportunidad'],
   },
   {
     id: 'ind10',
     name: 'Indicator 10',
     sedimentaryBasin: 'Llanos Orientales',
     rating: 'EXPLOTACIÓN',
-    type: '3',
-    class: 'monitoreo',
+    type: '2',
+    group: ['riesgo', 'bioma', 'monitoreo', 'oportunidad'],
   },
   {
     id: 'ind11',
-    name: 'Indicator 10',
+    name: 'Indicator 11',
     sedimentaryBasin: 'Llanos Orientales',
     rating: 'EXPLOTACIÓN',
     type: '1',
-    class: 'monitoreo',
+    group: ['monitoreo', 'oportunidad'],
   },
 ];
 
-export { arrayData };
+export { arrayData as default };
