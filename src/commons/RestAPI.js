@@ -1,5 +1,5 @@
 /** eslint verified */
-import axios, { CancelToken } from 'axios';
+import axios from 'axios';
 
 // Data mockups
 import { geometryDAGMA } from '../assets/mockups/summaryData';
