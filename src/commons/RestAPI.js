@@ -23,7 +23,16 @@ class RestAPI {
    * @param {String} areaId area id to request
    */
   static requestGeometryByArea(areaId) {
-    return { areaId, geometryDAGMA };
+    if (areaId === 'LLA 0970') {
+      /* TODO: Implement geometry request
+      const source = CancelToken.source();
+      return {
+        request: RestAPI.makeGetRequest(`${areaId}/geometry`, { cancelToken: source.token }),
+        source,
+      };
+    */
+      return geometryDAGMA;
+    } return geometryDAGMA;
   }
 
   /**
