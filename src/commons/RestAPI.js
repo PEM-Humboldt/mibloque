@@ -15,7 +15,7 @@ class RestAPI {
    *
    * @param {String} areaId area id to request
    */
-  static requestGeometryByArea(areaId) {
+  static requestGeometryByArea() {
     return geometryDAGMA;
   }
 
