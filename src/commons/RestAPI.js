@@ -6,13 +6,6 @@ import { geometryDAGMA } from '../assets/mockups/summaryData';
 
 
 class RestAPI {
-  /**
-   * Request the user information
-   *
-   * @param {String} username name in database
-   * @param {String} password password in database
-   */
-
   /** *************** */
   /** MAPS IN SUMMARY */
   /** *************** */
@@ -23,16 +16,7 @@ class RestAPI {
    * @param {String} areaId area id to request
    */
   static requestGeometryByArea(areaId) {
-    if (areaId === 'LLA 0970') {
-      /* TODO: Implement geometry request
-      const source = CancelToken.source();
-      return {
-        request: RestAPI.makeGetRequest(`${areaId}/geometry`, { cancelToken: source.token }),
-        source,
-      };
-    */
-      return geometryDAGMA;
-    } return geometryDAGMA;
+    return geometryDAGMA;
   }
 
   /**
@@ -68,9 +52,13 @@ class RestAPI {
       });
   }
 
+  /**
+   * Return the entire URL endpoint
+   *
+   * @param {String} endpoint endpoint to attach to url
+   */
   static getEndpointUrl(endpoint) {
-    const port = process.env.REACT_APP_REST_PORT ? `:${process.env.REACT_APP_REST_PORT}` : '';
-    return `${process.env.REACT_APP_REST_HOST}${port}/${endpoint}`;
+    return `${process.env.REACT_APP_REST_HOST}/${endpoint}`;
   }
 }
 
