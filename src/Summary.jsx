@@ -8,9 +8,10 @@ import { Link } from 'react-router-dom';
 import MapViewer from './commons/MapViewer';
 import Layout from './Layout';
 import RenderGraph from './graphs/RenderGraph';
+import RestAPI from './commons/RestAPI';
 
 // Data mockups
-import { areaData, graphData1, geometryDAGMA } from './assets/mockups/summaryData';
+import { areaData, graphData1 } from './assets/mockups/summaryData';
 
 // Images to import
 import protegidas from './assets/img/protegidas.png';
@@ -36,6 +37,8 @@ class Summary extends React.Component {
 
   componentDidMount() {
     const { activeBlock } = this.props;
+    const blockId = (activeBlock && activeBlock.id) ? activeBlock.id : 'LLA 0970';
+    const request = RestAPI.requestGeometryByArea(blockId);
     this.setState({
       activeBlock,
       layers: {
@@ -43,7 +46,7 @@ class Summary extends React.Component {
           displayName: 'dagma',
           id: 1,
           active: true,
-          layer: L.geoJSON(geometryDAGMA, {
+          layer: L.geoJSON(request, {
             style: {
               stroke: false,
               fillColor: '#5f8f2c',
