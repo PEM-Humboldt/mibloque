@@ -38,6 +38,7 @@ class Summary extends React.Component {
   componentDidMount() {
     const { activeBlock } = this.props;
     const blockId = (activeBlock && activeBlock.id) ? activeBlock.id : 'LLA 0970';
+    const request = RestAPI.requestGeometryByArea(blockId);
     this.setState({
       activeBlock,
       layers: {
@@ -45,7 +46,7 @@ class Summary extends React.Component {
           displayName: 'dagma',
           id: 1,
           active: true,
-          layer: L.geoJSON(RestAPI.requestGeometryByArea(blockId), {
+          layer: L.geoJSON(request, {
             style: {
               stroke: false,
               fillColor: '#5f8f2c',
