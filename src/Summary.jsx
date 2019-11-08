@@ -183,7 +183,7 @@ class Summary extends React.Component {
               {graphData1
                 ? RenderGraph(
                   graphData1, '', '', 'Line',
-                  'Zoonobioma', ['#5f8f2c', '#fff'], null, null,
+                  'Cobertura', 'Tendencia', ['#5f8f2c', '#fff'], null, null,
                   '', '%',
                 )
                 : 'Cargando...'}
@@ -193,7 +193,7 @@ class Summary extends React.Component {
               {graphData1
                 ? RenderGraph(
                   graphData1, '', '', 'SmallBarStackGraph',
-                  'Zoonobioma', ['#5f8f2c', '#fff'], null, null,
+                  'Zoonobioma', '', ['#5f8f2c', '#fff'], null, null,
                   '', '%',
                 )
                 : 'Cargando...'}

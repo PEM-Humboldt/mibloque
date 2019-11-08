@@ -13,12 +13,14 @@ const GraphLoader = (
    *  this param validates which graph to render
    * @param {array} colors color palette to sort elements inside the graph
    * @param {object}  data values to render,
-   * @param {string}  graphTitle title to render if the selected graph allows it,
+   * @param {string}  title title to render if the selected graph allows it,
+   * @param {string}  subtitle subtitle to render if the selected graph allows it,
    * @param {string}  units information showed in the graph,
    */
     colors,
     data,
-    graphTitle,
+    title,
+    subtitle,
     graphType,
     labelX,
     labelY,
@@ -33,7 +35,8 @@ const GraphLoader = (
           <SmallBarStackGraph
             dataJSON={data}
             colors={colors}
-            graphTitle={graphTitle}
+            title={title}
+            subtitle={subtitle}
             labelX={labelX}
             labelY={labelY}
             width={width}
@@ -75,8 +78,8 @@ const GraphLoader = (
             ]}
             options={{
               chart: {
-                title: 'Cobertura',
-                subtitle: 'Tendencia',
+                title,
+                subtitle,
               },
             }}
           />
@@ -89,7 +92,8 @@ const GraphLoader = (
 GraphLoader.propTypes = {
   colors: PropTypes.array,
   graphType: PropTypes.string.isRequired,
-  graphTitle: PropTypes.string,
+  title: PropTypes.string,
+  subtitle: PropTypes.string,
   // Array or object, depending on graphType
   data: PropTypes.any.isRequired,
   labelX: PropTypes.string,
@@ -99,7 +103,8 @@ GraphLoader.propTypes = {
 };
 
 GraphLoader.defaultProps = {
-  graphTitle: '',
+  title: '',
+  subtitle: '',
   colors: ['blue'],
   labelX: '',
   labelY: '',
