@@ -37,7 +37,7 @@ const RenderGraph = (
   return (
     <ParentSize>
       {(parent) => (
-        parent.width && (
+        parent.width ? (
           <GraphLoader
             width={parent.width}
             height={parent.height}
@@ -49,7 +49,7 @@ const RenderGraph = (
             colors={colors}
             units={units}
           />
-        )
+        ) : ('')
       )}
     </ParentSize>
   );
