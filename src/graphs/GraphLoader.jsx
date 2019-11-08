@@ -44,7 +44,7 @@ const GraphLoader = (
             units={units}
           />
         )
-        : (console.log(data))
+        : ('')
     }
     {
       (graphType === 'Line')
