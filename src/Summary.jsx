@@ -182,7 +182,7 @@ class Summary extends React.Component {
             <div>
               {graphData1
                 ? RenderGraph(
-                  graphData1, '', '', 'SmallBarStackGraph',
+                  graphData1, '', '', 'Line',
                   'Zoonobioma', ['#5f8f2c', '#fff'], null, null,
                   '', '%',
                 )
