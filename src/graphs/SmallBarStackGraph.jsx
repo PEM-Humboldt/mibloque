@@ -12,6 +12,7 @@ const numberWithCommas = (x) => x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',
  *
  * @param {string} event event on graph
  * @param {string} datum value to show inside tooltip
+ * @param {function} showTooltip parameters to locate tooltip box. See withTooltip for more docs.
  */
 const handleMouseOver = (event, datum, showTooltip) => {
   const coords = localPoint(event.target.ownerSVGElement, event);
@@ -25,7 +26,8 @@ const handleMouseOver = (event, datum, showTooltip) => {
 export default withTooltip(
   ({
     dataJSON,
-    graphTitle,
+    title,
+    subtitle,
     width,
     labelY,
     tooltipOpen,
@@ -88,8 +90,9 @@ export default withTooltip(
     return (
       <div>
         <div className="smgraphtitle">
-          {graphTitle}
+          {title}
         </div>
+        {subtitle}
         <svg width={width - 15} height={25}>
           <Group top={margin.top} left={margin.left}>
             {`${Number((0.20 * 100).toFixed(2))} % `}

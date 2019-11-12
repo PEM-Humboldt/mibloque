@@ -12,18 +12,19 @@ const RenderGraph = (
    * @param {string} labelX axis X label
    * @param {string} labelY axis Y label
    * @param {string} graph graph type
-   * @param {string} graphTitle graph title
+   * @param {string} title graph title
+   * @param {string} subtitle graph title
    * @param {array} colors color palette to sort elements inside the graph
    * @param {string} units to show in axis X
    */
-  data, labelX, labelY, graph, graphTitle, colors, units,
+  data, labelX, labelY, graph, title, subtitle, colors, units,
 ) => {
   // While data is being retrieved
   let errorMessage = null;
   // (data === null) while waiting for response
   if (data === null) errorMessage = 'Cargando información...';
   // (!data) there is not data available
-  else if (!data) errorMessage = `Información${graphTitle ? ` de ${graphTitle}` : ''} no disponible`;
+  else if (!data) errorMessage = `Información${title ? ` de ${title}` : ''} no disponible`;
   // (data.length <= 0) if data in not object
   else if (data.length <= 0) errorMessage = 'Información no disponible';
   if (errorMessage) {
@@ -37,7 +38,7 @@ const RenderGraph = (
   return (
     <ParentSize>
       {(parent) => (
-        parent.width && (
+        parent.width ? (
           <GraphLoader
             width={parent.width}
             height={parent.height}
@@ -45,11 +46,12 @@ const RenderGraph = (
             data={data}
             labelX={labelX}
             labelY={labelY}
-            graphTitle={graphTitle}
+            title={title}
             colors={colors}
             units={units}
+            subtitle={subtitle}
           />
-        )
+        ) : ('')
       )}
     </ParentSize>
   );
