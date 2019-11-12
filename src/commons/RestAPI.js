@@ -4,7 +4,6 @@ import axios from 'axios';
 // Data mockups
 import { geometryDAGMA } from '../assets/mockups/summaryData';
 
-
 class RestAPI {
   /** *************** */
   /** MAPS IN SUMMARY */
@@ -20,9 +19,19 @@ class RestAPI {
   }
 
   /**
+   * Request indicators list by area
+   *
+   * @param {String} areaId area id to request
+   */
+  static requestIndicatorsByArea(areaId) {
+    return RestAPI.makeGetRequest(`anh_areas/${areaId}/indicators`);
+  }
+
+  /**
    * Request an endpoint through a GET request
    *
    * @param {String} endpoint endpoint to attach to url
+   * @param {String} options parameters included in url
    */
   static makeGetRequest(endpoint, options) {
     return axios.get(RestAPI.getEndpointUrl(endpoint), options)
