@@ -33,15 +33,6 @@ class Indicator extends React.Component {
             <div>
               Hola
             </div>
-            {layers
-              && (
-              <div className="smallMap">
-                <MapViewer
-                  layers={layers}
-                  controls={false}
-                />
-              </div>
-              )}
             <div className="blockdata">
               <h1>¿Cómo leer esta cifra en el área?</h1>
               <div className="line" />
@@ -53,6 +44,15 @@ class Indicator extends React.Component {
                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at.
               </p>
               <div className="line" />
+              {layers
+                && (
+                <div className="smallMap">
+                  <MapViewer
+                    layers={layers}
+                    controls={false}
+                  />
+                </div>
+                )}
             </div>
           </div>
         </section>
