@@ -15,6 +15,9 @@ const GraphLoader = (
    * @param {object}  data values to render,
    * @param {string}  title title to render if the selected graph allows it,
    * @param {string}  subtitle subtitle to render if the selected graph allows it,
+   * @param {string}  labelX information showed in the graph label X,
+   * @param {string}  labelY information showed in the graph label Y,
+   * @param {string}  width dynamic width sent by parent component,
    * @param {string}  units information showed in the graph,
    */
     colors,
