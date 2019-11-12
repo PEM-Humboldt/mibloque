@@ -3,8 +3,6 @@ import axios from 'axios';
 
 // Data mockups
 import { geometryDAGMA } from '../assets/mockups/summaryData';
-//import arrayData from '../assets/mockups/indicatorsDashData';
-
 
 class RestAPI {
   /** *************** */
