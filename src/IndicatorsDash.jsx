@@ -35,6 +35,8 @@ class IndicatorsDash extends React.Component {
 
   /**
    * Load indicators for selected area from RestAPI
+   *
+   * @param {string} areaId id for selected area
    */
   loadIndicators = (areaId) => {
     RestAPI.requestIndicatorsByArea(areaId)

@@ -31,6 +31,7 @@ class RestAPI {
    * Request an endpoint through a GET request
    *
    * @param {String} endpoint endpoint to attach to url
+   * @param {String} options parameters included in url
    */
   static makeGetRequest(endpoint, options) {
     return axios.get(RestAPI.getEndpointUrl(endpoint), options)
