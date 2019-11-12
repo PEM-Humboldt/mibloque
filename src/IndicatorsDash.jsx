@@ -9,7 +9,7 @@ import Masonry from 'react-masonry-component';
 import Layout from './Layout';
 import IndicatorCard from './IndicatorCard';
 
-import arrayData from './assets/mockups/indicatorsDashData';
+import RestAPI from './commons/RestAPI';
 
 const masonryOptions = {
   transitionDuration: '0.5s',
@@ -28,7 +28,24 @@ class IndicatorsDash extends React.Component {
 
   componentDidMount() {
     const { activeBlock } = this.props;
-    this.setState({ data: arrayData, activeBlock });
+    this.setState({ activeBlock });
+    const areaId = (activeBlock && activeBlock.id) ? activeBlock.id : 'LLA 0970';
+    this.loadIndicators(areaId);
+  }
+
+  /**
+   * Load indicators for selected area from RestAPI
+   */
+  loadIndicators = (areaId) => {
+    RestAPI.requestIndicatorsByArea(areaId)
+      .then((res) => {
+        this.setState({
+          data: res,
+        });
+      })
+      .catch(() => {
+        this.reportConnError();
+      });
   }
 
   /**
@@ -70,10 +87,9 @@ class IndicatorsDash extends React.Component {
           <IndicatorCard
             key={item.id}
             id={item.id}
-            name={item.name}
-            sedimentaryBasin={item.sedimentaryBasin}
-            rating={item.rating}
-            type={item.type}
+            typeName={item.typeName}
+            values={item.values}
+            size={item.size}
           />
         ))}
       </Masonry>

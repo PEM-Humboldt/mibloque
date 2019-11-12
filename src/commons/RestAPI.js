@@ -3,6 +3,7 @@ import axios from 'axios';
 
 // Data mockups
 import { geometryDAGMA } from '../assets/mockups/summaryData';
+//import arrayData from '../assets/mockups/indicatorsDashData';
 
 
 class RestAPI {
@@ -17,6 +18,15 @@ class RestAPI {
    */
   static requestGeometryByArea() {
     return geometryDAGMA;
+  }
+
+  /**
+   * Request indicators list by area
+   *
+   * @param {String} areaId area id to request
+   */
+  static requestIndicatorsByArea(areaId) {
+    return RestAPI.makeGetRequest(`anh_areas/${areaId}/indicators`);
   }
 
   /**

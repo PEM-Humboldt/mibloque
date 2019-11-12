@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const validClassIndicator = (type) => {
+const validClassIndicator = (size) => {
   let validClass = null;
-  switch (type) {
+  switch (size) {
     case '1':
       validClass = 'boxes';
       break;
@@ -21,38 +21,33 @@ const validClassIndicator = (type) => {
 };
 
 const IndicatorCard = ({
-  id, name, sedimentaryBasin, rating, type,
+  id, typeName, values, size,
 }) => (
-  <div className={validClassIndicator(type)} key={id}>
+  <div className={validClassIndicator(size)} key={id}>
     <h2>
-      {name}
+      {`typeName: ${typeName}`}
     </h2>
     <h3>
-      {sedimentaryBasin}
+      {`size: ${size}`}
     </h3>
     <h3>
-      {rating}
-    </h3>
-    <h3>
-      {type}
+      {`values: ${values}`}
     </h3>
   </div>
 );
 
 IndicatorCard.propTypes = {
   id: PropTypes.string,
-  name: PropTypes.string,
-  sedimentaryBasin: PropTypes.string,
-  rating: PropTypes.string,
-  type: PropTypes.string,
+  typeName: PropTypes.string,
+  values: PropTypes.array,
+  size: PropTypes.string,
 };
 
 IndicatorCard.defaultProps = {
   id: '',
-  name: '',
-  sedimentaryBasin: '',
-  rating: '',
-  type: '1',
+  typeName: '',
+  values: [],
+  size: '1',
 };
 
 export default IndicatorCard;
