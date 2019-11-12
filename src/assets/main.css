@@ -399,6 +399,13 @@ footer h2 {
   z-index: 5;
 }
 
+.smallMap {
+  width: 50%;
+  height: 50%;
+  position: absolute;
+  z-index: 5;
+}
+
 .blockdata {
   position: absolute;
   z-index: 6;

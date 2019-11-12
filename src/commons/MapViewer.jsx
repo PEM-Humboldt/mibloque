@@ -87,8 +87,16 @@ class MapViewer extends React.Component {
   }
 
   render() {
+    const { controls } = this.props;
     return (
-      <Map ref={this.mapRef} center={config.params.center} zoom={5} onClick={this.onMapClick}>
+      <Map
+        ref={this.mapRef}
+        center={config.params.center}
+        zoom={5}
+        onClick={this.onMapClick}
+        attributionControl={controls}
+        zoomControl={controls}
+      >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
@@ -100,10 +108,12 @@ class MapViewer extends React.Component {
 
 MapViewer.propTypes = {
   layers: PropTypes.object,
+  controls: PropTypes.bool,
 };
 
 MapViewer.defaultProps = {
   layers: {},
+  controls: true,
 };
 
 export default MapViewer;
