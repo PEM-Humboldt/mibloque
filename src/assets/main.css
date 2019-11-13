@@ -81,6 +81,18 @@ header h3 b {
   margin: 0 auto;
 }
 
+.sheet {
+  background-color: #fff;
+  width: calc(100vw - 590px);
+  box-sizing: border-box;
+  position: absolute;
+}
+
+/*Indicator informer*/
+.indicator {
+  padding: 20px;
+}
+
 nav {
   display: -webkit-flex;
   display: -moz-flex;
@@ -416,7 +428,7 @@ footer h2 {
   box-sizing: border-box;
   padding: 20px 30px;
   border-left: 1px solid #577376;
-  overflow: scroll;
+  overflow-y: scroll;
 }
 
 .absright {
