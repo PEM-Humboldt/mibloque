@@ -28,6 +28,15 @@ class RestAPI {
   }
 
   /**
+   * Request biomes list by area
+   *
+   * @param {String} areaId area id to request
+   */
+  static requestBiomesByArea(areaId) {
+    return RestAPI.makeGetRequest(`anh_areas/${areaId}/indicators/biomes`);
+  }
+
+  /**
    * Request an endpoint through a GET request
    *
    * @param {String} endpoint endpoint to attach to url

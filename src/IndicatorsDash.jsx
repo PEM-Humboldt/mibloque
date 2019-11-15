@@ -6,6 +6,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import Modal from '@material-ui/core/Modal';
 
 import Masonry from 'react-masonry-component';
+import Select from 'react-select';
 import Layout from './Layout';
 import IndicatorCard from './IndicatorCard';
 
@@ -23,14 +24,18 @@ class IndicatorsDash extends React.Component {
       connError: false,
       data: [],
       activeTab: 'all',
+      selectedOption: null,
+      biomesByBlockData: [],
     };
   }
 
   componentDidMount() {
     const { activeBlock } = this.props;
     this.setState({ activeBlock });
+
     const areaId = (activeBlock && activeBlock.id) ? activeBlock.id : 'LLA 0970';
     this.loadIndicators(areaId);
+    this.loadBiomes(areaId);
   }
 
   /**
@@ -43,6 +48,25 @@ class IndicatorsDash extends React.Component {
       .then((res) => {
         this.setState({
           data: res,
+        });
+      })
+      .catch(() => {
+        this.reportConnError();
+      });
+  }
+
+  /**
+   * Load biomes for selected area from RestAPI
+   *
+   * @param {string} areaId id for selected area
+   */
+  loadBiomes = (areaId) => {
+    RestAPI.requestBiomesByArea(areaId)
+      .then((res) => {
+        // console.log(res);
+        this.setState({
+          biomesByBlockData: res.map((item) => (
+            { value: item.id, label: item.name })),
         });
       })
       .catch(() => {
@@ -68,9 +92,18 @@ class IndicatorsDash extends React.Component {
     this.setState({ [state]: false });
   };
 
+  handleChange = (selectedOption) => {
+    this.setState({ selectedOption });
+  };
+
   render() {
     const {
-      activeBlock, connError, data, activeTab,
+      activeBlock,
+      connError,
+      data,
+      activeTab,
+      selectedOption,
+      biomesByBlockData,
     } = this.state;
 
     const tabs = {
@@ -140,6 +173,16 @@ class IndicatorsDash extends React.Component {
                 {tabs[tabKey]}
               </a>
             ))}
+          </div>
+          <div>
+            <Select
+              value={selectedOption}
+              onChange={this.handleChange}
+              options={biomesByBlockData}
+              placeholder="Seleccione un bioma"
+              isSearchable="true"
+              isClearable="true"
+            />
           </div>
           <div className="boxeswrapper">
             {masonryComp}
