@@ -46,12 +46,11 @@ class Home extends React.Component {
           </div>
           <form action="" key="45">
             <p>
-              Busca tu bloque con su
-              <b> identificador único.</b>
-              <br />
+              Busca tu área de interés con su
+              <b> identificador único. </b>
               El buscador muestra opciones desde tres caracteres de coincidencia.
             </p>
-            <input id="" type="search" placeholder="Identificador del bloque" />
+            <input id="" type="search" placeholder="Identificador de área de interés" />
             <div className="formbtns">
               <button
                 id="sideBarOpen"
@@ -65,7 +64,7 @@ class Home extends React.Component {
                 <input
                   type="submit"
                   key="1-o"
-                  value="ir a mi bloque"
+                  value="ir a mi área"
                   onClick={() => setActiveBlock({
                     id: 'LLA 0970',
                     rating: 'EXPLOTACIÓN',

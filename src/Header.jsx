@@ -14,7 +14,7 @@ const Header = ({
     <Link to="/">
       <h3>
         <b>mi</b>
-        bloque
+        área
       </h3>
     </Link>
     {activeBlock && (

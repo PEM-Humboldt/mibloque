@@ -124,7 +124,7 @@ class Summary extends React.Component {
                 indicadores
               </button>
             </Link>
-            <h1>Sobre el bloque</h1>
+            <h1>Sobre el área</h1>
             <div className="line" />
             <h5 className="hectareas">
               <b>{numberWithCommas(areaData.area)}</b>
