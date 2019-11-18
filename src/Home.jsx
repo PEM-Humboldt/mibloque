@@ -46,12 +46,12 @@ class Home extends React.Component {
           </div>
           <form action="" key="45">
             <p>
-              Busca tu bloque con su
+              Busca tu área de interés con su
               <b> identificador único.</b>
               <br />
               El buscador muestra opciones desde tres caracteres de coincidencia.
             </p>
-            <input id="" type="search" placeholder="Identificador del bloque" />
+            <input id="" type="search" placeholder="Identificador de área de interés" />
             <div className="formbtns">
               <button
                 id="sideBarOpen"
