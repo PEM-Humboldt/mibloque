@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 class IndicatorCard extends React.Component {
   validClassIndicator = (size) => {
@@ -26,17 +27,19 @@ class IndicatorCard extends React.Component {
       id, size, typeName, values,
     } = this.props;
     return (
-      <div className={this.validClassIndicator(size)} key={id}>
-        <h2>
-          {`typeName: ${typeName}`}
-        </h2>
-        <h3>
-          {`size: ${size}`}
-        </h3>
-        <h3>
-          {`values: ${values}`}
-        </h3>
-      </div>
+      <Link to="/indicator">
+        <div className={this.validClassIndicator(size)} key={id}>
+          <h2>
+            {`typeName: ${typeName}`}
+          </h2>
+          <h3>
+            {`size: ${size}`}
+          </h3>
+          <h3>
+            {`values: ${values}`}
+          </h3>
+        </div>
+      </Link>
     );
   }
 }
