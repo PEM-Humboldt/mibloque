@@ -63,7 +63,6 @@ class IndicatorsDash extends React.Component {
   loadBiomes = (areaId) => {
     RestAPI.requestBiomesByArea(areaId)
       .then((res) => {
-        // console.log(res);
         this.setState({
           biomesByBlockData: res.map((item) => (
             { value: item.id, label: item.name })),
