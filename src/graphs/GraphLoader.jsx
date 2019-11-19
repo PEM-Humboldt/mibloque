@@ -19,6 +19,7 @@ const GraphLoader = (
    * @param {string}  labelY information showed in the graph label Y,
    * @param {string}  units information showed in the graph,
    * @param {string}  width dynamic width sent by parent component,
+   * @param {string}  height dynamic height sent by parent component,
    */
     colors,
     data,
@@ -29,6 +30,7 @@ const GraphLoader = (
     labelY,
     units,
     width,
+    height,
   },
 ) => (
   <div>
@@ -54,7 +56,7 @@ const GraphLoader = (
         ? (
           <Chart
             width={width}
-            height={300}
+            height={height}
             chartType="Line"
             loader={<div>Cargando...</div>}
             data={[
@@ -89,6 +91,61 @@ const GraphLoader = (
         )
         : ('')
     }
+    {
+      (graphType === 'PieChart')
+        ? (
+          <Chart
+            width={width}
+            height={height}
+            chartType="PieChart"
+            loader={<div>Cargando...</div>}
+            data={[
+              ['Pizza', 'Popularity'],
+              ['Pepperoni', 33],
+              ['Hawaiian', 26],
+              ['Mushroom', 22],
+              ['Sausage', 10], // Below limit.
+              ['Anchovies', 9], // Below limit.
+            ]}
+            options={{
+              title,
+              subtitle,
+            }}
+          />
+        )
+        : ('')
+    }
+    {
+      (graphType === 'BubbleChart')
+        ? (
+          <Chart
+            width={width}
+            height={height}
+            chartType="BubbleChart"
+            loader={<div>Cargando...</div>}
+            data={[
+              ['ID', 'Life Expectancy', 'Fertility Rate', 'Region', 'Population'],
+              ['CAN', 80.66, 1.67, 'North America', 33739900],
+              ['DEU', 79.84, 1.36, 'Europe', 81902307],
+              ['DNK', 78.6, 1.84, 'Europe', 5523095],
+              ['EGY', 72.73, 2.78, 'Middle East', 79716203],
+              ['GBR', 80.05, 2, 'Europe', 61801570],
+              ['IRN', 72.49, 1.7, 'Middle East', 73137148],
+              ['IRQ', 68.09, 4.77, 'Middle East', 31090763],
+              ['ISR', 81.55, 2.96, 'Middle East', 7485600],
+              ['RUS', 68.6, 1.54, 'Europe', 141850000],
+              ['USA', 78.09, 2.05, 'North America', 307007000],
+            ]}
+            options={{
+              title,
+              hAxis: { title: 'Life Expectancy' },
+              vAxis: { title: 'Fertility Rate' },
+              bubble: { textStyle: { fontSize: 11 } },
+            }}
+          />
+        )
+        : ('')
+    }
   </div>
 );
 
@@ -102,6 +159,7 @@ GraphLoader.propTypes = {
   labelX: PropTypes.string,
   labelY: PropTypes.string,
   width: PropTypes.number,
+  height: PropTypes.number,
   units: PropTypes.string,
 };
 
@@ -112,6 +170,7 @@ GraphLoader.defaultProps = {
   labelX: '',
   labelY: '',
   width: 400,
+  height: 200,
   units: 'ha',
 };
 
