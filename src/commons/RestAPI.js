@@ -28,6 +28,16 @@ class RestAPI {
   }
 
   /**
+   * Request indicators list by biome and by area
+   *
+   * @param {String} areaId area id to request
+   * @param {String} biomeId biome id to request
+   */
+  static requestIndicatorsByBiomeByArea(areaId, biomeId) {
+    return RestAPI.makeGetRequest(`anh_areas/${areaId}/indicators/biomes/${biomeId}`);
+  }
+
+  /**
    * Request biomes list by area
    *
    * @param {String} areaId area id to request

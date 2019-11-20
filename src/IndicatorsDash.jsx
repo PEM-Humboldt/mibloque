@@ -33,7 +33,7 @@ class IndicatorsDash extends React.Component {
     const { activeBlock } = this.props;
     this.setState({ activeBlock });
 
-    const areaId = (activeBlock && activeBlock.id) ? activeBlock.id : 'LLA 0970';
+    const areaId = (activeBlock && activeBlock.id) ? activeBlock.id : 'LLA 86';
     this.loadIndicators(areaId);
     this.loadBiomes(areaId);
   }
@@ -42,17 +42,30 @@ class IndicatorsDash extends React.Component {
    * Load indicators for selected area from RestAPI
    *
    * @param {string} areaId id for selected area
+   * @param {string} biomeId id for selected biome
    */
-  loadIndicators = (areaId) => {
-    RestAPI.requestIndicatorsByArea(areaId)
-      .then((res) => {
-        this.setState({
-          data: res,
+  loadIndicators = (areaId, biomeId) => {
+    if (typeof biomeId === 'undefined') {
+      RestAPI.requestIndicatorsByArea(areaId)
+        .then((res) => {
+          this.setState({
+            data: res,
+          });
+        })
+        .catch(() => {
+          this.reportConnError();
         });
-      })
-      .catch(() => {
-        this.reportConnError();
-      });
+    } else {
+      RestAPI.requestIndicatorsByBiomeByArea(areaId, biomeId)
+        .then((res) => {
+          this.setState({
+            data: res,
+          });
+        })
+        .catch(() => {
+          this.reportConnError();
+        });
+    }
   }
 
   /**
@@ -91,8 +104,17 @@ class IndicatorsDash extends React.Component {
     this.setState({ [state]: false });
   };
 
+  /**
+   * Re-Load indicators list by selecting one bioma option
+   *
+   * @param {String} state state value that controls the modal you want to close
+   */
   handleChange = (selectedOption) => {
-    this.setState({ selectedOption });
+    const { activeBlock } = this.state;
+    this.setState(
+      { selectedOption },
+      () => this.loadIndicators(activeBlock.id, selectedOption ? selectedOption.value : undefined),
+    );
   };
 
   render() {
@@ -111,7 +133,6 @@ class IndicatorsDash extends React.Component {
       costo: 'Costo de Compensación',
       oportunidad: 'Oportunidad',
       monitoreo: 'Monitoreo',
-      bioma: 'Bioma',
     };
     const masonryComp = (
       <Masonry
