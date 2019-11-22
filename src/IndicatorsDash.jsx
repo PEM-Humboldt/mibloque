@@ -24,7 +24,6 @@ class IndicatorsDash extends React.Component {
       connError: false,
       data: [],
       activeTab: 'all',
-      selectedOption: null,
       biomesByBlockData: [],
     };
   }
@@ -33,7 +32,7 @@ class IndicatorsDash extends React.Component {
     const { activeBlock } = this.props;
     this.setState({ activeBlock });
 
-    const areaId = (activeBlock && activeBlock.id) ? activeBlock.id : 'LLA 86';
+    const areaId = (activeBlock && activeBlock.id) ? activeBlock.id : this.handleCloseModal('connError');
     this.loadIndicators(areaId);
     this.loadBiomes(areaId);
   }
@@ -107,14 +106,11 @@ class IndicatorsDash extends React.Component {
   /**
    * Re-Load indicators list by selecting one bioma option
    *
-   * @param {String} state state value that controls the modal you want to close
+   * @param {String} selectedBiome selected biome associated to the current area for filters
    */
-  handleChange = (selectedOption) => {
+  handleChange = (selectedBiome) => {
     const { activeBlock } = this.state;
-    this.setState(
-      { selectedOption },
-      () => this.loadIndicators(activeBlock.id, selectedOption ? selectedOption.value : undefined),
-    );
+    this.loadIndicators(activeBlock.id, selectedBiome ? selectedBiome.value : undefined);
   };
 
   render() {
@@ -123,7 +119,6 @@ class IndicatorsDash extends React.Component {
       connError,
       data,
       activeTab,
-      selectedOption,
       biomesByBlockData,
     } = this.state;
 
@@ -196,7 +191,6 @@ class IndicatorsDash extends React.Component {
           </div>
           <div>
             <Select
-              value={selectedOption}
               onChange={this.handleChange}
               options={biomesByBlockData}
               placeholder="Seleccione un bioma"
