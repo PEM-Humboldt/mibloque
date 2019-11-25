@@ -2,7 +2,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import Select from 'react-select';
 import Layout from './Layout';
+import RestAPI from './commons/RestAPI';
 
 class Home extends React.Component {
   constructor(props) {
@@ -10,8 +12,29 @@ class Home extends React.Component {
     this.state = {
       activeBlock: null,
       toggledBar: true,
+      data: [],
     };
   }
+
+  async componentDidMount() {
+    try {
+      const response = await RestAPI.requestANHAreas();
+      const array = response.map((item) => item.name);
+      this.setState({
+        data: array.map((element) => ({
+          name: element,
+          label: element,
+        })),
+      });
+    } catch (error) {
+      // TODO: Set state in a error (handling error)
+
+    }
+  }
+
+  handleChange = (activeBlock) => {
+    this.setState({ activeBlock });
+  };
 
   showSideBar = () => {
     const { toggledBar } = this.state;
@@ -24,7 +47,7 @@ class Home extends React.Component {
   }
 
   render() {
-    const { activeBlock, toggledBar } = this.state;
+    const { activeBlock, toggledBar, data } = this.state;
     const { setActiveBlock } = this.props;
     const isToggled = toggledBar;
     return (
@@ -50,7 +73,15 @@ class Home extends React.Component {
               <b> identificador único. </b>
               El buscador muestra opciones desde tres caracteres de coincidencia.
             </p>
-            <input id="" type="search" placeholder="Identificador de área de interés" />
+            <Select
+              className="home_selector"
+              value={activeBlock}
+              onChange={this.handleChange}
+              options={data}
+              placeholder="Identificador de área de interés"
+              isSearchable="true"
+              isClearable="true"
+            />
             <div className="formbtns">
               <button
                 id="sideBarOpen"

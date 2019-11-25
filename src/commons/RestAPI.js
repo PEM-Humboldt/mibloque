@@ -5,6 +5,19 @@ import axios from 'axios';
 import { geometryDAGMA } from '../assets/mockups/summaryData';
 
 class RestAPI {
+
+  /** **************** */
+  /** HOME INFORMATION */
+  /** **************** */
+
+  /**
+   * Request anh areas list
+   *
+   */
+  static requestANHAreas() {
+    return RestAPI.makeGetRequest('anh_areas');
+  }
+
   /** *************** */
   /** MAPS IN SUMMARY */
   /** *************** */
