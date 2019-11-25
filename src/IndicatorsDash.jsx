@@ -20,7 +20,7 @@ class IndicatorsDash extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeBlock: {},
+      activeArea: {},
       connError: false,
       data: [],
       activeTab: 'all',
@@ -30,10 +30,10 @@ class IndicatorsDash extends React.Component {
   }
 
   componentDidMount() {
-    const { activeBlock } = this.props;
-    this.setState({ activeBlock });
+    const { activeArea } = this.props;
+    this.setState({ activeArea });
 
-    const areaId = (activeBlock && activeBlock.id) ? activeBlock.id : 'LLA 0970';
+    const areaId = (activeArea && activeArea.id) ? activeArea.id : 'LLA 0970';
     this.loadIndicators(areaId);
     this.loadBiomes(areaId);
   }
@@ -97,7 +97,7 @@ class IndicatorsDash extends React.Component {
 
   render() {
     const {
-      activeBlock,
+      activeArea,
       connError,
       data,
       activeTab,
@@ -131,7 +131,7 @@ class IndicatorsDash extends React.Component {
 
     return (
       <Layout
-        activeBlock={activeBlock}
+        activeArea={activeArea}
         activateHome
         activateSummary
       >
@@ -193,11 +193,11 @@ class IndicatorsDash extends React.Component {
 }
 
 IndicatorsDash.propTypes = {
-  activeBlock: PropTypes.object,
+  activeArea: PropTypes.object,
 };
 
 IndicatorsDash.defaultProps = {
-  activeBlock: {},
+  activeArea: {},
 };
 
 export default IndicatorsDash;

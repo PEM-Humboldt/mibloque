@@ -13,21 +13,21 @@ class Indicator extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeBlock: {},
+      activeArea: {},
     };
   }
 
   componentDidMount() {
-    const { activeBlock } = this.props;
-    this.setState({ activeBlock });
+    const { activeArea } = this.props;
+    this.setState({ activeArea });
   }
 
   render() {
-    const { activeBlock } = this.state;
+    const { activeArea } = this.state;
     const { layers } = this.props;
     return (
       <Layout
-        activeBlock={activeBlock}
+        activeArea={activeArea}
         activateHome
         activateIndicators
       >
@@ -72,12 +72,12 @@ class Indicator extends React.Component {
 }
 
 Indicator.propTypes = {
-  activeBlock: PropTypes.object,
+  activeArea: PropTypes.object,
   layers: PropTypes.object,
 };
 
 Indicator.defaultProps = {
-  activeBlock: {},
+  activeArea: {},
   layers: {},
 };
 

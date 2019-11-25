@@ -75,7 +75,7 @@ class Home extends React.Component {
     const {
       selectedArea, selectedElement, toggledBar, data, sedimentaryList,
     } = this.state;
-    const { setActiveBlock } = this.props;
+    const { setactiveArea } = this.props;
     const isToggled = toggledBar;
     return (
       <Layout>
@@ -121,7 +121,7 @@ class Home extends React.Component {
                   type="submit"
                   key="1-o"
                   value="ir a mi área"
-                  onClick={() => setActiveBlock(selectedArea)}
+                  onClick={() => setactiveArea(selectedArea)}
                 />
               </Link>
             </div>
@@ -163,11 +163,11 @@ class Home extends React.Component {
 }
 
 Home.propTypes = {
-  setActiveBlock: PropTypes.func,
+  setactiveArea: PropTypes.func,
 };
 
 Home.defaultProps = {
-  setActiveBlock: () => {},
+  setactiveArea: () => {},
 };
 
 export default Home;

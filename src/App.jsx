@@ -12,39 +12,39 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeBlock: null,
+      activeArea: null,
     };
   }
 
-  setActiveBlock = (value) => {
-    this.setState({ activeBlock: value });
+  setactiveArea = (value) => {
+    this.setState({ activeArea: value });
   }
 
-  loadHome = () => (<Home setActiveBlock={this.setActiveBlock} />)
+  loadHome = () => (<Home setactiveArea={this.setactiveArea} />)
 
   loadIndicatorsDash = () => {
-    const { activeBlock } = this.state;
+    const { activeArea } = this.state;
     return (
       <IndicatorsDash
-        activeBlock={activeBlock}
+        activeArea={activeArea}
       />
     );
   }
 
   loadIndicator = () => {
-    const { activeBlock } = this.state;
+    const { activeArea } = this.state;
     return (
       <Indicator
-        activeBlock={activeBlock}
+        activeArea={activeArea}
       />
     );
   }
 
   loadSummary = () => {
-    const { activeBlock } = this.state;
+    const { activeArea } = this.state;
     return (
       <Summary
-        activeBlock={activeBlock}
+        activeArea={activeArea}
       />
     );
   }

@@ -8,7 +8,7 @@ import backIcon from './assets/img/back.png';
 import homeIcon from './assets/img/home.png';
 
 const Header = ({
-  activeBlock, activateHome, activateSummary, activateIndicators,
+  activeArea, activateHome, activateSummary, activateIndicators,
 }) => (
   <header>
     <Link to="/">
@@ -17,16 +17,16 @@ const Header = ({
         área
       </h3>
     </Link>
-    {activeBlock && (
+    {activeArea && (
     <nav>
       <h2>
-        {activeBlock.name}
+        {activeArea.name}
       </h2>
       <h4>
-        {activeBlock.sedimentary_name}
+        {activeArea.sedimentary_name}
         <br />
         <b>
-          {activeBlock.description}
+          {activeArea.description}
         </b>
       </h4>
       <div className="navbtns">
@@ -64,14 +64,14 @@ const Header = ({
 );
 
 Header.propTypes = {
-  activeBlock: PropTypes.object,
+  activeArea: PropTypes.object,
   activateHome: PropTypes.bool,
   activateIndicators: PropTypes.bool,
   activateSummary: PropTypes.bool,
 };
 
 Header.defaultProps = {
-  activeBlock: {},
+  activeArea: {},
   activateHome: false,
   activateIndicators: false,
   activateSummary: false,
