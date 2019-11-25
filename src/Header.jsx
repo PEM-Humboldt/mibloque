@@ -23,7 +23,7 @@ const Header = ({
         {activeBlock.name}
       </h2>
       <h4>
-        {activeBlock.sedimentary_code}
+        {activeBlock.sedimentary_name}
         <br />
         <b>
           {activeBlock.description}

@@ -55,11 +55,17 @@ class Home extends React.Component {
   }
 
   async callArea(selectedElement) {
+    const { sedimentaryList, selectedArea } = this.state;
     try {
       const response = await RestAPI.requestAreaSelected(selectedElement.name);
       this.setState({
-        selectedArea: response,
+        selectedArea: {
+          sedimentary_name: sedimentaryList.filter((item) => (item.code === response.sedimentary_code))[0].name,
+          ...response,
+        },
       });
+      console.log(response);
+      console.log(selectedArea);
     } catch (error) {
       // TODO: Set state in a error (handling error)
 
