@@ -34,7 +34,7 @@ Layout.propTypes = {
 
 Layout.defaultProps = {
   children: null,
-  activeArea: '',
+  activeArea: {},
   activateHome: false,
   activateIndicators: false,
   activateSummary: false,
