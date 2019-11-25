@@ -78,7 +78,9 @@ class Home extends React.Component {
     const { setactiveArea } = this.props;
     const isToggled = toggledBar;
     return (
-      <Layout>
+      <Layout
+        activeArea={null}
+      >
         <section className="sectionhome">
           <div className="mancha" />
           <div className="columna">
