@@ -13,7 +13,7 @@ class Home extends React.Component {
       data: [],
       selectedElement: null,
       selectedArea: null,
-      toggledBar: true,
+      toggledBar: null,
       sedimentaryList: [],
     };
   }
@@ -25,6 +25,7 @@ class Home extends React.Component {
       const arrayAreas = areasResponse.map((item) => item.name);
       const arraySedimentaries = sedimentaries.map((item) => item);
       this.setState({
+        toggledBar: false,
         data: arrayAreas.map((element) => ({
           name: element,
           label: element,
@@ -55,7 +56,7 @@ class Home extends React.Component {
   }
 
   async callArea(selectedElement) {
-    const { sedimentaryList, selectedArea } = this.state;
+    const { sedimentaryList } = this.state;
     try {
       const response = await RestAPI.requestAreaSelected(selectedElement.name);
       this.setState({
@@ -64,8 +65,6 @@ class Home extends React.Component {
           ...response,
         },
       });
-      console.log(response);
-      console.log(selectedArea);
     } catch (error) {
       // TODO: Set state in a error (handling error)
 
