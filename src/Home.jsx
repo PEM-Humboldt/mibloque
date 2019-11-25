@@ -14,18 +14,22 @@ class Home extends React.Component {
       selectedElement: null,
       selectedArea: null,
       toggledBar: true,
+      sedimentaryList: [],
     };
   }
 
   async componentDidMount() {
     try {
-      const response = await RestAPI.requestANHAreas();
-      const array = response.map((item) => item.name);
+      const areasResponse = await RestAPI.requestANHAreas();
+      const sedimentaries = await RestAPI.requestSedimentaryBasins();
+      const arrayAreas = areasResponse.map((item) => item.name);
+      const arraySedimentaries = sedimentaries.map((item) => item);
       this.setState({
-        data: array.map((element) => ({
+        data: arrayAreas.map((element) => ({
           name: element,
           label: element,
         })),
+        sedimentaryList: arraySedimentaries,
       });
     } catch (error) {
       // TODO: Set state in a error (handling error)
@@ -63,7 +67,9 @@ class Home extends React.Component {
   }
 
   render() {
-    const { selectedArea, selectedElement, toggledBar, data } = this.state;
+    const {
+      selectedArea, selectedElement, toggledBar, data, sedimentaryList,
+    } = this.state;
     const { setActiveBlock } = this.props;
     const isToggled = toggledBar;
     return (
@@ -132,74 +138,20 @@ class Home extends React.Component {
           </h1>
           <div className="line" />
           <div className="col1">
-            AMA
-            <br />
-            ANP
-            <br />
-            CAG PUT
-            <br />
-            CAT
-            <br />
-            CAU PAT
-            <br />
-            CES RAN
-            <br />
-            CHO
-            <br />
-            COR
-            <br />
-            GUA
-            <br />
-            LLA
-            <br />
-            SIN SJ
-            <br />
-            TUM
-            <br />
-            URA
-            <br />
-            VIM
-            <br />
-            VMM
-            <br />
-            VSM
-            <br />
-            VAU AMAZ
+            {sedimentaryList.map((item) => (
+              <span key={item.code}>
+                {item.code}
+                <br />
+              </span>
+            ))}
           </div>
           <div className="col2">
-            AMAGA
-            <br />
-            AREA NO PROSPECTIVA
-            <br />
-            CAGUAN-PUTUMAYO
-            <br />
-            CATATUMBO
-            <br />
-            CAUCA PATIA
-            <br />
-            CESAR RANCHERIA
-            <br />
-            CHOCO
-            <br />
-            CORDILLERA ORIENTAL
-            <br />
-            GUAJIRA
-            <br />
-            LLANOS ORIENTALES
-            <br />
-            SINU-SAN JACINTO
-            <br />
-            TUMACO
-            <br />
-            URABA
-            <br />
-            VALLE INFERIOR DEL MAGDALENA
-            <br />
-            VALLE MEDIO DEL MAGDALENA
-            <br />
-            VALLE SUPERIOR DEL MAGDALENA
-            <br />
-            VAUPES-AMAZONAS
+            {sedimentaryList.map((item) => (
+              <span key={item.name}>
+                {item.name}
+                <br />
+              </span>
+            ))}
           </div>
         </div>
       </Layout>
