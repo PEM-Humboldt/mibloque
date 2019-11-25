@@ -18,6 +18,23 @@ class RestAPI {
     return RestAPI.makeGetRequest('anh_areas');
   }
 
+  /**
+   * Request anh area from list
+   * @param name from anh areas list to be searched
+   *
+   */
+  static requestAreaSelected(name) {
+    return RestAPI.makeGetRequest(`anh_areas/${name}`);
+  }
+
+  /**
+   * Request sedimentary basins list
+   *
+   */
+  static requestSedimentaryBasins() {
+    return RestAPI.makeGetRequest('sedimentary_basins');
+  }
+
   /** *************** */
   /** MAPS IN SUMMARY */
   /** *************** */

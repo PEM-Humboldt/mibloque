@@ -20,13 +20,13 @@ const Header = ({
     {activeBlock && (
     <nav>
       <h2>
-        {activeBlock.id}
+        {activeBlock.name}
       </h2>
       <h4>
-        {activeBlock.sedimentaryBasin}
+        {activeBlock.sedimentary_code}
         <br />
         <b>
-          {activeBlock.rating}
+          {activeBlock.description}
         </b>
       </h4>
       <div className="navbtns">

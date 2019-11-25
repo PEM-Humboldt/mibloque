@@ -10,9 +10,10 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedElement: null,
-      toggledBar: true,
       data: [],
+      selectedElement: null,
+      selectedArea: null,
+      toggledBar: true,
     };
   }
 
@@ -24,9 +25,6 @@ class Home extends React.Component {
         data: array.map((element) => ({
           name: element,
           label: element,
-          id: element,
-          rating: 'EXPLOTACIÓN',
-          sedimentaryBasin: 'CS: Llanos Orientales',
         })),
       });
     } catch (error) {
@@ -36,7 +34,10 @@ class Home extends React.Component {
   }
 
   handleChange = (selectedElement) => {
-    this.setState({ selectedElement });
+    this.setState({
+      selectedElement,
+    });
+    this.callArea(selectedElement);
   };
 
   showSideBar = () => {
@@ -49,8 +50,20 @@ class Home extends React.Component {
     this.setState({ toggledBar: !toggledBar });
   }
 
+  async callArea(selectedElement) {
+    try {
+      const response = await RestAPI.requestAreaSelected(selectedElement.name);
+      this.setState({
+        selectedArea: response,
+      });
+    } catch (error) {
+      // TODO: Set state in a error (handling error)
+
+    }
+  }
+
   render() {
-    const { selectedElement, toggledBar, data } = this.state;
+    const { selectedArea, selectedElement, toggledBar, data } = this.state;
     const { setActiveBlock } = this.props;
     const isToggled = toggledBar;
     return (
@@ -99,7 +112,7 @@ class Home extends React.Component {
                   type="submit"
                   key="1-o"
                   value="ir a mi área"
-                  onClick={() => setActiveBlock(selectedElement)}
+                  onClick={() => setActiveBlock(selectedArea)}
                 />
               </Link>
             </div>
