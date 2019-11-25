@@ -10,7 +10,7 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeBlock: null,
+      selectedElement: null,
       toggledBar: true,
       data: [],
     };
@@ -24,6 +24,9 @@ class Home extends React.Component {
         data: array.map((element) => ({
           name: element,
           label: element,
+          id: element,
+          rating: 'EXPLOTACIÓN',
+          sedimentaryBasin: 'CS: Llanos Orientales',
         })),
       });
     } catch (error) {
@@ -32,8 +35,8 @@ class Home extends React.Component {
     }
   }
 
-  handleChange = (activeBlock) => {
-    this.setState({ activeBlock });
+  handleChange = (selectedElement) => {
+    this.setState({ selectedElement });
   };
 
   showSideBar = () => {
@@ -47,12 +50,12 @@ class Home extends React.Component {
   }
 
   render() {
-    const { activeBlock, toggledBar, data } = this.state;
+    const { selectedElement, toggledBar, data } = this.state;
     const { setActiveBlock } = this.props;
     const isToggled = toggledBar;
     return (
       <Layout
-        activeBlock={activeBlock}
+        activeBlock={null}
       >
         <section className="sectionhome">
           <div className="mancha" />
@@ -75,7 +78,7 @@ class Home extends React.Component {
             </p>
             <Select
               className="home_selector"
-              value={activeBlock}
+              value={selectedElement}
               onChange={this.handleChange}
               options={data}
               placeholder="Identificador de área de interés"
@@ -96,11 +99,7 @@ class Home extends React.Component {
                   type="submit"
                   key="1-o"
                   value="ir a mi área"
-                  onClick={() => setActiveBlock({
-                    id: 'LLA 0970',
-                    rating: 'EXPLOTACIÓN',
-                    sedimentaryBasin: 'CS: Llanos Orientales',
-                  })}
+                  onClick={() => setActiveBlock(selectedElement)}
                 />
               </Link>
             </div>
