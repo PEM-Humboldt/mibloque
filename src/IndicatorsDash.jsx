@@ -103,7 +103,6 @@ class IndicatorsDash extends React.Component {
     } = this.state;
 
     const { activeArea } = this.props;
-    console.log(activeArea);
 
     const tabs = {
       all: 'Todas',
