@@ -11,7 +11,7 @@ import RenderGraph from './graphs/RenderGraph';
 import RestAPI from './commons/RestAPI';
 
 // Data mockups
-import { areaData, graphData1 } from './assets/mockups/summaryData';
+import { graphData1 } from './assets/mockups/summaryData';
 
 // Images to import
 import protegidas from './assets/img/protegidas.png';
@@ -29,7 +29,6 @@ class Summary extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeArea: {},
       connError: false,
       layers: {},
     };
@@ -37,10 +36,9 @@ class Summary extends React.Component {
 
   componentDidMount() {
     const { activeArea } = this.props;
-    const blockId = (activeArea && activeArea.id) ? activeArea.id : 'LLA 0970';
+    const blockId = (activeArea && activeArea.id) ? activeArea.id : null;
     const request = RestAPI.requestGeometryByArea(blockId);
     this.setState({
-      activeArea,
       layers: {
         dagma: {
           displayName: 'dagma',
@@ -77,130 +75,136 @@ class Summary extends React.Component {
   };
 
   render() {
-    const { activeArea, connError, layers } = this.state;
+    const { connError, layers } = this.state;
+    const { activeArea } = this.props;
     return (
-      <Layout
-        activateHome
-        activeArea={activeArea}
-      >
-        <Modal
-          aria-labelledby="simple-modal-title"
-          aria-describedby="simple-modal-description"
-          open={connError}
-          onClose={this.handleCloseModal('connError')}
-          disableAutoFocus
+      (activeArea && (
+        <Layout
+          activateHome
+          activeArea={activeArea}
         >
-          <div className="generalAlarm">
-            <h2>
-              <b>Sin conexión al servidor</b>
-              <br />
-                Intenta de nuevo en unos minutos.
-            </h2>
-            <button
-              type="button"
-              className="closebtn"
-              onClick={this.handleCloseModal('connError')}
-              data-tooltip
-              title="Cerrar"
-            >
-              <CloseIcon />
-            </button>
-          </div>
-        </Modal>
-        <section className="sectionintern">
-          <div className="internheader" />
-          <div className="map">
-            <MapViewer
-              layers={layers}
-            />
-          </div>
-          <div className="blockdata">
-            <Link to="/indicatorsDash">
+          <Modal
+            aria-labelledby="simple-modal-title"
+            aria-describedby="simple-modal-description"
+            open={connError}
+            onClose={this.handleCloseModal('connError')}
+            disableAutoFocus
+          >
+            <div className="generalAlarm">
+              <h2>
+                <b>Sin conexión al servidor</b>
+                <br />
+                  Intenta de nuevo en unos minutos.
+              </h2>
               <button
                 type="button"
-                key="indBtn"
-                className="generalbtn absright"
+                className="closebtn"
+                onClick={this.handleCloseModal('connError')}
+                data-tooltip
+                title="Cerrar"
               >
-                indicadores
+                <CloseIcon />
               </button>
-            </Link>
-            <h1>Sobre el área</h1>
-            <div className="line" />
-            <h5 className="hectareas">
-              <b>{numberWithCommas(areaData.area)}</b>
-              {' '}
-              ha
-            </h5>
-            <div className="iconos">
-              <img
-                className={areaData.categories.find((item) => item === 1) ? '' : 'nogo'}
-                src={protegidas}
-                alt="Áreas protegidas"
-                title="Áreas protegidas"
-              />
-              <img
-                className={areaData.categories.find((item) => item === 2) ? '' : 'nogo'}
-                src={reservas}
-                alt="Reservas forestales"
-                title="Reservas forestales"
-              />
-              <img
-                className={areaData.categories.find((item) => item === 3) ? '' : 'nogo'}
-                src={estrategicos}
-                alt="Ecosistemas estratégicos"
-                title="Ecosistemas estratégicos"
-              />
-              <img
-                className={areaData.categories.find((item) => item === 4) ? '' : 'nogo'}
-                src={etnicas}
-                alt="Territorios étnicos"
-                title="Territorios étnicos"
-              />
-              <img
-                className={areaData.categories.find((item) => item === 5) ? '' : 'nogo'}
-                src={campesinas}
-                alt="Zonas de reserva campesina"
-                title="Zonas de reserva campesina"
-              />
-              <img
-                className={areaData.categories.find((item) => item === 6) ? '' : 'nogo'}
-                src={infraestructura}
-                alt="Proyectos e infraestructura"
-                title="Proyectos e infraestructura"
-              />
-              <img
-                className={areaData.categories.find((item) => item === 7) ? '' : 'nogo'}
-                src={ordenamiento}
-                alt="Ordenamiento"
-                title="Ordenamiento"
+            </div>
+          </Modal>
+          <section className="sectionintern">
+            <div className="internheader" />
+            <div className="map">
+              <MapViewer
+                layers={layers}
               />
             </div>
-            <p>{areaData.description}</p>
-            <h1>Biomas</h1>
-            <div className="line" />
-            <br />
-            <div>
-              {graphData1
-                ? RenderGraph(
-                  graphData1, '', '', 'SmallBarStackGraph',
-                  'Orobioma', '', ['#5e8f2c', '#fff'], null, null,
-                  '', '%',
-                )
-                : 'Cargando...'}
+            <div className="blockdata">
+              <Link to="/indicatorsDash">
+                <button
+                  type="button"
+                  key="indBtn"
+                  className="generalbtn absright"
+                >
+                  indicadores
+                </button>
+              </Link>
+              <h1>Sobre el área</h1>
+              <div className="line" />
+              <h5 className="hectareas">
+                <b>{numberWithCommas(activeArea.area)}</b>
+                {' '}
+                ha
+              </h5>
+              <div className="iconos">
+                <img
+                  className={activeArea.categories.protected_areas ? '' : 'nogo'}
+                  src={protegidas}
+                  alt="Áreas protegidas"
+                  title="Áreas protegidas"
+                />
+                <img
+                  className={activeArea.categories.forest_reserves ? '' : 'nogo'}
+                  src={reservas}
+                  alt="Reservas forestales"
+                  title="Reservas forestales"
+                />
+                <img
+                  className={activeArea.categories.strategic_ecosystems ? '' : 'nogo'}
+                  src={estrategicos}
+                  alt="Ecosistemas estratégicos"
+                  title="Ecosistemas estratégicos"
+                />
+                <img
+                  className={activeArea.categories.ethnic_territories ? '' : 'nogo'}
+                  src={etnicas}
+                  alt="Territorios étnicos"
+                  title="Territorios étnicos"
+                />
+                <img
+                  className={activeArea.categories.peasant_reserves ? '' : 'nogo'}
+                  src={campesinas}
+                  alt="Zonas de reserva campesina"
+                  title="Zonas de reserva campesina"
+                />
+                <img
+                  className={activeArea.categories.projects ? '' : 'nogo'}
+                  src={infraestructura}
+                  alt="Proyectos e infraestructura"
+                  title="Proyectos e infraestructura"
+                />
+                <img
+                  className={activeArea.categories.ordering ? '' : 'nogo'}
+                  src={ordenamiento}
+                  alt="Ordenamiento"
+                  title="Ordenamiento"
+                />
+              </div>
+              <p>
+                La información espacial que se muestra en la figura corresponde a la identificación de condiciones sociales, culturales, económicas y biofísicas, algunas de las cuales son determinantes ambientales del ordenamiento territorial y pueden generar restricciones al desarrollo de las actividades de exploración y explotación de hidrocarburos. Este análisis hace parte del procedimiento que la ANH ha establecido para la coordinación y concurrencia con las entidades territoriales y demás autoridades y entidades con presencia en el territorio, con el fin de posibilitar la definición y determinación de nuevas áreas de interés de hidrocarburos.
+              </p>
+              <h1>Biomas</h1>
+              <div className="line" />
+              <br />
+              <div>
+                {graphData1
+                  ? RenderGraph(
+                    graphData1, '', '', 'SmallBarStackGraph',
+                    'Orobioma', '', ['#5e8f2c', '#fff'], null, null,
+                    '', '%',
+                  )
+                  : 'Cargando...'}
+              </div>
+              <br />
+              <div>
+                {graphData1
+                  ? RenderGraph(
+                    graphData1, '', '', 'SmallBarStackGraph',
+                    'Zoonobioma', '', ['#5f8f2c', '#fff'], null, null,
+                    '', '%',
+                  )
+                  : 'Cargando...'}
+              </div>
             </div>
-            <br />
-            <div>
-              {graphData1
-                ? RenderGraph(
-                  graphData1, '', '', 'SmallBarStackGraph',
-                  'Zoonobioma', '', ['#5f8f2c', '#fff'], null, null,
-                  '', '%',
-                )
-                : 'Cargando...'}
-            </div>
-          </div>
-        </section>
-      </Layout>
+          </section>
+        </Layout>
+      ))
+      // TODO: Redirect to HOME if activeArea is empty
     );
   }
 }
