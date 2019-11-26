@@ -16,11 +16,11 @@ class App extends React.Component {
     };
   }
 
-  setactiveArea = (value) => {
+  setActiveArea = (value) => {
     this.setState({ activeArea: value });
   }
 
-  loadHome = () => (<Home setactiveArea={this.setactiveArea} />)
+  loadHome = () => (<Home setActiveArea={this.setActiveArea} />)
 
   loadIndicatorsDash = () => {
     const { activeArea } = this.state;
