@@ -22,13 +22,12 @@ class Home extends React.Component {
     try {
       const areasResponse = await RestAPI.requestANHAreas();
       const sedimentaries = await RestAPI.requestSedimentaryBasins();
-      const arrayAreas = areasResponse.map((item) => item.name);
       const arraySedimentaries = sedimentaries.map((item) => item);
       this.setState({
         toggledBar: false,
-        data: arrayAreas.map((element) => ({
-          name: element,
-          label: element,
+        data: areasResponse.map((element) => ({
+          name: element.name,
+          label: element.name,
         })),
         sedimentaryList: arraySedimentaries,
       });
