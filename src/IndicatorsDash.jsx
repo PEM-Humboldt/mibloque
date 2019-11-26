@@ -20,7 +20,6 @@ class IndicatorsDash extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeArea: {},
       connError: false,
       data: [],
       activeTab: 'all',
@@ -31,7 +30,6 @@ class IndicatorsDash extends React.Component {
 
   componentDidMount() {
     const { activeArea } = this.props;
-    this.setState({ activeArea });
 
     const areaId = (activeArea && activeArea.id) ? activeArea.id : 'LLA 0970';
     this.loadIndicators(areaId);
@@ -97,13 +95,15 @@ class IndicatorsDash extends React.Component {
 
   render() {
     const {
-      activeArea,
       connError,
       data,
       activeTab,
       selectedOption,
       biomesByBlockData,
     } = this.state;
+
+    const { activeArea } = this.props;
+    console.log(activeArea);
 
     const tabs = {
       all: 'Todas',
