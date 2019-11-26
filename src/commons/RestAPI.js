@@ -5,7 +5,6 @@ import axios from 'axios';
 import { geometryDAGMA } from '../assets/mockups/summaryData';
 
 class RestAPI {
-
   /** **************** */
   /** HOME INFORMATION */
   /** **************** */
