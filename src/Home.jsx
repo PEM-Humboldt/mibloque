@@ -61,7 +61,7 @@ class Home extends React.Component {
       const response = await RestAPI.requestAreaSelected(selectedElement.name);
       this.setState({
         selectedArea: {
-          sedimentary_name: sedimentaryList.filter((item) => (item.code === response.sedimentary_code))[0].name,
+          sedimentary_name: sedimentaryList.find((item) => (item.code === response.sedimentary_code)).name,
           ...response,
         },
       });
