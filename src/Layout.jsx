@@ -6,7 +6,7 @@ import Footer from './Footer';
 import Header from './Header';
 
 const Layout = ({
-  activeBlock,
+  activeArea,
   activateHome,
   activateIndicators,
   activateSummary,
@@ -14,7 +14,7 @@ const Layout = ({
 }) => (
   <div>
     <Header
-      activeBlock={activeBlock}
+      activeArea={activeArea}
       activateHome={activateHome}
       activateIndicators={activateIndicators}
       activateSummary={activateSummary}
@@ -26,7 +26,7 @@ const Layout = ({
 
 Layout.propTypes = {
   children: PropTypes.any,
-  activeBlock: PropTypes.object,
+  activeArea: PropTypes.object,
   activateHome: PropTypes.bool,
   activateIndicators: PropTypes.bool,
   activateSummary: PropTypes.bool,
@@ -34,7 +34,7 @@ Layout.propTypes = {
 
 Layout.defaultProps = {
   children: null,
-  activeBlock: '',
+  activeArea: {},
   activateHome: false,
   activateIndicators: false,
   activateSummary: false,

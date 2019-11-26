@@ -29,18 +29,18 @@ class Summary extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeBlock: {},
+      activeArea: {},
       connError: false,
       layers: {},
     };
   }
 
   componentDidMount() {
-    const { activeBlock } = this.props;
-    const blockId = (activeBlock && activeBlock.id) ? activeBlock.id : 'LLA 0970';
+    const { activeArea } = this.props;
+    const blockId = (activeArea && activeArea.id) ? activeArea.id : 'LLA 0970';
     const request = RestAPI.requestGeometryByArea(blockId);
     this.setState({
-      activeBlock,
+      activeArea,
       layers: {
         dagma: {
           displayName: 'dagma',
@@ -77,11 +77,11 @@ class Summary extends React.Component {
   };
 
   render() {
-    const { activeBlock, connError, layers } = this.state;
+    const { activeArea, connError, layers } = this.state;
     return (
       <Layout
         activateHome
-        activeBlock={activeBlock}
+        activeArea={activeArea}
       >
         <Modal
           aria-labelledby="simple-modal-title"
@@ -206,11 +206,11 @@ class Summary extends React.Component {
 }
 
 Summary.propTypes = {
-  activeBlock: PropTypes.object,
+  activeArea: PropTypes.object,
 };
 
 Summary.defaultProps = {
-  activeBlock: null,
+  activeArea: null,
 };
 
 export default Summary;

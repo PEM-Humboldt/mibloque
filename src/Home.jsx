@@ -2,16 +2,46 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import Select from 'react-select';
 import Layout from './Layout';
+import RestAPI from './commons/RestAPI';
 
 class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeBlock: null,
-      toggledBar: true,
+      data: [],
+      selectedElement: null,
+      selectedArea: null,
+      toggledBar: null,
+      sedimentaryList: [],
     };
   }
+
+  async componentDidMount() {
+    try {
+      const areasResponse = await RestAPI.requestANHAreas();
+      const sedimentaries = await RestAPI.requestSedimentaryBasins();
+      this.setState({
+        toggledBar: false,
+        data: areasResponse.map((element) => ({
+          name: element.name,
+          label: element.name,
+        })),
+        sedimentaryList: sedimentaries,
+      });
+    } catch (error) {
+      // TODO: Set state in a error (handling error)
+
+    }
+  }
+
+  handleChange = (selectedElement) => {
+    this.setState({
+      selectedElement,
+    });
+    this.callArea(selectedElement);
+  };
 
   showSideBar = () => {
     const { toggledBar } = this.state;
@@ -23,13 +53,31 @@ class Home extends React.Component {
     this.setState({ toggledBar: !toggledBar });
   }
 
+  async callArea(selectedElement) {
+    const { sedimentaryList } = this.state;
+    try {
+      const response = await RestAPI.requestAreaSelected(selectedElement.name);
+      this.setState({
+        selectedArea: {
+          sedimentary_name: sedimentaryList.find((item) => (item.code === response.sedimentary_code)).name,
+          ...response,
+        },
+      });
+    } catch (error) {
+      // TODO: Set state in a error (handling error)
+
+    }
+  }
+
   render() {
-    const { activeBlock, toggledBar } = this.state;
-    const { setActiveBlock } = this.props;
+    const {
+      selectedArea, selectedElement, toggledBar, data, sedimentaryList,
+    } = this.state;
+    const { setActiveArea } = this.props;
     const isToggled = toggledBar;
     return (
       <Layout
-        activeBlock={activeBlock}
+        activeArea={null}
       >
         <section className="sectionhome">
           <div className="mancha" />
@@ -50,7 +98,15 @@ class Home extends React.Component {
               <b> identificador único. </b>
               El buscador muestra opciones desde tres caracteres de coincidencia.
             </p>
-            <input id="" type="search" placeholder="Identificador de área de interés" />
+            <Select
+              className="home_selector"
+              value={selectedElement}
+              onChange={this.handleChange}
+              options={data}
+              placeholder="Identificador de área de interés"
+              isSearchable="true"
+              isClearable="true"
+            />
             <div className="formbtns">
               <button
                 id="sideBarOpen"
@@ -65,11 +121,7 @@ class Home extends React.Component {
                   type="submit"
                   key="1-o"
                   value="ir a mi área"
-                  onClick={() => setActiveBlock({
-                    id: 'LLA 0970',
-                    rating: 'EXPLOTACIÓN',
-                    sedimentaryBasin: 'CS: Llanos Orientales',
-                  })}
+                  onClick={() => setActiveArea(selectedArea)}
                 />
               </Link>
             </div>
@@ -89,74 +141,20 @@ class Home extends React.Component {
           </h1>
           <div className="line" />
           <div className="col1">
-            AMA
-            <br />
-            ANP
-            <br />
-            CAG PUT
-            <br />
-            CAT
-            <br />
-            CAU PAT
-            <br />
-            CES RAN
-            <br />
-            CHO
-            <br />
-            COR
-            <br />
-            GUA
-            <br />
-            LLA
-            <br />
-            SIN SJ
-            <br />
-            TUM
-            <br />
-            URA
-            <br />
-            VIM
-            <br />
-            VMM
-            <br />
-            VSM
-            <br />
-            VAU AMAZ
+            {sedimentaryList.map((item) => (
+              <span key={item.code}>
+                {item.code}
+                <br />
+              </span>
+            ))}
           </div>
           <div className="col2">
-            AMAGA
-            <br />
-            AREA NO PROSPECTIVA
-            <br />
-            CAGUAN-PUTUMAYO
-            <br />
-            CATATUMBO
-            <br />
-            CAUCA PATIA
-            <br />
-            CESAR RANCHERIA
-            <br />
-            CHOCO
-            <br />
-            CORDILLERA ORIENTAL
-            <br />
-            GUAJIRA
-            <br />
-            LLANOS ORIENTALES
-            <br />
-            SINU-SAN JACINTO
-            <br />
-            TUMACO
-            <br />
-            URABA
-            <br />
-            VALLE INFERIOR DEL MAGDALENA
-            <br />
-            VALLE MEDIO DEL MAGDALENA
-            <br />
-            VALLE SUPERIOR DEL MAGDALENA
-            <br />
-            VAUPES-AMAZONAS
+            {sedimentaryList.map((item) => (
+              <span key={item.name}>
+                {item.name}
+                <br />
+              </span>
+            ))}
           </div>
         </div>
       </Layout>
@@ -165,11 +163,11 @@ class Home extends React.Component {
 }
 
 Home.propTypes = {
-  setActiveBlock: PropTypes.func,
+  setActiveArea: PropTypes.func,
 };
 
 Home.defaultProps = {
-  setActiveBlock: () => {},
+  setActiveArea: () => {},
 };
 
 export default Home;
