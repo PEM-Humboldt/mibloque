@@ -12,7 +12,6 @@ class RestAPI {
 
   /**
    * Request anh areas list
-   *
    */
   static requestANHAreas() {
     return RestAPI.makeGetRequest('anh_areas');
@@ -21,7 +20,6 @@ class RestAPI {
   /**
    * Request anh area from list
    * @param name from anh areas list to be searched
-   *
    */
   static requestAreaSelected(name) {
     return RestAPI.makeGetRequest(`anh_areas/${name}`);
@@ -29,7 +27,6 @@ class RestAPI {
 
   /**
    * Request sedimentary basins list
-   *
    */
   static requestSedimentaryBasins() {
     return RestAPI.makeGetRequest('sedimentary_basins');
@@ -41,7 +38,6 @@ class RestAPI {
 
   /**
    * Request area geometry by id
-   *
    * @param {String} areaId area id to request
    */
   static requestGeometryByArea() {
@@ -50,7 +46,6 @@ class RestAPI {
 
   /**
    * Request indicators list by area
-   *
    * @param {String} areaId area id to request
    */
   static requestIndicatorsByArea(areaId) {
@@ -59,7 +54,6 @@ class RestAPI {
 
   /**
    * Request biomes list by area
-   *
    * @param {String} areaId area id to request
    */
   static requestBiomesByArea(areaId) {
@@ -68,7 +62,6 @@ class RestAPI {
 
   /**
    * Request an endpoint through a GET request
-   *
    * @param {String} endpoint endpoint to attach to url
    * @param {String} options parameters included in url
    */
@@ -85,7 +78,6 @@ class RestAPI {
 
   /**
    * Request an endpoint through a POST request
-   *
    * @param {String} endpoint endpoint to attach to url
    * @param {Object} requestBody JSON object with the request body
    */
@@ -102,7 +94,6 @@ class RestAPI {
 
   /**
    * Return the entire URL endpoint
-   *
    * @param {String} endpoint endpoint to attach to url
    */
   static getEndpointUrl(endpoint) {
