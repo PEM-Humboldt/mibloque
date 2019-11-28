@@ -42,6 +42,10 @@ class RestAPI {
     return RestAPI.makeGetRequest(`anh_areas/${name}/biomes/geometry`);
   }
 
+  /** ********************** */
+  /** INDICATORS INFORMATION */
+  /** ********************** */
+
   /**
    * Request indicators list by area
    *
