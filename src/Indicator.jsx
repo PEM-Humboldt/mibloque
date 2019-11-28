@@ -29,6 +29,8 @@ class Indicator extends React.Component {
     const areaId = (activeArea && activeArea.name) ? activeArea.name : null;
     if (areaId) {
       this.loadBiomes(areaId);
+    } else {
+      this.reportConnError();
     }
   }
 

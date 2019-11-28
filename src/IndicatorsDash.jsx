@@ -30,6 +30,8 @@ class IndicatorsDash extends React.Component {
     const areaId = (activeArea && activeArea.name) ? activeArea.name : null;
     if (areaId) {
       this.loadIndicators(areaId);
+    } else {
+      this.reportConnError();
     }
   }
 
