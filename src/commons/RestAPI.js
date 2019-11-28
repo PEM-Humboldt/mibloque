@@ -64,6 +64,10 @@ class RestAPI {
     return RestAPI.makeGetRequest(`anh_areas/${areaId}/indicators/biomes`);
   }
 
+  /** ***************************** */
+  /** API GENERAL REQUEST STRUCTURE */
+  /** ***************************** */
+
   /**
    * Request an endpoint through a GET request
    *
