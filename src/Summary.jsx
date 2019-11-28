@@ -40,7 +40,7 @@ class Summary extends React.Component {
       const geometryRequest = await RestAPI.requestGeometryByArea(activeArea.name);
       this.setState({
         layers: {
-          dagma: {
+          area: {
             displayName: activeArea.name,
             id: 1,
             active: true,
