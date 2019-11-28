@@ -34,26 +34,27 @@ class Summary extends React.Component {
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const { activeArea } = this.props;
-    const blockId = (activeArea && activeArea.id) ? activeArea.id : null;
-    const request = RestAPI.requestGeometryByArea(blockId);
-    this.setState({
-      layers: {
-        dagma: {
-          displayName: 'dagma',
-          id: 1,
-          active: true,
-          layer: L.geoJSON(request, {
-            style: {
-              stroke: false,
-              fillColor: '#5f8f2c',
-              fillOpacity: 0.7,
-            },
-          }),
+    if (activeArea) {
+      const request = await RestAPI.requestGeometryByArea(activeArea.name);
+      this.setState({
+        layers: {
+          dagma: {
+            displayName: activeArea.name,
+            id: 1,
+            active: true,
+            layer: L.geoJSON(request, {
+              style: {
+                stroke: false,
+                fillColor: '#5f8f2c',
+                fillOpacity: 0.7,
+              },
+            }),
+          },
         },
-      },
-    });
+      });
+    }
   }
 
   /**

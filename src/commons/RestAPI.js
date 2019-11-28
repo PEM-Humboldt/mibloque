@@ -32,17 +32,17 @@ class RestAPI {
     return RestAPI.makeGetRequest('sedimentary_basins');
   }
 
-  /** *************** */
-  /** MAPS IN SUMMARY */
-  /** *************** */
+  /** ******************* */
+  /** SUMMARY INFORMATION */
+  /** ******************* */
 
   /**
-   * Request area geometry by id
+   * Request area geometry by name
    *
-   * @param {String} areaId area id to request
+   * @param {String} name anh area to request geometry divided by biomes
    */
-  static requestGeometryByArea() {
-    return geometryDAGMA;
+  static requestGeometryByArea(name) {
+    return RestAPI.makeGetRequest(`anh_areas/${name}/biomes/geometry`);
   }
 
   /**
