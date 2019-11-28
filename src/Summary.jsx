@@ -37,14 +37,14 @@ class Summary extends React.Component {
   async componentDidMount() {
     const { activeArea } = this.props;
     if (activeArea) {
-      const request = await RestAPI.requestGeometryByArea(activeArea.name);
+      const geometryRequest = await RestAPI.requestGeometryByArea(activeArea.name);
       this.setState({
         layers: {
           dagma: {
             displayName: activeArea.name,
             id: 1,
             active: true,
-            layer: L.geoJSON(request, {
+            layer: L.geoJSON(geometryRequest, {
               style: {
                 stroke: false,
                 fillColor: '#5f8f2c',

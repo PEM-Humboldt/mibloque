@@ -1,9 +1,6 @@
 /** eslint verified */
 import axios from 'axios';
 
-// Data mockups
-import { geometryDAGMA } from '../assets/mockups/summaryData';
-
 class RestAPI {
   /** **************** */
   /** HOME INFORMATION */
@@ -44,6 +41,19 @@ class RestAPI {
   static requestGeometryByArea(name) {
     return RestAPI.makeGetRequest(`anh_areas/${name}/biomes/geometry`);
   }
+
+  /**
+   * Request biomes data by area name
+   *
+   * @param {String} name anh area to request biomes data
+   */
+  static requestBiomesDataByArea(name) {
+    return RestAPI.makeGetRequest(`anh_areas/${name}/biomes`);
+  }
+
+  /** ********************** */
+  /** INDICATORS INFORMATION */
+  /** ********************** */
 
   /**
    * Request indicators list by area
