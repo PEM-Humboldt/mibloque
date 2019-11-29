@@ -36,7 +36,9 @@ const RenderGraph = (
     );
   }
   return (
-    <ParentSize>
+    <ParentSize
+      key={title}
+    >
       {(parent) => (
         parent.width ? (
           <GraphLoader
