@@ -10,9 +10,6 @@ import Layout from './Layout';
 import RenderGraph from './graphs/RenderGraph';
 import RestAPI from './commons/RestAPI';
 
-// Data mockups
-import { graphData1 } from './assets/mockups/summaryData';
-
 // Images to import
 import protegidas from './assets/img/protegidas.png';
 import reservas from './assets/img/reservas.png';
@@ -29,6 +26,7 @@ class Summary extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      biomesDataGraps: {},
       connError: false,
       layers: {},
     };
@@ -39,7 +37,9 @@ class Summary extends React.Component {
     const validData = activeArea && activeArea.name;
     if (validData) {
       const geometryRequest = await RestAPI.requestGeometryByArea(activeArea.name);
+      const biomesRequest = await RestAPI.requestBiomesDataByArea(activeArea.name);
       this.setState({
+        biomesDataGraps: biomesRequest,
         layers: {
           area: {
             displayName: activeArea.name,
@@ -81,7 +81,9 @@ class Summary extends React.Component {
   };
 
   render() {
-    const { connError, layers } = this.state;
+    const {
+      biomesDataGraps, connError, layers,
+    } = this.state;
     const { activeArea } = this.props;
     return (
       (activeArea && (
@@ -133,7 +135,7 @@ class Summary extends React.Component {
               <h1>Sobre el área</h1>
               <div className="line" />
               <h5 className="hectareas">
-                <b>{numberWithCommas(activeArea.area)}</b>
+                <b>{numberWithCommas(Number(activeArea.area).toFixed(2))}</b>
                 {' '}
                 ha
               </h5>
@@ -188,23 +190,13 @@ class Summary extends React.Component {
               <div className="line" />
               <br />
               <div>
-                {graphData1
-                  ? RenderGraph(
-                    graphData1, '', '', 'SmallBarStackGraph',
-                    'Orobioma', '', ['#5e8f2c', '#fff'], null, null,
+                {
+                  biomesDataGraps && Object.values(biomesDataGraps).map((biome) => RenderGraph(
+                    [activeArea, biome], '', '', 'SmallBarStackGraph',
+                    biome.name, '', ['#5e8f2c', '#fff'], null, null,
                     '', '%',
-                  )
-                  : 'Cargando...'}
-              </div>
-              <br />
-              <div>
-                {graphData1
-                  ? RenderGraph(
-                    graphData1, '', '', 'SmallBarStackGraph',
-                    'Zoonobioma', '', ['#5f8f2c', '#fff'], null, null,
-                    '', '%',
-                  )
-                  : 'Cargando...'}
+                  ))
+                }
               </div>
             </div>
           </section>
