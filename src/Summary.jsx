@@ -36,7 +36,8 @@ class Summary extends React.Component {
 
   async componentDidMount() {
     const { activeArea } = this.props;
-    if (activeArea) {
+    const validData = activeArea && activeArea.name;
+    if (validData) {
       const geometryRequest = await RestAPI.requestGeometryByArea(activeArea.name);
       this.setState({
         layers: {
@@ -53,6 +54,10 @@ class Summary extends React.Component {
             }),
           },
         },
+      });
+    } else {
+      this.setState({
+        connError: true,
       });
     }
   }
