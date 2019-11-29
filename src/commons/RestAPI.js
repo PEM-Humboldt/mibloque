@@ -42,6 +42,16 @@ class RestAPI {
     return RestAPI.makeGetRequest(`anh_areas/${name}/biomes/geometry`);
   }
 
+  /**
+   * Request biomes data for graphs by name
+   *
+   * @param {String} name anh area to request biomes data
+   */
+
+  static requestBiomesDataByArea(name) {
+    return RestAPI.makeGetRequest(`anh_areas/${name}/biomes`);
+  }
+
   /** ********************** */
   /** INDICATORS INFORMATION */
   /** ********************** */
