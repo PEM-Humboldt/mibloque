@@ -27,8 +27,21 @@ class Summary extends React.Component {
     super(props);
     this.state = {
       biomesDataGraps: {},
+      colors: [
+        '#003d59',
+        '#5a1d44',
+        '#902130',
+        '#6d819c',
+        '#db9d6b',
+        '#fb9334',
+        '#fe6625',
+        '#ab5727',
+        '#44857d',
+        '#167070',
+      ],
       connError: false,
       layers: {},
+      featuresCounter: 0,
     };
   }
 
@@ -46,11 +59,7 @@ class Summary extends React.Component {
             id: 1,
             active: true,
             layer: L.geoJSON(geometryRequest, {
-              style: {
-                stroke: false,
-                fillColor: '#5f8f2c',
-                fillOpacity: 0.7,
-              },
+              style: this.getStyle,
             }),
           },
         },
@@ -61,6 +70,19 @@ class Summary extends React.Component {
       });
     }
   }
+
+  /**
+   * Return a color code according to as many features are in a layer
+   */
+  getStyle = () => {
+    const { colors, featuresCounter } = this.state;
+    this.setState({ featuresCounter: featuresCounter + 1 });
+    return {
+      stroke: false,
+      fillColor: colors[featuresCounter],
+      fillOpacity: 0.7,
+    };
+  };
 
   /**
    * Report a connection error from one of the child components
@@ -192,7 +214,10 @@ class Summary extends React.Component {
               <div>
                 {
                   biomesDataGraps && Object.values(biomesDataGraps).map((biome) => RenderGraph(
-                    [activeArea, biome], '', '', 'SmallBarStackGraph',
+                    [{
+                      empty: (activeArea.area - biome.area),
+                      [biome.name]: biome.area,
+                    }], '', '', 'SmallBarStackGraph',
                     biome.name, '', ['#5e8f2c', '#fff'], null, null,
                     '', '%',
                   ))
