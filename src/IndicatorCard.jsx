@@ -84,14 +84,14 @@ class IndicatorCard extends React.Component {
 IndicatorCard.propTypes = {
   code: PropTypes.number,
   name: PropTypes.string,
-  values: PropTypes.array,
+  values: PropTypes.any,
   size: PropTypes.number,
 };
 
 IndicatorCard.defaultProps = {
   code: 1,
   name: '',
-  values: [],
+  values: null,
   size: 1,
 };
 
