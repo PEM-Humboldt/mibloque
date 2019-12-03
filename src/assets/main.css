@@ -66,7 +66,7 @@ header {
 header h3 {
   font-size: 36px;
   color: #000000;
-  padding: 36px 0 40px 50px;
+  padding: 36px 10px 40px 50px;
   text-transform: uppercase;
   font-weight: 300;
 }
@@ -243,7 +243,7 @@ h1 {
   font-weight: 500;
   }
 
-.sectionhome input[type=search] {
+/*.sectionhome input[type=search] {
   padding: 15px;
   width: 100%;
   display: block;
@@ -254,25 +254,41 @@ h1 {
   font-weight: 300;
   font-style: italic;
   color: #B19980;
+  box-shadow: 2px 5px 8px rgba(0,0,0,.12), 2px 5px 8px rgba(0,0,0,.14);
+  outline: none;
+  margin-bottom: 10px;
+}*/
+
+.home_selector div[class*="control"] {
+  padding: 15px !important;
+  background-color: #fff;
+  border: 1px solid #EDA539 !important;
+  border-radius: 10px !important;
   box-shadow: 2px 5px 8px rgba(0,0,0,.12), 2px 5px 8px rgba(0,0,0,.14);
   outline: none;
   margin-bottom: 10px;
 }
 
+.home_selector div[class*="control"] > div:first-of-type {
+  padding: 0 !important;
+  }
+
 .home_selector {
-  padding: 15px;
-  width: 100%;
-  display: block;
-  background-color: #fff;
-  border: 1px solid #EDA539;
-  border-radius: 10px;
+  color: #B19980;
   font-size: 20px;
   font-weight: 300;
   font-style: italic;
+  width: 100%;
+  display: block;
+}
+
+.home_selector div[class*="1n7v3ny"] {
+  background-color: #E8D6C3;
+}
+
+.home_selector div[class*="9gakcf"] {
+  background-color: transparent;
   color: #B19980;
-  box-shadow: 2px 5px 8px rgba(0,0,0,.12), 2px 5px 8px rgba(0,0,0,.14);
-  outline: none;
-  margin-bottom: 10px;
 }
 
 .formbtns {
@@ -456,12 +472,17 @@ footer h2 {
   color: #5DB2BA;
   font-size: 22px;
   display: block;
-  padding: 25px 0;
+  padding: 0 0 25px;
   font-weight: 400;
 }
 
 .hectareas b {
   font-weight: 600;
+}
+
+.vulne {
+  padding: 25px 0 0;
+  color: #D37750;
 }
 
 .blockdata p {
@@ -478,7 +499,8 @@ footer h2 {
 }
 
 .nogo {
-  opacity: .3;
+  /*opacity: .3;*/
+  display: none;
 }
 
 .filtros {

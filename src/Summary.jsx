@@ -21,6 +21,8 @@ import etnicas from './assets/img/etnicas.png';
 import campesinas from './assets/img/campesinas.png';
 import infraestructura from './assets/img/infraestructura.png';
 import ordenamiento from './assets/img/ordenamiento.png';
+import internacional from './assets/img/internacional.png';
+import licencias from './assets/img/licencias.png';
 
 // Thousands number format
 const numberWithCommas = (x) => x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -132,6 +134,11 @@ class Summary extends React.Component {
               </Link>
               <h1>Sobre el área</h1>
               <div className="line" />
+              <h5 className="hectareas vulne">
+                Vulnerabilidad:
+                {' '}
+                <b>0,33</b>
+              </h5>
               <h5 className="hectareas">
                 <b>{numberWithCommas(activeArea.area)}</b>
                 {' '}
@@ -179,6 +186,18 @@ class Summary extends React.Component {
                   src={ordenamiento}
                   alt="Ordenamiento"
                   title="Ordenamiento"
+                />
+                <img
+                  className={activeArea.categories.international ? '' : 'nogo'}
+                  src={internacional}
+                  alt="Protección internacional"
+                  title="Protección internacional"
+                />
+                <img
+                  className={activeArea.categories.license ? '' : 'nogo'}
+                  src={licencias}
+                  alt="Licencias ambientales"
+                  title="Licencias ambientales"
                 />
               </div>
               <p>
