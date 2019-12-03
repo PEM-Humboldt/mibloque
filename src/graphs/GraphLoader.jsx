@@ -11,23 +11,25 @@ const GraphLoader = (
    *
    * @param {string}  graphType graph types name,
    *  this param validates which graph to render
-   * @param {array} colors color palette to sort elements inside the graph
+
    * @param {object}  data values to render,
-   * @param {string}  title title to render if the selected graph allows it,
-   * @param {string}  subtitle subtitle to render if the selected graph allows it,
    * @param {string}  labelX information showed in the graph label X,
    * @param {string}  labelY information showed in the graph label Y,
+   * @param {string}  graphType Type of graph to render,
+   * @param {string}  title title to render if the selected graph allows it,
+   * @param {string}  subtitle subtitle to render if the selected graph allows it,
+   * @param {array}   colors color palette to sort elements inside the graph
    * @param {string}  units information showed in the graph,
    * @param {string}  width dynamic width sent by parent component,
    * @param {string}  height dynamic height sent by parent component,
    */
-    colors,
     data,
-    title,
-    subtitle,
-    graphType,
     labelX,
     labelY,
+    graphType,
+    title,
+    subtitle,
+    colors,
     units,
     width,
     height,
@@ -142,6 +144,120 @@ const GraphLoader = (
               vAxis: { title: 'Fertility Rate' },
               bubble: { textStyle: { fontSize: 11 } },
             }}
+          />
+        )
+        : ('')
+    }
+    {
+      (graphType === 'Bar')
+        ? (
+          <Chart
+            width={width}
+            height={height}
+            chartType="Bar"
+            loader={<div>Loading Chart</div>}
+            data={[
+              ['Year', 'Sales', 'Expenses', 'Profit'],
+              ['2014', 1000, 400, 200],
+              ['2015', 1170, 460, 250],
+              ['2016', 660, 1120, 300],
+              ['2017', 1030, 540, 350],
+            ]}
+            options={{
+              // Material design options
+              chart: {
+                title,
+                subtitle,
+              },
+            }}
+            // For tests
+            rootProps={{ 'data-testid': '2' }}
+          />
+        )
+        : ('')
+    }
+    {
+      (graphType === 'Sankey')
+        ? (
+          <Chart
+            width={width}
+            height={height}
+            chartType="Sankey"
+            loader={<div>Loading Chart</div>}
+            data={[
+              ['From', 'To', 'Weight'],
+              ['A', 'X', 5],
+              ['A', 'Y', 7],
+              ['A', 'Z', 6],
+              ['B', 'X', 2],
+              ['B', 'Y', 9],
+              ['B', 'Z', 4],
+            ]}
+            options={{
+              // Material design options
+              chart: {
+                title,
+                subtitle,
+              },
+            }}
+            rootProps={{ 'data-testid': '1' }}
+          />
+        )
+        : ('')
+    }
+    {
+      (graphType === 'TreeMap')
+        ? (
+          <Chart
+            width={width}
+            height={height}
+            chartType="TreeMap"
+            loader={<div>Loading Chart</div>}
+            data={[
+              [
+                'Location',
+                'Parent',
+                'Market trade volume (size)',
+                'Market increase/decrease (color)',
+              ],
+              ['Global', null, 0, 0],
+              ['America', 'Global', 0, 0],
+              ['Europe', 'Global', 0, 0],
+              ['Asia', 'Global', 0, 0],
+              ['Australia', 'Global', 0, 0],
+              ['Africa', 'Global', 0, 0],
+              ['Brazil', 'America', 11, 10],
+              ['USA', 'America', 52, 31],
+              ['Mexico', 'America', 24, 12],
+              ['Canada', 'America', 16, -23],
+              ['France', 'Europe', 42, -11],
+              ['Germany', 'Europe', 31, -2],
+              ['Sweden', 'Europe', 22, -13],
+              ['Italy', 'Europe', 17, 4],
+              ['UK', 'Europe', 21, -5],
+              ['China', 'Asia', 36, 4],
+              ['Japan', 'Asia', 20, -12],
+              ['India', 'Asia', 40, 63],
+              ['Laos', 'Asia', 4, 34],
+              ['Mongolia', 'Asia', 1, -5],
+              ['Iran', 'Asia', 18, 13],
+              ['Pakistan', 'Asia', 11, -52],
+              ['Egypt', 'Africa', 21, 0],
+              ['S. Africa', 'Africa', 30, 43],
+              ['Sudan', 'Africa', 12, 2],
+              ['Congo', 'Africa', 10, 12],
+              ['Zaire', 'Africa', 8, 10],
+            ]}
+            options={{
+              title,
+              minColor: '#f00',
+              midColor: '#ddd',
+              maxColor: '#0d0',
+              headerHeight: 15,
+              fontColor: 'black',
+              showScale: true,
+            }}
+            rootProps={{ 'data-testid': '1' }}
           />
         )
         : ('')
