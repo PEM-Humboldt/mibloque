@@ -137,7 +137,7 @@ class Summary extends React.Component {
               <h5 className="hectareas vulne">
                 Vulnerabilidad:
                 {' '}
-                <b>{numberWithCommas(Number(activeArea.vulnerability).toFixed(2))}</b>
+                <b>{activeArea.vulnerability ? numberWithCommas(Number(activeArea.vulnerability).toFixed(2)) : 'Sin información disponible'}</b>
               </h5>
               <h5 className="hectareas">
                 <b>{numberWithCommas(activeArea.area)}</b>
