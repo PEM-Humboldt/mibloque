@@ -50,7 +50,6 @@ class Summary extends React.Component {
 
   async componentDidMount() {
     const { activeArea } = this.props;
-    const { colors, colorPerBiome, featuresCounter } = this.state;
     const validData = activeArea && activeArea.name;
     if (validData) {
       const geometryRequest = await RestAPI.requestGeometryByArea(activeArea.name);
@@ -64,15 +63,7 @@ class Summary extends React.Component {
             active: true,
             layer: L.geoJSON(geometryRequest, {
               style: (feature) => {
-                const localColor = colors[featuresCounter];
-                console.log(feature);
-                console.log(localColor);
-                this.setState({
-                  colorPerBiome: [
-                    { [feature.properties.name_biome]: colors[featuresCounter] },
-                  ],
-                  featuresCounter: featuresCounter + 1,
-                });
+                const localColor = this.setColor(feature.properties.name_biome);
                 return {
                   stroke: false,
                   fillColor: localColor,
@@ -90,12 +81,19 @@ class Summary extends React.Component {
     }
   }
 
-  /**
-   * Return a color code according to as many features are in a layer
-   */
-  getStyle = () => {
-    const { colorPerBiome } = this.state;
-    return colorPerBiome.map((element) => eleme);
+  setColor = (name) => {
+    const { colorPerBiome, colors, featuresCounter } = this.state;
+    this.setState({
+      colorPerBiome: [
+        ...colorPerBiome,
+        {
+          name,
+          color: colors[featuresCounter],
+        },
+      ],
+      featuresCounter: featuresCounter + 1,
+    });
+    return colors[featuresCounter];
   };
 
   /**
@@ -103,7 +101,7 @@ class Summary extends React.Component {
    */
   getColorCode = (name) => {
     const { colorPerBiome } = this.state;
-    return colorPerBiome.find((element) => element.key === name);
+    return colorPerBiome.find((element) => element.name === name).color;
   }
 
   /**
@@ -184,7 +182,7 @@ class Summary extends React.Component {
                 <b>{activeArea.vulnerability ? numberWithCommas(Number(activeArea.vulnerability).toFixed(2)) : 'Sin información disponible'}</b>
               </h5>
               <h5 className="hectareas">
-                <b>{numberWithCommas(Number(activeArea.area).toFixed(2))}</b>
+                <b>{activeArea.area ? numberWithCommas(Number(activeArea.area).toFixed(2)) : 'Sin información disponible'}</b>
                 {' '}
                 ha
               </h5>
@@ -264,7 +262,8 @@ class Summary extends React.Component {
                         },
                       ], '', '', 'SmallBarStackGraph',
                       biome.name, '', [localColor, '#fff'], 'ha',
-                    )})
+                    );
+                  })
                 }
               </div>
             </div>
