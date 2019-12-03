@@ -92,22 +92,16 @@ class Summary extends React.Component {
    * Return a color code according to as many features are in a layer
    */
   getStyle = () => {
-    const { colors, featuresCounter } = this.state;
-    this.setState({ featuresCounter: featuresCounter + 1 });
-    return {
-      stroke: false,
-      fillColor: colors[featuresCounter],
-      fillOpacity: 0.5,
-    };
+    const { colorPerBiome } = this.state;
+    return colorPerBiome.map((element) => eleme);
   };
 
   /**
    * Count biomes to set color
    */
-  getColorCode = () => {
-    const { colors, biomesCounter } = this.state;
-    const colorSelected = colors[biomesCounter];
-    return colorSelected;
+  getColorCode = (name) => {
+    const { colorPerBiome } = this.state;
+    return colorPerBiome.find((element) => element.key === name);
   }
 
   /**
@@ -240,7 +234,7 @@ class Summary extends React.Component {
               <div>
                 {
                   biomesDataGraps && Object.values(biomesDataGraps).map((biome) => {
-                    const localColor = this.getColorCode();
+                    const localColor = this.getColorCode(biome.name);
                     return RenderGraph(
                       [
                         biome,
