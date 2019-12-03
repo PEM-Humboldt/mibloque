@@ -26,6 +26,7 @@ class Summary extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      colorPerBiome: {},
       biomesDataGraps: {},
       colors: [
         '#003d59',
@@ -40,13 +41,14 @@ class Summary extends React.Component {
         '#167070',
       ],
       connError: false,
-      layers: {},
       featuresCounter: 0,
+      layers: {},
     };
   }
 
   async componentDidMount() {
     const { activeArea } = this.props;
+    const { colors, colorPerBiome, featuresCounter } = this.state;
     const validData = activeArea && activeArea.name;
     if (validData) {
       const geometryRequest = await RestAPI.requestGeometryByArea(activeArea.name);
@@ -59,7 +61,21 @@ class Summary extends React.Component {
             id: 1,
             active: true,
             layer: L.geoJSON(geometryRequest, {
-              style: this.getStyle,
+              style: (feature) => {
+                console.log(feature);
+                this.setState({
+                  colorPerBiome: {
+                    ...colorPerBiome,
+                    [feature.properties.name_biome]: colors[featuresCounter],
+                  },
+                  featuresCounter: featuresCounter + 1,
+                });
+                return {
+                  stroke: false,
+                  fillColor: colors[featuresCounter],
+                  fillOpacity: 0.5,
+                };
+              },
             }),
           },
         },
@@ -80,9 +96,18 @@ class Summary extends React.Component {
     return {
       stroke: false,
       fillColor: colors[featuresCounter],
-      fillOpacity: 0.7,
+      fillOpacity: 0.5,
     };
   };
+
+  /**
+   * Count biomes to set color
+   */
+  getColorCode = () => {
+    const { colors, biomesCounter } = this.state;
+    const colorSelected = colors[biomesCounter];
+    return colorSelected;
+  }
 
   /**
    * Report a connection error from one of the child components
@@ -213,14 +238,19 @@ class Summary extends React.Component {
               <br />
               <div>
                 {
-                  biomesDataGraps && Object.values(biomesDataGraps).map((biome) => RenderGraph(
-                    [{
-                      empty: (activeArea.area - biome.area),
-                      [biome.name]: biome.area,
-                    }], '', '', 'SmallBarStackGraph',
-                    biome.name, '', ['#5e8f2c', '#fff'], null, null,
-                    '', '%',
-                  ))
+                  biomesDataGraps && Object.values(biomesDataGraps).map((biome) => {
+                    const localColor = this.getColorCode();
+                    return RenderGraph(
+                      [
+                        biome,
+                        {
+                          area: (activeArea.area - biome.area),
+                          type: 'empty',
+                          color: '#fff',
+                        },
+                      ], '', '', 'SmallBarStackGraph',
+                      biome.name, '', [localColor, '#fff'], 'ha',
+                    )})
                 }
               </div>
             </div>
