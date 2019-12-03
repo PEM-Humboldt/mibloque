@@ -31,39 +31,22 @@ class IndicatorsDash extends React.Component {
     const areaId = (activeArea && activeArea.name) ? activeArea.name : null;
     if (areaId) {
       this.loadIndicators(areaId);
-      this.loadTopics(areaId);
     } else {
       this.reportConnError();
     }
   }
 
   /**
-   * Load indicators for selected area from RestAPI
+   * Load indicators and topics list for selected area from RestAPI
    *
    * @param {string} areaId id for selected area
    */
   loadIndicators = (areaId) => {
     RestAPI.requestIndicatorsByArea(areaId)
       .then((res) => {
-        this.setState({
-          data: res.indicators,
-        });
-      })
-      .catch(() => {
-        this.reportConnError();
-      });
-  }
-
-  /**
-   * Load topic list for selected area from RestAPI
-   *
-   * @param {string} areaId id for selected area
-   */
-  loadTopics = (areaId) => {
-    RestAPI.requestIndicatorsByArea(areaId)
-      .then((res) => {
         res.topics.unshift('Todas');
         this.setState({
+          data: res.indicators,
           tabs: res.topics,
         });
       })
@@ -106,7 +89,7 @@ class IndicatorsDash extends React.Component {
       >
         {data.filter((post) => activeTab === 'Todas' || post.topics.includes(activeTab)).map((item) => (
           <IndicatorCard
-            key={item.code}
+            key={item.name}
             code={item.code}
             size={item.size}
             name={item.name}

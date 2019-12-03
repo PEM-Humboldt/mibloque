@@ -62,7 +62,7 @@ class IndicatorCard extends React.Component {
 
     return (
       <Link to="/indicator">
-        <div className={this.validClassIndicator(size).validClass} key={code}>
+        <div className={this.validClassIndicator(size).validClass} key={name}>
           {values
             ? RenderGraph(
               values,
