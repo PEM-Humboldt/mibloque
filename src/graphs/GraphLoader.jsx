@@ -159,9 +159,6 @@ const GraphLoader = (
             data={[
               ['Year', 'Sales', 'Expenses', 'Profit'],
               ['2014', 1000, 400, 200],
-              ['2015', 1170, 460, 250],
-              ['2016', 660, 1120, 300],
-              ['2017', 1030, 540, 350],
             ]}
             options={{
               // Material design options
@@ -172,6 +169,36 @@ const GraphLoader = (
             }}
             // For tests
             rootProps={{ 'data-testid': '2' }}
+          />
+        )
+        : ('')
+    }
+    {
+      (graphType === 'BarChart')
+        ? (
+          <Chart
+            width={width}
+            height={height}
+            chartType="BarChart"
+            loader={<div>Loading Chart</div>}
+            data={[
+              ['City', '2010 Population', '2000 Population'],
+              ['New York City, NY', 8175000, 8008000],
+            ]}
+            options={{
+              title: 'Population of Largest U.S. Cities',
+              chartArea: { width: '50%' },
+              isStacked: true,
+              hAxis: {
+                title: 'Total Population',
+                minValue: 0,
+              },
+              vAxis: {
+                title: 'City',
+              },
+            }}
+            // For tests
+            rootProps={{ 'data-testid': '3' }}
           />
         )
         : ('')

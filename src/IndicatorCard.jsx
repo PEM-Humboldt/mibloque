@@ -46,10 +46,10 @@ class IndicatorCard extends React.Component {
         validGraphType = 'TreeMap';
         break;
       case 4:
-        validGraphType = 'Line';
+        validGraphType = 'BarChart';
         break;
       default:
-        validGraphType = 'Line';
+        validGraphType = 'BarChart';
         break;
     }
     return { validGraphType };
