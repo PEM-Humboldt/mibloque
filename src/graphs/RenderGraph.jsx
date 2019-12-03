@@ -40,16 +40,16 @@ const RenderGraph = (
       {(parent) => (
         parent.width ? (
           <GraphLoader
-            width={parent.width}
-            height={parent.height}
-            graphType={graph}
             data={data}
             labelX={labelX}
             labelY={labelY}
+            graphType={graph}
             title={title}
+            subtitle={subtitle}
             colors={colors}
             units={units}
-            subtitle={subtitle}
+            width={parent.width}
+            height={parent.height}
           />
         ) : ('')
       )}

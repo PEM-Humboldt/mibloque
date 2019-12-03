@@ -5,49 +5,72 @@ import RenderGraph from './graphs/RenderGraph';
 
 class IndicatorCard extends React.Component {
   /**
-   * Return correct CSS class and GraphType based on card size
+   * Return correct CSS class based on card size
    *
    * @param {string} size Indicator card size
    */
   validClassIndicator = (size) => {
     let validClass = null;
-    let validGraphType = null;
     switch (size) {
-      case '1':
+      case 1:
         validClass = 'boxes';
-        validGraphType = 'Line';
         break;
-      case '2':
+      case 2:
         validClass = 'boxes box2';
-        validGraphType = 'PieChart';
         break;
-      case '3':
+      case 3:
         validClass = 'boxes box3';
-        validGraphType = 'BubbleChart';
         break;
       default:
         validClass = 'boxes';
-        validGraphType = 'Line';
         break;
     }
-    return { validClass, validGraphType };
+    return { validClass };
+  };
+
+  /**
+   * Return correct graph type based on card code
+   *
+   * @param {string} code Indicator card code to find graph type
+   */
+  validGraphType = (code) => {
+    let validGraphType = null;
+    switch (code) {
+      case 1:
+        validGraphType = 'Bar';
+        break;
+      case 2:
+        validGraphType = 'Sankey';
+        break;
+      case 3:
+        validGraphType = 'TreeMap';
+        break;
+      case 4:
+        validGraphType = 'BarChart';
+        break;
+      default:
+        validGraphType = 'BarChart';
+        break;
+    }
+    return { validGraphType };
   };
 
   render() {
     const {
-      id, size, typeName, values,
+      code, size, name, values,
     } = this.props;
+
     return (
       <Link to="/indicator">
-        <div className={this.validClassIndicator(size).validClass} key={id}>
+        <div className={this.validClassIndicator(size).validClass} key={name}>
           {values
             ? RenderGraph(
               values,
               '',
               '',
-              this.validClassIndicator(size).validGraphType,
-              typeName,
-              id,
+              this.validGraphType(code).validGraphType,
+              name,
+              null,
               ['#5f8f2c', '#fff'],
               null,
             )
@@ -59,17 +82,17 @@ class IndicatorCard extends React.Component {
 }
 
 IndicatorCard.propTypes = {
-  id: PropTypes.string,
-  typeName: PropTypes.string,
-  values: PropTypes.array,
-  size: PropTypes.string,
+  code: PropTypes.number,
+  name: PropTypes.string,
+  values: PropTypes.any,
+  size: PropTypes.number,
 };
 
 IndicatorCard.defaultProps = {
-  id: '',
-  typeName: '',
-  values: [],
-  size: '1',
+  code: 1,
+  name: '',
+  values: null,
+  size: 1,
 };
 
 export default IndicatorCard;

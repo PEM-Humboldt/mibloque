@@ -21,7 +21,8 @@ class IndicatorsDash extends React.Component {
     this.state = {
       connError: false,
       data: [],
-      activeTab: 'all',
+      tabs: [],
+      activeTab: 'Todas',
     };
   }
 
@@ -36,15 +37,17 @@ class IndicatorsDash extends React.Component {
   }
 
   /**
-   * Load indicators for selected area from RestAPI
+   * Load indicators and topics list for selected area from RestAPI
    *
    * @param {string} areaId id for selected area
    */
   loadIndicators = (areaId) => {
     RestAPI.requestIndicatorsByArea(areaId)
       .then((res) => {
+        res.topics.unshift('Todas');
         this.setState({
-          data: res,
+          data: res.indicators,
+          tabs: res.topics,
         });
       })
       .catch(() => {
@@ -75,29 +78,22 @@ class IndicatorsDash extends React.Component {
       connError,
       data,
       activeTab,
+      tabs,
     } = this.state;
 
     const { activeArea } = this.props;
 
-    const tabs = {
-      all: 'Todas',
-      riesgo: 'Riesgo Biodiversidad',
-      costo: 'Costo de Compensación',
-      oportunidad: 'Oportunidad',
-      monitoreo: 'Monitoreo',
-      bioma: 'Bioma',
-    };
     const masonryComp = (
       <Masonry
         options={masonryOptions}
       >
-        {data.filter((post) => activeTab === 'all' || post.group.includes(activeTab)).map((item) => (
+        {data.filter((post) => activeTab === 'Todas' || post.topics.includes(activeTab)).map((item) => (
           <IndicatorCard
-            key={item.id}
-            id={item.id}
-            typeName={item.typeName}
-            values={item.values}
+            key={item.name}
+            code={item.code}
             size={item.size}
+            name={item.name}
+            values={item.values}
           />
         ))}
       </Masonry>
@@ -136,14 +132,14 @@ class IndicatorsDash extends React.Component {
         <section className="sectionintern">
           <div className="internheader" />
           <div className="filtros">
-            {Object.keys(tabs).map((tabKey) => (
+            {tabs.map((tabKey) => (
               <a
                 key={tabKey}
                 href={`#${tabKey}`}
                 className={(tabKey === activeTab && 'filteron') || ''}
                 onClick={() => this.setState({ activeTab: tabKey })}
               >
-                {tabs[tabKey]}
+                {tabKey}
               </a>
             ))}
           </div>

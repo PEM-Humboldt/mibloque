@@ -120,7 +120,7 @@ class Indicator extends React.Component {
             <div className="indicator">
               {graphData1
                 ? RenderGraph(
-                  graphData1, '', '', 'Line',
+                  graphData1, '', '', 'TreeMap',
                   'Cobertura', 'Tendencia', ['#5f8f2c', '#fff'], null, null,
                   '', '%',
                 )
