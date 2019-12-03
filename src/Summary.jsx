@@ -26,7 +26,7 @@ class Summary extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      colorPerBiome: {},
+      colorPerBiome: [],
       biomesDataGraps: {},
       colors: [
         '#003d59',
@@ -62,17 +62,18 @@ class Summary extends React.Component {
             active: true,
             layer: L.geoJSON(geometryRequest, {
               style: (feature) => {
+                const localColor = colors[featuresCounter];
                 console.log(feature);
+                console.log(localColor);
                 this.setState({
-                  colorPerBiome: {
-                    ...colorPerBiome,
-                    [feature.properties.name_biome]: colors[featuresCounter],
-                  },
+                  colorPerBiome: [
+                    { [feature.properties.name_biome]: colors[featuresCounter] },
+                  ],
                   featuresCounter: featuresCounter + 1,
                 });
                 return {
                   stroke: false,
-                  fillColor: colors[featuresCounter],
+                  fillColor: localColor,
                   fillOpacity: 0.5,
                 };
               },
