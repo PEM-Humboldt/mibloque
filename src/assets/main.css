@@ -243,22 +243,6 @@ h1 {
   font-weight: 500;
   }
 
-/*.sectionhome input[type=search] {
-  padding: 15px;
-  width: 100%;
-  display: block;
-  background-color: #fff;
-  border: 1px solid #EDA539;
-  border-radius: 10px;
-  font-size: 20px;
-  font-weight: 300;
-  font-style: italic;
-  color: #B19980;
-  box-shadow: 2px 5px 8px rgba(0,0,0,.12), 2px 5px 8px rgba(0,0,0,.14);
-  outline: none;
-  margin-bottom: 10px;
-}*/
-
 .home_selector div[class*="control"] {
   padding: 15px !important;
   background-color: #fff;
