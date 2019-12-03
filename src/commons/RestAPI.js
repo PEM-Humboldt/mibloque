@@ -33,12 +33,23 @@ class RestAPI {
   /** SUMMARY INFORMATION */
   /** ******************* */
 
+
   /**
    * Request area geometry by name
    *
    * @param {String} name anh area to request geometry divided by biomes
    */
   static requestGeometryByArea(name) {
+    return RestAPI.makeGetRequest(`anh_areas/${name}/geometry`);
+  }
+
+
+  /**
+   * Request area geometry with biomes by name
+   *
+   * @param {String} name anh area to request geometry divided by biomes
+   */
+  static requestBiomesGeometryWithArea(name) {
     return RestAPI.makeGetRequest(`anh_areas/${name}/biomes/geometry`);
   }
 

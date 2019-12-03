@@ -52,7 +52,7 @@ class Summary extends React.Component {
     const { activeArea } = this.props;
     const validData = activeArea && activeArea.name;
     if (validData) {
-      const geometryRequest = await RestAPI.requestGeometryByArea(activeArea.name);
+      const geometryRequest = await RestAPI.requestBiomesGeometryWithArea(activeArea.name);
       const biomesRequest = await RestAPI.requestBiomesDataByArea(activeArea.name);
       this.setState({
         biomesDataGraps: biomesRequest,
@@ -101,7 +101,7 @@ class Summary extends React.Component {
    */
   getColorCode = (name) => {
     const { colorPerBiome } = this.state;
-    return colorPerBiome.find((element) => element.name === name).color;
+    return (colorPerBiome.name !== undefined) ? colorPerBiome.find((element) => element.name === name).color : '#fe6625';
   }
 
   /**
