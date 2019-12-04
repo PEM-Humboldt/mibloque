@@ -37,7 +37,7 @@ class IndicatorCard extends React.Component {
     let validGraphType = null;
     switch (code) {
       case 1:
-        validGraphType = 'Bar';
+        validGraphType = 'ColumnChart';
         break;
       case 2:
         validGraphType = 'Sankey';

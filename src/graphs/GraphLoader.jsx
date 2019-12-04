@@ -52,7 +52,7 @@ const GraphLoader = (
         />
       );
       break;
-    case 'Bar':
+    case 'ColumnChart':
       graph = (
         <Chart
           width={width}
@@ -68,7 +68,7 @@ const GraphLoader = (
           options={{
             title: 'Hectareas de Bosque Natural y Secundaria para cada año por Bioma',
             chartArea: { width: '70%' },
-            isStacked: 'percent',
+            isStacked: true,
             legend: { position: 'bottom', maxLines: 3 },
             hAxis: {
               title: 'Zonobioma Alternohigrico Tropical Tolima grande',
