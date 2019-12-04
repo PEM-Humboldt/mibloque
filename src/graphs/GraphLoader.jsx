@@ -57,17 +57,25 @@ const GraphLoader = (
         <Chart
           width={width}
           height={height}
-          chartType="Bar"
+          chartType="ColumnChart"
           loader={<div>Loading Chart</div>}
           data={[
-            ['Year', 'Sales', 'Expenses', 'Profit'],
-            ['2014', 1000, 400, 200],
+            ['Zonobioma Alternohigrico Tropical Tolima grande', 'Natural', 'Secundario'],
+            ['2002', 2230.26000, 116.47900],
+            ['2009', 2203.60000, 46.93000],
+            ['2012', 2000.66000, 482.66500],
           ]}
           options={{
-            // Material design options
-            chart: {
-              title,
-              subtitle,
+            title: 'Hectareas de Bosque Natural y Secundaria para cada año por Bioma',
+            chartArea: { width: '70%' },
+            isStacked: 'percent',
+            legend: { position: 'bottom', maxLines: 3 },
+            hAxis: {
+              title: 'Zonobioma Alternohigrico Tropical Tolima grande',
+              minValue: 0,
+            },
+            vAxis: {
+              title: 'Hectareas',
             },
           }}
           // For tests
@@ -89,6 +97,7 @@ const GraphLoader = (
           options={{
             title: 'Population of Largest U.S. Cities',
             chartArea: { width: '50%' },
+            bars: 'vertical',
             isStacked: true,
             hAxis: {
               title: 'Total Population',
