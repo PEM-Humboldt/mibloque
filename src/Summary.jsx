@@ -10,9 +10,6 @@ import Layout from './Layout';
 import RenderGraph from './graphs/RenderGraph';
 import RestAPI from './commons/RestAPI';
 
-// Data mockups
-import { graphData1 } from './assets/mockups/summaryData';
-
 // Images to import
 import protegidas from './assets/img/protegidas.png';
 import reservas from './assets/img/reservas.png';
@@ -31,6 +28,20 @@ class Summary extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      colorPerBiome: {},
+      biomesDataGraps: {},
+      colors: [
+        '#003d59',
+        '#5a1d44',
+        '#902130',
+        '#6d819c',
+        '#db9d6b',
+        '#fb9334',
+        '#fe6625',
+        '#ab5727',
+        '#44857d',
+        '#167070',
+      ],
       connError: false,
       layers: {},
     };
@@ -38,21 +49,31 @@ class Summary extends React.Component {
 
   async componentDidMount() {
     const { activeArea } = this.props;
+    const { colors } = this.state;
     const validData = activeArea && activeArea.name;
     if (validData) {
-      const geometryRequest = await RestAPI.requestGeometryByArea(activeArea.name);
+      const geometryRequest = await RestAPI.requestBiomesGeometryWithArea(activeArea.name);
+      const biomesRequest = await RestAPI.requestBiomesDataByArea(activeArea.name);
+      const dictionaryColor = {};
+      let biomesCounter = 0;
+      biomesRequest.forEach((biome) => {
+        dictionaryColor[biome.name] = colors[biomesCounter];
+        biomesCounter += 1;
+      });
       this.setState({
+        biomesDataGraps: biomesRequest,
+        colorPerBiome: dictionaryColor,
         layers: {
           area: {
             displayName: activeArea.name,
             id: 1,
             active: true,
             layer: L.geoJSON(geometryRequest, {
-              style: {
+              style: (feature) => ({
                 stroke: false,
-                fillColor: '#5f8f2c',
-                fillOpacity: 0.7,
-              },
+                fillColor: dictionaryColor[feature.properties.name_biome],
+                fillOpacity: 0.5,
+              }),
             }),
           },
         },
@@ -62,6 +83,16 @@ class Summary extends React.Component {
         connError: true,
       });
     }
+  }
+
+  /**
+   * Return the color assigned to an specific biome
+   *
+   * @param {String} name biome name to search
+   */
+  getColorCode = (name) => {
+    const { colorPerBiome } = this.state;
+    return (name !== undefined) ? colorPerBiome[name] : '#fe6625';
   }
 
   /**
@@ -83,7 +114,9 @@ class Summary extends React.Component {
   };
 
   render() {
-    const { connError, layers } = this.state;
+    const {
+      biomesDataGraps, connError, layers,
+    } = this.state;
     const { activeArea } = this.props;
     return (
       (activeArea && (
@@ -140,7 +173,7 @@ class Summary extends React.Component {
                 <b>{activeArea.vulnerability ? numberWithCommas(Number(activeArea.vulnerability).toFixed(2)) : 'Sin información disponible'}</b>
               </h5>
               <h5 className="hectareas">
-                <b>{numberWithCommas(activeArea.area)}</b>
+                <b>{activeArea.area ? numberWithCommas(Number(activeArea.area).toFixed(2)) : 'Sin información disponible'}</b>
                 {' '}
                 ha
               </h5>
@@ -207,23 +240,44 @@ class Summary extends React.Component {
               <div className="line" />
               <br />
               <div>
-                {graphData1
-                  ? RenderGraph(
-                    graphData1, '', '', 'SmallBarStackGraph',
-                    'Orobioma', '', ['#5e8f2c', '#fff'], null, null,
-                    '', '%',
-                  )
-                  : 'Cargando...'}
-              </div>
-              <br />
-              <div>
-                {graphData1
-                  ? RenderGraph(
-                    graphData1, '', '', 'SmallBarStackGraph',
-                    'Zoonobioma', '', ['#5f8f2c', '#fff'], null, null,
-                    '', '%',
-                  )
-                  : 'Cargando...'}
+                {
+                  biomesDataGraps && Object.values(biomesDataGraps).map((biome) => {
+                    const localColor = this.getColorCode(biome.name);
+                    return (
+                      <div key={biome.name}>
+                        {
+                          RenderGraph(
+                            [
+                              biome,
+                              {
+                                area: (activeArea.area - biome.area),
+                                type: 'empty',
+                                color: '#fff',
+                              },
+                            ], '', '', 'SmallBarStackGraph',
+                            biome.name, '', [localColor, '#fff'], 'ha',
+                          )
+                        }
+                        {biome.area ? (
+                          <span key={biome.area}>
+                            <b>
+                              {`${numberWithCommas(Number(biome.area).toFixed(2))} `}
+                            </b>
+                              ha
+                          </span>
+                        ) : ''}
+                        {biome.compensation_factor ? (
+                          <span key={biome.compensation_factor}>
+                             · FC:
+                            <b>
+                              {`${numberWithCommas(Number(biome.compensation_factor).toFixed(2))} `}
+                            </b>
+                          </span>
+                        ) : ''}
+                      </div>
+                    );
+                  })
+                }
               </div>
             </div>
           </section>

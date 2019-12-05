@@ -25,11 +25,11 @@ const handleMouseOver = (event, datum, showTooltip) => {
 
 export default withTooltip(
   ({
+    colors,
     dataJSON,
     title,
     subtitle,
     width,
-    labelY,
     tooltipOpen,
     tooltipLeft,
     tooltipTop,
@@ -48,26 +48,24 @@ export default withTooltip(
     // accessors
     const y = () => 1;
 
-    const colors = scaleOrdinal({
+    const colorsCodes = scaleOrdinal({
       domain: Object.keys(dataJSON),
-      range: ['#d49242', '#e9c948', '#b3b638', '#5f8f2c', '#7b6126'],
+      range: colors,
     });
 
-    const prepareData = (data, setName) => {
-      const transformedData = {
-        key: setName,
-      };
+    const prepareData = (data) => {
+      const transformedData = {};
       data.forEach((item) => {
-        transformedData[item.key || item.type] = `${item.area || item.percentage}`;
+        transformedData[item.name] = `${item.area || item.percentage}`;
       });
       return transformedData;
     };
 
-    const data = [prepareData(dataJSON, labelY)];
-    const keys = dataJSON.map((item) => item.key || item.type);
+    const data = [prepareData(dataJSON)];
+    const keys = Object.values(dataJSON).map((item) => item.name);
     const totals = dataJSON.reduce((total, current) => total
       + parseFloat(current.area || current.percentage), 0);
-    const userColors = colors || dataJSON.map((item) => item.color);
+    const userColors = colorsCodes || dataJSON.map((item) => item.color);
 
     // bounds
     const xMax = width - margin.left - margin.right;
