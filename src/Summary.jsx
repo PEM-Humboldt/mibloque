@@ -28,7 +28,7 @@ class Summary extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      colorPerBiome: [],
+      colorPerBiome: {},
       biomesDataGraps: {},
       colors: [
         '#003d59',
@@ -43,33 +43,37 @@ class Summary extends React.Component {
         '#167070',
       ],
       connError: false,
-      featuresCounter: 0,
       layers: {},
     };
   }
 
   async componentDidMount() {
     const { activeArea } = this.props;
+    const { colors } = this.state;
     const validData = activeArea && activeArea.name;
     if (validData) {
       const geometryRequest = await RestAPI.requestBiomesGeometryWithArea(activeArea.name);
       const biomesRequest = await RestAPI.requestBiomesDataByArea(activeArea.name);
+      const dictionaryColor = {};
+      let testValue = 0;
+      biomesRequest.forEach((biome) => {
+        dictionaryColor[biome.name] = colors[testValue];
+        testValue += 1;
+      });
       this.setState({
         biomesDataGraps: biomesRequest,
+        colorPerBiome: dictionaryColor,
         layers: {
           area: {
             displayName: activeArea.name,
             id: 1,
             active: true,
             layer: L.geoJSON(geometryRequest, {
-              style: (feature) => {
-                const localColor = this.setColor(feature.properties.name_biome);
-                return {
-                  stroke: false,
-                  fillColor: localColor,
-                  fillOpacity: 0.5,
-                };
-              },
+              style: (feature) => ({
+                stroke: false,
+                fillColor: dictionaryColor[feature.properties.name_biome],
+                fillOpacity: 0.5,
+              }),
             }),
           },
         },
@@ -81,27 +85,14 @@ class Summary extends React.Component {
     }
   }
 
-  setColor = (name) => {
-    const { colorPerBiome, colors, featuresCounter } = this.state;
-    this.setState({
-      colorPerBiome: [
-        ...colorPerBiome,
-        {
-          name,
-          color: colors[featuresCounter],
-        },
-      ],
-      featuresCounter: featuresCounter + 1,
-    });
-    return colors[featuresCounter];
-  };
-
   /**
-   * Count biomes to set color
+   * Return the color assigned to an specific biome
+   *
+   * @param {String} name biome name to search
    */
   getColorCode = (name) => {
     const { colorPerBiome } = this.state;
-    return (colorPerBiome.name !== undefined) ? colorPerBiome.find((element) => element.name === name).color : '#fe6625';
+    return (name !== undefined) ? colorPerBiome[name] : '#fe6625';
   }
 
   /**
@@ -252,16 +243,38 @@ class Summary extends React.Component {
                 {
                   biomesDataGraps && Object.values(biomesDataGraps).map((biome) => {
                     const localColor = this.getColorCode(biome.name);
-                    return RenderGraph(
-                      [
-                        biome,
+                    return (
+                      <div key={biome.name}>
                         {
-                          area: (activeArea.area - biome.area),
-                          type: 'empty',
-                          color: '#fff',
-                        },
-                      ], '', '', 'SmallBarStackGraph',
-                      biome.name, '', [localColor, '#fff'], 'ha',
+                          RenderGraph(
+                            [
+                              biome,
+                              {
+                                area: (activeArea.area - biome.area),
+                                type: 'empty',
+                                color: '#fff',
+                              },
+                            ], '', '', 'SmallBarStackGraph',
+                            biome.name, '', [localColor, '#fff'], 'ha',
+                          )
+                        }
+                        {biome.area ? (
+                          <span key={biome.area}>
+                            <b>
+                              {`${numberWithCommas(Number(biome.area).toFixed(2))} `}
+                            </b>
+                              ha
+                          </span>
+                        ) : ''}
+                        {biome.compensation_factor ? (
+                          <span key={biome.compensation_factor}>
+                             · FC:
+                            <b>
+                              {`${numberWithCommas(Number(biome.compensation_factor).toFixed(2))} `}
+                            </b>
+                          </span>
+                        ) : ''}
+                      </div>
                     );
                   })
                 }
