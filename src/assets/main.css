@@ -285,14 +285,18 @@ h1 {
   padding: 0 15px;
 }
 
-.sidebtn, .sidebtnact {
+.sidebtnact:hover, .sidebtn{
+  color: #577376;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 48px;
+  text-shadow: 2px 0 0 #fff, -2px 0 0 #fff, 0 2px 0 #fff, 0 -2px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
+}
+
+.sidebtnact  {
   font-size: 20px;
   color: #EDA539;
   line-height: 48px;
-}
-
-.sidebtn:hover, .sidebtnact {
-  color: #577376;
 }
 
 .sectionhome input[type=submit], .generalbtn {
