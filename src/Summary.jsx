@@ -55,10 +55,10 @@ class Summary extends React.Component {
       const geometryRequest = await RestAPI.requestBiomesGeometryWithArea(activeArea.name);
       const biomesRequest = await RestAPI.requestBiomesDataByArea(activeArea.name);
       const dictionaryColor = {};
-      let testValue = 0;
+      let biomesCounter = 0;
       biomesRequest.forEach((biome) => {
-        dictionaryColor[biome.name] = colors[testValue];
-        testValue += 1;
+        dictionaryColor[biome.name] = colors[biomesCounter];
+        biomesCounter += 1;
       });
       this.setState({
         biomesDataGraps: biomesRequest,
