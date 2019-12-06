@@ -56,11 +56,13 @@ class App extends React.Component {
     );
   }
 
-  loadIndicatorsDash = () => {
+  loadIndicatorsDash = ({ match }) => {
     const { activeArea } = this.state;
     return (
       <IndicatorsDash
         activeArea={activeArea}
+        areaName={match.params.name}
+        setActiveArea={this.setActiveArea}
       />
     );
   }
@@ -90,7 +92,7 @@ class App extends React.Component {
       <main>
         <Switch>
           <Route exact path="/" render={this.loadHome} />
-          <Route exact path="/indicatorsDash" render={this.loadIndicatorsDash} />
+          <Route exact path="/indicatorsDash/:name?" render={this.loadIndicatorsDash} />
           <Route exact path="/indicator" render={this.loadIndicator} />
           <Route path="/summary/:name?" render={this.loadSummary} />
         </Switch>

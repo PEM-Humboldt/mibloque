@@ -135,7 +135,7 @@ class Summary extends React.Component {
     const {
       biomesDataGraps, connError, layers, redirect,
     } = this.state;
-    const { activeArea } = this.props;
+    const { activeArea, areaName } = this.props;
     if (redirect) {
       return (<Redirect to="/" />);
     }
@@ -177,7 +177,7 @@ class Summary extends React.Component {
             />
           </div>
           <div className="blockdata">
-            <Link to="/indicatorsDash">
+            <Link to={`/indicatorsDash/${areaName}`}>
               <button
                 type="button"
                 key="indBtn"
