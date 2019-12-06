@@ -2,8 +2,6 @@
   "extends": "airbnb",
   "parser": "babel-eslint",
   "rules": {
-    "react/forbid-prop-types": "off",
-    "react/no-array-index-key": "off",
-    "jsx-a11y/label-has-associated-control": "off"
+    "react/forbid-prop-types": "off"
   }
 }

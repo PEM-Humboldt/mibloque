@@ -6,6 +6,7 @@ import Home from './Home';
 import Summary from './Summary';
 import IndicatorsDash from './IndicatorsDash';
 import Indicator from './Indicator';
+import RestAPI from './commons/RestAPI';
 import './assets/main.css';
 
 class App extends React.Component {
@@ -13,20 +14,55 @@ class App extends React.Component {
     super(props);
     this.state = {
       activeArea: null,
+      sedimentaryList: [],
     };
   }
 
-  setActiveArea = (value) => {
-    this.setState({ activeArea: value });
+  async componentDidMount() {
+    try {
+      const sedimentary = await RestAPI.requestSedimentaryBasins();
+      this.setState({
+        sedimentaryList: sedimentary,
+      });
+    } catch (error) {
+      // TODO: Set state in a error (handling error)
+    }
   }
 
-  loadHome = () => (<Home setActiveArea={this.setActiveArea} />)
+  setActiveArea = async (name) => {
+    const { sedimentaryList } = this.state;
+    try {
+      const area = await RestAPI.requestAreaSelected(name);
+      this.setState({
+        activeArea: {
+          sedimentary_name: sedimentaryList.find((item) => (
+            item.code === area.sedimentary_code
+          )).name,
+          ...area,
+        },
+      });
+    } catch (error) {
+      // TODO: What to do with the error?
+    }
+  }
 
-  loadIndicatorsDash = () => {
+  loadHome = () => {
+    const { sedimentaryList } = this.state;
+    return (
+      <Home
+        setActiveArea={this.setActiveArea}
+        sedimentaryList={sedimentaryList}
+      />
+    );
+  }
+
+  loadIndicatorsDash = ({ match }) => {
     const { activeArea } = this.state;
     return (
       <IndicatorsDash
         activeArea={activeArea}
+        areaName={match.params.name}
+        setActiveArea={this.setActiveArea}
       />
     );
   }
@@ -40,11 +76,13 @@ class App extends React.Component {
     );
   }
 
-  loadSummary = () => {
+  loadSummary = ({ match }) => {
     const { activeArea } = this.state;
     return (
       <Summary
         activeArea={activeArea}
+        areaName={match.params.name}
+        setActiveArea={this.setActiveArea}
       />
     );
   }
@@ -54,9 +92,9 @@ class App extends React.Component {
       <main>
         <Switch>
           <Route exact path="/" render={this.loadHome} />
-          <Route exact path="/indicatorsDash" render={this.loadIndicatorsDash} />
+          <Route exact path="/indicatorsDash/:name?" render={this.loadIndicatorsDash} />
           <Route exact path="/indicator" render={this.loadIndicator} />
-          <Route exact path="/summary" render={this.loadSummary} />
+          <Route path="/summary/:name?" render={this.loadSummary} />
         </Switch>
       </main>
     );
