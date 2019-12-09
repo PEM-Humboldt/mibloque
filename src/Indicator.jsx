@@ -25,31 +25,28 @@ class Indicator extends React.Component {
   }
 
   componentDidMount() {
-    const { activeArea } = this.props;
-    const areaId = (activeArea && activeArea.name) ? activeArea.name : null;
-    if (areaId) {
-      this.loadBiomes(areaId);
-    } else {
-      this.reportConnError();
-    }
+    // TO DO: Implementing URL params
   }
 
   /**
    * Load biomes for selected area from RestAPI
    *
-   * @param {string} areaId id for selected area
+   * @param {string} name area name for selected area
+   * @param {string} ids indicator ids for selected area
    */
-  loadBiomes = (areaId) => {
-    RestAPI.requestBiomesByArea(areaId)
-      .then((res) => {
-        this.setState({
-          biomesByBlockData: res.map((item) => (
-            { value: item.id, label: item.name })),
+  loadBiomes = (name, ids) => {
+    const code = 1; // TO DO: Replace it for this.props
+    if (code === 1) {
+      RestAPI.requestIndicatorsByArea(name, ids)
+        .then((res) => {
+          this.setState({
+            biomesByBlockData: res.biomes,
+          });
+        })
+        .catch(() => {
+          this.reportConnError();
         });
-      })
-      .catch(() => {
-        this.reportConnError();
-      });
+    }
   }
 
   /**
@@ -83,6 +80,7 @@ class Indicator extends React.Component {
       biomesByBlockData,
       connError,
     } = this.state;
+    const code = 1; // TO DO: Instead being a local variable to be received as props
     const { layers, activeArea } = this.props;
     return (
       <Layout
@@ -147,19 +145,22 @@ class Indicator extends React.Component {
               Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie
               consequat, vel illum dolore eu feugiat nulla facilisis at.
             </p>
-            <h2>Biomas</h2>
-            <div className="line" />
-            <br />
-            <div>
-              <Select
-                value={selectedOption}
-                onChange={this.handleChange}
-                options={biomesByBlockData}
-                placeholder="Seleccione un bioma"
-                isSearchable="true"
-                isClearable="true"
-              />
-            </div>
+            {(code === 1) // The only indicators code with biomes list
+            && (
+              <div>
+                <h2>Biomas</h2>
+                <div className="line" />
+                <br />
+                <Select
+                  value={selectedOption}
+                  onChange={this.handleChange}
+                  options={biomesByBlockData}
+                  placeholder="Seleccione un bioma"
+                  isSearchable="true"
+                  isClearable="true"
+                />
+              </div>
+            )}
             <br />
             {layers
               && (
