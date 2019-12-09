@@ -19,33 +19,39 @@ class Indicator extends React.Component {
     super(props);
     this.state = {
       selectedOption: null,
-      biomesByBlockData: [],
+      biomesList: [],
       connError: false,
     };
   }
 
   componentDidMount() {
-    const { activeArea } = this.props;
-    const areaId = (activeArea && activeArea.name) ? activeArea.name : null;
-    if (areaId) {
-      this.loadBiomes(areaId);
-    } else {
-      this.reportConnError();
+    const { areaName, indicatorIds } = this.props;
+    this.loadData(areaName, indicatorIds);
+  }
+
+  componentDidUpdate() {
+    const { activeArea, areaName, setActiveArea } = this.props;
+    if (!activeArea) {
+      setActiveArea(areaName);
     }
   }
 
   /**
-   * Load biomes for selected area from RestAPI
+   * Load indicators data for selected area from RestAPI and specified ids
    *
-   * @param {string} areaId id for selected area
+   * @param {string} name area name for selected area
+   * @param {string} ids indicator ids for selected area
    */
-  loadBiomes = (areaId) => {
-    RestAPI.requestBiomesByArea(areaId)
+  loadData = (name, ids) => {
+    const idsQuery = ids.map((id) => `ids=${id}`).join('&');
+    RestAPI.requestIndicatorsByArea(name, idsQuery)
       .then((res) => {
-        this.setState({
-          biomesByBlockData: res.map((item) => (
-            { value: item.id, label: item.name })),
-        });
+        const state = {};
+        if (res.biomes) {
+          state.biomesList = res.biomes.map((item) => ({ value: item.id, label: item.name }));
+        }
+        // TODO: state.indicatorsValues - Process indicators
+        this.setState(state);
       })
       .catch(() => {
         this.reportConnError();
@@ -64,7 +70,7 @@ class Indicator extends React.Component {
   /**
    * Behavior when a biome option is selected
    */
-  handleChange = (selectedOption) => {
+  handleBiomesSelect = (selectedOption) => {
     this.setState({ selectedOption });
   };
 
@@ -80,10 +86,29 @@ class Indicator extends React.Component {
   render() {
     const {
       selectedOption,
-      biomesByBlockData,
+      biomesList,
       connError,
     } = this.state;
     const { layers, activeArea } = this.props;
+
+    let biomesSelect = null;
+    if (biomesList.length > 0) {
+      biomesSelect = (
+        <div>
+          <h2>Biomas</h2>
+          <div className="line" />
+          <br />
+          <Select
+            value={selectedOption}
+            onChange={this.handleBiomesSelect}
+            options={biomesList}
+            placeholder="Seleccione un bioma"
+            isSearchable="true"
+            isClearable="true"
+          />
+        </div>
+      );
+    }
     return (
       <Layout
         activeArea={activeArea}
@@ -147,19 +172,7 @@ class Indicator extends React.Component {
               Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie
               consequat, vel illum dolore eu feugiat nulla facilisis at.
             </p>
-            <h2>Biomas</h2>
-            <div className="line" />
-            <br />
-            <div>
-              <Select
-                value={selectedOption}
-                onChange={this.handleChange}
-                options={biomesByBlockData}
-                placeholder="Seleccione un bioma"
-                isSearchable="true"
-                isClearable="true"
-              />
-            </div>
+            {biomesSelect}
             <br />
             {layers
               && (
@@ -180,11 +193,16 @@ class Indicator extends React.Component {
 Indicator.propTypes = {
   activeArea: PropTypes.object,
   layers: PropTypes.object,
+  indicatorIds: PropTypes.array,
+  areaName: PropTypes.string.isRequired,
+  setActiveArea: PropTypes.func,
 };
 
 Indicator.defaultProps = {
   activeArea: {},
   layers: {},
+  indicatorIds: null,
+  setActiveArea: () => {},
 };
 
 export default Indicator;

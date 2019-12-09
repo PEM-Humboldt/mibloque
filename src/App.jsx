@@ -1,6 +1,6 @@
 /** eslint verified */
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import Home from './Home';
 import Summary from './Summary';
@@ -46,6 +46,12 @@ class App extends React.Component {
     }
   }
 
+  loadComponentWithArea = (loadFunc) => (props) => {
+    const { match } = props;
+    if (!match.params.name) return (<Redirect to="/" />);
+    return loadFunc(props);
+  }
+
   loadHome = () => {
     const { sedimentaryList } = this.state;
     return (
@@ -67,11 +73,15 @@ class App extends React.Component {
     );
   }
 
-  loadIndicator = () => {
+  loadIndicator = ({ match, location }) => {
     const { activeArea } = this.state;
+    const searchParams = new URLSearchParams(location.search);
     return (
       <Indicator
         activeArea={activeArea}
+        areaName={match.params.name}
+        indicatorIds={searchParams.getAll('ids')}
+        setActiveArea={this.setActiveArea}
       />
     );
   }
@@ -92,9 +102,9 @@ class App extends React.Component {
       <main>
         <Switch>
           <Route exact path="/" render={this.loadHome} />
-          <Route exact path="/indicatorsDash/:name?" render={this.loadIndicatorsDash} />
-          <Route exact path="/indicator" render={this.loadIndicator} />
-          <Route path="/summary/:name?" render={this.loadSummary} />
+          <Route exact path="/indicatorsDash/:name?" render={this.loadComponentWithArea(this.loadIndicatorsDash)} />
+          <Route exact path="/indicator/:name?" render={this.loadComponentWithArea(this.loadIndicator)} />
+          <Route path="/summary/:name?" render={this.loadComponentWithArea(this.loadSummary)} />
         </Switch>
       </main>
     );
