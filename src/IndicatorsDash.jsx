@@ -6,7 +6,6 @@ import CloseIcon from '@material-ui/icons/Close';
 import Modal from '@material-ui/core/Modal';
 
 import Masonry from 'react-masonry-component';
-import { Redirect } from 'react-router-dom';
 import Layout from './Layout';
 import IndicatorCard from './IndicatorCard';
 
@@ -24,17 +23,12 @@ class IndicatorsDash extends React.Component {
       data: [],
       tabs: [],
       activeTab: 'Todas',
-      redirect: false,
     };
   }
 
   componentDidMount() {
     const { areaName } = this.props;
-    if (!areaName) {
-      this.setState({ redirect: true });
-    } else {
-      this.loadIndicators(areaName);
-    }
+    this.loadIndicators(areaName);
   }
 
   componentDidUpdate() {
@@ -87,13 +81,8 @@ class IndicatorsDash extends React.Component {
       data,
       activeTab,
       tabs,
-      redirect,
     } = this.state;
-    const { activeArea } = this.props;
-
-    if (redirect) {
-      return (<Redirect to="/" />);
-    }
+    const { activeArea, areaName } = this.props;
 
     const masonryComp = (
       <Masonry
@@ -106,6 +95,8 @@ class IndicatorsDash extends React.Component {
             size={item.size}
             name={item.name}
             values={item.values}
+            areaName={areaName}
+            indicatorIds={item.ids.map((ind) => ind.id)}
           />
         ))}
       </Masonry>
@@ -166,13 +157,12 @@ class IndicatorsDash extends React.Component {
 
 IndicatorsDash.propTypes = {
   activeArea: PropTypes.object,
-  areaName: PropTypes.string,
+  areaName: PropTypes.string.isRequired,
   setActiveArea: PropTypes.func,
 };
 
 IndicatorsDash.defaultProps = {
   activeArea: {},
-  areaName: null,
   setActiveArea: () => {},
 };
 

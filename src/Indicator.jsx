@@ -25,7 +25,7 @@ class Indicator extends React.Component {
   }
 
   componentDidMount() {
-    // TO DO: Implementing URL params
+    const { areaName } = this.props;
   }
 
   /**
@@ -184,11 +184,14 @@ class Indicator extends React.Component {
 Indicator.propTypes = {
   activeArea: PropTypes.object,
   layers: PropTypes.object,
+  indicatorIds: PropTypes.array,
+  areaName: PropTypes.string.isRequired,
 };
 
 Indicator.defaultProps = {
   activeArea: {},
   layers: {},
+  indicatorIds: [],
 };
 
 export default Indicator;

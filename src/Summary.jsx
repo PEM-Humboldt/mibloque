@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import L from 'leaflet';
 import CloseIcon from '@material-ui/icons/Close';
 import Modal from '@material-ui/core/Modal';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import MapViewer from './commons/MapViewer';
 import Layout from './Layout';
 import RenderGraph from './graphs/RenderGraph';
@@ -44,17 +44,12 @@ class Summary extends React.Component {
       ],
       connError: false,
       layers: {},
-      redirect: false,
     };
   }
 
   componentDidMount() {
     const { areaName } = this.props;
-    if (!areaName) {
-      this.setState({ redirect: true });
-    } else {
-      this.loadData();
-    }
+    this.loadData(areaName);
   }
 
   componentDidUpdate() {
@@ -67,9 +62,8 @@ class Summary extends React.Component {
   /**
    * Load data required by the component
    */
-  loadData = async () => {
+  loadData = async (areaName) => {
     const { colors } = this.state;
-    const { areaName } = this.props;
     try {
       const geometryRequest = await RestAPI.requestBiomesGeometryWithArea(areaName);
       const biomesRequest = await RestAPI.requestBiomesDataByArea(areaName);
@@ -133,12 +127,10 @@ class Summary extends React.Component {
 
   render() {
     const {
-      biomesDataGraps, connError, layers, redirect,
+      biomesDataGraps, connError, layers,
     } = this.state;
     const { activeArea, areaName } = this.props;
-    if (redirect) {
-      return (<Redirect to="/" />);
-    }
+
     if (!activeArea) return null;
     return (
       <Layout
@@ -309,13 +301,12 @@ class Summary extends React.Component {
 
 Summary.propTypes = {
   activeArea: PropTypes.object,
-  areaName: PropTypes.string,
+  areaName: PropTypes.string.isRequired,
   setActiveArea: PropTypes.func,
 };
 
 Summary.defaultProps = {
   activeArea: null,
-  areaName: null,
   setActiveArea: () => {},
 };
 
