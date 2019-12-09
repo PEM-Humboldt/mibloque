@@ -81,6 +81,7 @@ class App extends React.Component {
         activeArea={activeArea}
         areaName={match.params.name}
         indicatorIds={searchParams.getAll('ids')}
+        setActiveArea={this.setActiveArea}
       />
     );
   }

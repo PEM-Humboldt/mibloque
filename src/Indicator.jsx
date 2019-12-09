@@ -29,6 +29,13 @@ class Indicator extends React.Component {
     this.loadData(areaName, indicatorIds);
   }
 
+  componentDidUpdate() {
+    const { activeArea, areaName, setActiveArea } = this.props;
+    if (!activeArea) {
+      setActiveArea(areaName);
+    }
+  }
+
   /**
    * Load indicators data for selected area from RestAPI and specified ids
    *
@@ -188,12 +195,14 @@ Indicator.propTypes = {
   layers: PropTypes.object,
   indicatorIds: PropTypes.array,
   areaName: PropTypes.string.isRequired,
+  setActiveArea: PropTypes.func,
 };
 
 Indicator.defaultProps = {
   activeArea: {},
   layers: {},
   indicatorIds: null,
+  setActiveArea: () => {},
 };
 
 export default Indicator;
