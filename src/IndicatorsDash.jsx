@@ -6,6 +6,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import Modal from '@material-ui/core/Modal';
 
 import Masonry from 'react-masonry-component';
+import { Redirect } from 'react-router-dom';
 import Layout from './Layout';
 import IndicatorCard from './IndicatorCard';
 
@@ -23,26 +24,33 @@ class IndicatorsDash extends React.Component {
       data: [],
       tabs: [],
       activeTab: 'Todas',
+      redirect: false,
     };
   }
 
   componentDidMount() {
-    const { activeArea } = this.props;
-    const areaId = (activeArea && activeArea.name) ? activeArea.name : null;
-    if (areaId) {
-      this.loadIndicators(areaId);
+    const { areaName } = this.props;
+    if (!areaName) {
+      this.setState({ redirect: true });
     } else {
-      this.reportConnError();
+      this.loadIndicators(areaName);
+    }
+  }
+
+  componentDidUpdate() {
+    const { activeArea, areaName, setActiveArea } = this.props;
+    if (!activeArea) {
+      setActiveArea(areaName);
     }
   }
 
   /**
    * Load indicators and topics list for selected area from RestAPI
    *
-   * @param {string} areaId id for selected area
+   * @param {string} areaName id for selected area
    */
-  loadIndicators = (areaId) => {
-    RestAPI.requestIndicatorsByArea(areaId)
+  loadIndicators = (areaName) => {
+    RestAPI.requestIndicatorsByArea(areaName)
       .then((res) => {
         res.topics.unshift('Todas');
         this.setState({
@@ -79,9 +87,13 @@ class IndicatorsDash extends React.Component {
       data,
       activeTab,
       tabs,
+      redirect,
     } = this.state;
-
     const { activeArea } = this.props;
+
+    if (redirect) {
+      return (<Redirect to="/" />);
+    }
 
     const masonryComp = (
       <Masonry
@@ -154,10 +166,14 @@ class IndicatorsDash extends React.Component {
 
 IndicatorsDash.propTypes = {
   activeArea: PropTypes.object,
+  areaName: PropTypes.string,
+  setActiveArea: PropTypes.func,
 };
 
 IndicatorsDash.defaultProps = {
   activeArea: {},
+  areaName: null,
+  setActiveArea: () => {},
 };
 
 export default IndicatorsDash;
