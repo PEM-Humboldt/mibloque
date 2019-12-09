@@ -25,28 +25,30 @@ class Indicator extends React.Component {
   }
 
   componentDidMount() {
-    const { areaName } = this.props;
+    const { areaName, indicatorIds } = this.props;
+    this.loadData(areaName, indicatorIds);
   }
 
   /**
-   * Load biomes for selected area from RestAPI
+   * Load indicators data for selected area from RestAPI and specified ids
    *
    * @param {string} name area name for selected area
    * @param {string} ids indicator ids for selected area
    */
-  loadBiomes = (name, ids) => {
-    const code = 1; // TO DO: Replace it for this.props
-    if (code === 1) {
-      RestAPI.requestIndicatorsByArea(name, ids)
-        .then((res) => {
-          this.setState({
-            biomesByBlockData: res.biomes,
-          });
-        })
-        .catch(() => {
-          this.reportConnError();
-        });
-    }
+  loadData = (name, ids) => {
+    const idsQuery = ids.map((id) => `ids=${id}`).join('&');
+    RestAPI.requestIndicatorsByArea(name, idsQuery)
+      .then((res) => {
+        const state = {};
+        if (res.biomes) {
+          state.biomesList = res.biomes.map((item) => ({ value: item.id, label: item.name }));
+        }
+        // TODO: state.indicatorsValues - Process indicators
+        this.setState(state);
+      })
+      .catch(() => {
+        this.reportConnError();
+      });
   }
 
   /**
@@ -191,7 +193,7 @@ Indicator.propTypes = {
 Indicator.defaultProps = {
   activeArea: {},
   layers: {},
-  indicatorIds: [],
+  indicatorIds: null,
 };
 
 export default Indicator;
