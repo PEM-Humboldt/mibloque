@@ -74,7 +74,7 @@ class RestAPI {
    * @param {String} indicatorIds string with all ids in area to request in query param structure
    */
   static requestIndicatorsByArea(name, indicatorIds) {
-    if (indicatorIds) return RestAPI.makeGetRequest(`anh_areas/${name}/indicators${indicatorIds}`);
+    if (indicatorIds) return RestAPI.makeGetRequest(`anh_areas/${name}/indicators?${indicatorIds}`);
     return RestAPI.makeGetRequest(`anh_areas/${name}/indicators`);
   }
 

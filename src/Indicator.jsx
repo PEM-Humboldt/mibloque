@@ -19,7 +19,7 @@ class Indicator extends React.Component {
     super(props);
     this.state = {
       selectedOption: null,
-      biomesByBlockData: [],
+      biomesList: [],
       connError: false,
     };
   }
@@ -61,7 +61,7 @@ class Indicator extends React.Component {
   /**
    * Behavior when a biome option is selected
    */
-  handleChange = (selectedOption) => {
+  handleBiomesSelect = (selectedOption) => {
     this.setState({ selectedOption });
   };
 
@@ -77,11 +77,29 @@ class Indicator extends React.Component {
   render() {
     const {
       selectedOption,
-      biomesByBlockData,
+      biomesList,
       connError,
     } = this.state;
-    const code = 1; // TO DO: Instead being a local variable to be received as props
     const { layers, activeArea } = this.props;
+
+    let biomesSelect = null;
+    if (biomesList.length > 0) {
+      biomesSelect = (
+        <div>
+          <h2>Biomas</h2>
+          <div className="line" />
+          <br />
+          <Select
+            value={selectedOption}
+            onChange={this.handleBiomesSelect}
+            options={biomesList}
+            placeholder="Seleccione un bioma"
+            isSearchable="true"
+            isClearable="true"
+          />
+        </div>
+      );
+    }
     return (
       <Layout
         activeArea={activeArea}
@@ -145,22 +163,7 @@ class Indicator extends React.Component {
               Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie
               consequat, vel illum dolore eu feugiat nulla facilisis at.
             </p>
-            {(code === 1) // The only indicators code with biomes list
-            && (
-              <div>
-                <h2>Biomas</h2>
-                <div className="line" />
-                <br />
-                <Select
-                  value={selectedOption}
-                  onChange={this.handleChange}
-                  options={biomesByBlockData}
-                  placeholder="Seleccione un bioma"
-                  isSearchable="true"
-                  isClearable="true"
-                />
-              </div>
-            )}
+            {biomesSelect}
             <br />
             {layers
               && (
