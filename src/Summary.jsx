@@ -71,7 +71,8 @@ class Summary extends React.Component {
     const { colors } = this.state;
     const { areaName } = this.props;
     try {
-      const geometryRequest = await RestAPI.requestBiomesGeometryWithArea(areaName);
+      const geometryAreaRequest = await RestAPI.requestGeometryByArea(areaName);
+      const geometryBiomesRequest = await RestAPI.requestBiomesGeometryWithArea(areaName);
       const biomesRequest = await RestAPI.requestBiomesDataByArea(areaName);
       const dictionaryColor = {};
       let biomesCounter = 0;
@@ -83,11 +84,24 @@ class Summary extends React.Component {
         biomesDataGraps: biomesRequest,
         colorPerBiome: dictionaryColor,
         layers: {
-          area: {
+          areaBorder: {
             displayName: areaName,
             id: 1,
             active: true,
-            layer: L.geoJSON(geometryRequest, {
+            layer: L.geoJSON(geometryAreaRequest, {
+              style: {
+                color: '#0000FF',
+                stroke: true,
+                fillColor: 'transparent',
+                fillOpacity: 0.5,
+              },
+            }),
+          },
+          biomes: {
+            displayName: areaName,
+            id: 1,
+            active: true,
+            layer: L.geoJSON(geometryBiomesRequest, {
               style: (feature) => ({
                 stroke: false,
                 fillColor: dictionaryColor[feature.properties.name_biome],
