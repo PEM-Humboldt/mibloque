@@ -21,7 +21,7 @@ class Indicator extends React.Component {
       biomesList: [],
       connError: false,
       data: null,
-      code: 1,
+      code: 4,
       groupName: '',
     };
   }
