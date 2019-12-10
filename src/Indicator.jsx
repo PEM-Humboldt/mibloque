@@ -9,10 +9,9 @@ import Select from 'react-select';
 import Layout from './Layout';
 import MapViewer from './commons/MapViewer';
 import RenderGraph from './graphs/RenderGraph';
+import GraphData from './commons/GraphData';
 import RestAPI from './commons/RestAPI';
 
-// Data mockups
-import { graphData1 } from './assets/mockups/summaryData';
 
 class Indicator extends React.Component {
   constructor(props) {
@@ -21,6 +20,7 @@ class Indicator extends React.Component {
       selectedOption: null,
       biomesList: [],
       connError: false,
+      data: null,
     };
   }
 
@@ -50,7 +50,7 @@ class Indicator extends React.Component {
         if (res.biomes) {
           state.biomesList = res.biomes.map((item) => ({ value: item.id, label: item.name }));
         }
-        // TODO: state.indicatorsValues - Process indicators
+        state.data = GraphData.prepareData(1, res.values); // TODO: Change 1 for correct code
         this.setState(state);
       })
       .catch(() => {
@@ -88,6 +88,7 @@ class Indicator extends React.Component {
       selectedOption,
       biomesList,
       connError,
+      data,
     } = this.state;
     const { layers, activeArea } = this.props;
 
@@ -143,9 +144,9 @@ class Indicator extends React.Component {
           <div className="internheader" />
           <div className="sheet">
             <div className="indicator">
-              {graphData1
+              {data
                 ? RenderGraph(
-                  graphData1, '', '', 'TreeMap',
+                  data, '', '', 'TreeMap',
                   'Cobertura', 'Tendencia', ['#5f8f2c', '#fff'], null, null,
                   '', '%',
                 )
