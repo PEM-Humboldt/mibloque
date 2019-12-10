@@ -52,7 +52,7 @@ class Indicator extends React.Component {
         if (res.biomes) {
           state.biomesList = res.biomes.map((item) => ({ value: item.id, label: item.name }));
         }
-        state.data = GraphData.prepareData(res.code, res.values); // TODO: Change 1 for correct code
+        state.data = GraphData.prepareData(res.code, res.values, res.biomes); // TODO: Change 1 for correct code
         state.code = res.code;
         state.groupName = res.group_name;
         this.setState(state);
