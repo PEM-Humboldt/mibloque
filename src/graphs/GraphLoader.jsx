@@ -59,23 +59,51 @@ const GraphLoader = (
           height={height}
           chartType="ColumnChart"
           loader={<div>Loading Chart</div>}
-          data={[
-            ['Zonobioma Alternohigrico Tropical Tolima grande', 'Natural', 'Secundario'],
-            ['2002', 2230.26000, 116.47900],
-            ['2009', 2203.60000, 46.93000],
-            ['2012', 2000.66000, 482.66500],
-          ]}
+          data={data}
           options={{
-            title: 'Hectareas de Bosque Natural y Secundaria para cada año por Bioma',
+            title,
             chartArea: { width: '70%' },
-            isStacked: true,
+            isStacked: false,
             legend: { position: 'bottom', maxLines: 3 },
-            hAxis: {
-              title: 'Zonobioma Alternohigrico Tropical Tolima grande',
-              minValue: 0,
-            },
             vAxis: {
-              title: 'Hectareas',
+              title: labelY,
+              viewWindow: {
+                min: 0,
+              },
+            },
+            vAxes: {
+              0: {
+              },
+              1: {
+                gridlines: {
+                  color: 'transparent',
+                },
+                textStyle: {
+                  color: 'transparent',
+                },
+              },
+              2: {
+                gridlines: {
+                  color: 'transparent',
+                },
+                textStyle: {
+                  color: 'transparent',
+                },
+              },
+            },
+            series: {
+              2: {
+                targetAxisIndex: 1,
+              },
+              3: {
+                targetAxisIndex: 1,
+              },
+              4: {
+                targetAxisIndex: 2,
+              },
+              5: {
+                targetAxisIndex: 2,
+              },
             },
           }}
           // For tests
