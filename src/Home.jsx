@@ -99,7 +99,7 @@ class Home extends React.Component {
                   type="submit"
                   key="1-o"
                   value="ir a mi área"
-                  onClick={() => setActiveArea(selectedElement.name)}
+                  onClick={() => setActiveArea(selectedElement ? selectedElement.name : null)}
                 />
               </Link>
             </div>
