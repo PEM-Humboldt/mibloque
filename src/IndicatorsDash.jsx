@@ -97,6 +97,7 @@ class IndicatorsDash extends React.Component {
             values={item.values}
             areaName={areaName}
             indicatorIds={item.ids.map((ind) => ind.id)}
+            indicatorsName={item.ids}
           />
         ))}
       </Masonry>
