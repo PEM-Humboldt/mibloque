@@ -30,6 +30,33 @@ class GraphData {
         return GraphData.barChartData(rawData);
     }
   }
+
+  /**
+   * Return correct graph type based on card code
+   *
+   * @param {string} code Indicator card code to find graph type
+   */
+  static validGraphType = (code) => {
+    let validGraphType = null;
+    switch (code) {
+      case 1:
+        validGraphType = 'ColumnChart';
+        break;
+      case 2:
+        validGraphType = 'Sankey';
+        break;
+      case 3:
+        validGraphType = 'TreeMap';
+        break;
+      case 4:
+        validGraphType = 'BarChart';
+        break;
+      default:
+        validGraphType = 'BarChart';
+        break;
+    }
+    return { validGraphType };
+  };
 }
 
 export default GraphData;

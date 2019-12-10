@@ -30,38 +30,12 @@ class IndicatorCard extends React.Component {
     return { validClass };
   };
 
-  /**
-   * Return correct graph type based on card code
-   *
-   * @param {string} code Indicator card code to find graph type
-   */
-  validGraphType = (code) => {
-    let validGraphType = null;
-    switch (code) {
-      case 1:
-        validGraphType = 'ColumnChart';
-        break;
-      case 2:
-        validGraphType = 'Sankey';
-        break;
-      case 3:
-        validGraphType = 'TreeMap';
-        break;
-      case 4:
-        validGraphType = 'BarChart';
-        break;
-      default:
-        validGraphType = 'BarChart';
-        break;
-    }
-    return { validGraphType };
-  };
-
   render() {
     const {
       code, size, name, values, indicatorIds, areaName,
     } = this.props;
     const indicatorIdsQuery = indicatorIds.map((ind) => `ids=${ind}`).join('&');
+    const className = this.validClassIndicator(size).validClass;
 
     if (!values) return null;
     return (
@@ -71,15 +45,15 @@ class IndicatorCard extends React.Component {
           search: `?${indicatorIdsQuery}`,
         }}
       >
-        <div className={this.validClassIndicator(size).validClass} key={name}>
+        <div className={className} key={name}>
           {RenderGraph(
             GraphData.prepareData(code, values),
             '',
             '',
-            this.validGraphType(code).validGraphType,
+            GraphData.validGraphType(code).validGraphType,
             name,
             null,
-            ['#5f8f2c', '#fff'],
+            null,
             null,
           )}
         </div>

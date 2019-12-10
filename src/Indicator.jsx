@@ -21,6 +21,8 @@ class Indicator extends React.Component {
       biomesList: [],
       connError: false,
       data: null,
+      code: 4,
+      groupName: '',
     };
   }
 
@@ -50,7 +52,9 @@ class Indicator extends React.Component {
         if (res.biomes) {
           state.biomesList = res.biomes.map((item) => ({ value: item.id, label: item.name }));
         }
-        state.data = GraphData.prepareData(res.code, res.values, res.biomes);
+        state.data = GraphData.prepareData(res.code, res.values, res.biomes); // TODO: Change 1 for correct code
+        state.code = res.code;
+        state.groupName = res.group_name;
         this.setState(state);
       })
       .catch(() => {
@@ -89,6 +93,8 @@ class Indicator extends React.Component {
       biomesList,
       connError,
       data,
+      code,
+      groupName,
     } = this.state;
     const { layers, activeArea } = this.props;
 
@@ -96,9 +102,6 @@ class Indicator extends React.Component {
     if (biomesList.length > 0) {
       biomesSelect = (
         <div>
-          <h2>Biomas</h2>
-          <div className="line" />
-          <br />
           <Select
             value={selectedOption}
             onChange={this.handleBiomesSelect}
@@ -110,6 +113,21 @@ class Indicator extends React.Component {
         </div>
       );
     }
+
+    let graph = null;
+    graph = (
+      RenderGraph(
+        data,
+        '',
+        'Hectáreas',
+        GraphData.validGraphType(code).validGraphType,
+        groupName,
+        null,
+        null,
+        null,
+      )
+    );
+
     return (
       <Layout
         activeArea={activeArea}
@@ -143,13 +161,12 @@ class Indicator extends React.Component {
         <section className="sectionintern">
           <div className="internheader" />
           <div className="sheet">
+            <div>
+              {biomesSelect}
+            </div>
             <div className="indicator">
               {data
-                ? RenderGraph(
-                  data, '', '', 'TreeMap',
-                  'Cobertura', 'Tendencia', ['#5f8f2c', '#fff'], null, null,
-                  '', '%',
-                )
+                ? graph
                 : 'Cargando...'}
             </div>
           </div>
@@ -173,7 +190,6 @@ class Indicator extends React.Component {
               Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie
               consequat, vel illum dolore eu feugiat nulla facilisis at.
             </p>
-            {biomesSelect}
             <br />
             {layers
               && (
