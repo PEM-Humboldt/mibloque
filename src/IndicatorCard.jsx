@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+
 import RenderGraph from './graphs/RenderGraph';
+import GraphData from './commons/GraphData';
 
 class IndicatorCard extends React.Component {
   /**
@@ -61,6 +63,7 @@ class IndicatorCard extends React.Component {
     } = this.props;
     const indicatorIdsQuery = indicatorIds.map((ind) => `ids=${ind}`).join('&');
 
+    if (!values) return null;
     return (
       <Link
         to={{
@@ -69,18 +72,16 @@ class IndicatorCard extends React.Component {
         }}
       >
         <div className={this.validClassIndicator(size).validClass} key={name}>
-          {values
-            ? RenderGraph(
-              values,
-              '',
-              '',
-              this.validGraphType(code).validGraphType,
-              name,
-              null,
-              ['#5f8f2c', '#fff'],
-              null,
-            )
-            : 'Cargando...'}
+          {RenderGraph(
+            GraphData.prepareData(code, values),
+            '',
+            '',
+            this.validGraphType(code).validGraphType,
+            name,
+            null,
+            ['#5f8f2c', '#fff'],
+            null,
+          )}
         </div>
       </Link>
     );
