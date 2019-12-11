@@ -195,6 +195,8 @@ class Summary extends React.Component {
             <h1>Sobre el área</h1>
             <div className="line" />
             <h5 className="hectareas">
+              Área total:
+              {' '}
               <b>{activeArea.area ? numberWithCommas(Number(activeArea.area).toFixed(2)) : 'Sin información disponible'}</b>
               {' '}
               ha
@@ -266,7 +268,7 @@ class Summary extends React.Component {
                 biomesDataGraps && Object.values(biomesDataGraps).map((biome) => {
                   const localColor = this.getColorCode(biome.name);
                   return (
-                    <div key={biome.name}>
+                    <div key={biome.name} style={{ 'padding-bottom': '5px' }}>
                       {
                         RenderGraph(
                           [
