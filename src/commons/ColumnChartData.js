@@ -66,7 +66,7 @@ class ColumnChartData {
    *
    * @param {Object} rawData object data to be transformed
    */
-  static prepareData(rawData) {
+  static prepareData(rawData, order) {
     if (Array.isArray(rawData)) {
       const {
         years: yearSet,
@@ -98,12 +98,13 @@ class ColumnChartData {
     const descriptions = Array.from(descriptionSet).sort();
     const results = [ColumnChartData.headers(years, descriptions)];
 
-    Object.keys(rawData).forEach((biomeId) => {
+    order.forEach(({ id: biomeId }) => {
       results.push([
         rawData[biomeId][0].name_biome,
         ...ColumnChartData.constructOneBiome(years, descriptions, data[biomeId]),
       ]);
     });
+
     return results;
   }
 }
