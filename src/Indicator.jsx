@@ -53,8 +53,8 @@ class Indicator extends React.Component {
         if (res.biomes) {
           state.biomesList = res.biomes.map((item) => ({ value: item.id, label: item.name }));
         }
-        state.data = GraphData.prepareData(res.code, res.values);
         state.fullData = state.data;
+        state.data = GraphData.prepareData(res.code, res.values, res.biomes);
         state.code = res.code;
         state.groupName = res.group_name;
         this.setState(state);
@@ -123,8 +123,6 @@ class Indicator extends React.Component {
         </div>
       );
     }
-
-    // data.filter((post) => post.values.name_biome.includes('Peinobioma Altillanura'));
 
     let graph = null;
     graph = (
