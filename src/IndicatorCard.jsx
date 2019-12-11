@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+
 import RenderGraph from './graphs/RenderGraph';
+import GraphData from './commons/GraphData';
 
 class IndicatorCard extends React.Component {
   /**
@@ -28,53 +30,32 @@ class IndicatorCard extends React.Component {
     return { validClass };
   };
 
-  /**
-   * Return correct graph type based on card code
-   *
-   * @param {string} code Indicator card code to find graph type
-   */
-  validGraphType = (code) => {
-    let validGraphType = null;
-    switch (code) {
-      case 1:
-        validGraphType = 'ColumnChart';
-        break;
-      case 2:
-        validGraphType = 'Sankey';
-        break;
-      case 3:
-        validGraphType = 'TreeMap';
-        break;
-      case 4:
-        validGraphType = 'BarChart';
-        break;
-      default:
-        validGraphType = 'BarChart';
-        break;
-    }
-    return { validGraphType };
-  };
-
   render() {
     const {
-      code, size, name, values,
+      code, size, name, values, indicatorIds, areaName,
     } = this.props;
+    const indicatorIdsQuery = indicatorIds.map((ind) => `ids=${ind}`).join('&');
+    const className = this.validClassIndicator(size).validClass;
 
+    if (!values) return null;
     return (
-      <Link to="/indicator">
-        <div className={this.validClassIndicator(size).validClass} key={name}>
-          {values
-            ? RenderGraph(
-              values,
-              '',
-              '',
-              this.validGraphType(code).validGraphType,
-              name,
-              null,
-              ['#5f8f2c', '#fff'],
-              null,
-            )
-            : 'Cargando...'}
+      <Link
+        to={{
+          pathname: `/indicator/${areaName}`,
+          search: `?${indicatorIdsQuery}`,
+        }}
+      >
+        <div className={className} key={name}>
+          {RenderGraph(
+            GraphData.prepareData(code, values),
+            '',
+            '',
+            GraphData.validGraphType(code).validGraphType,
+            name,
+            null,
+            null,
+            null,
+          )}
         </div>
       </Link>
     );
@@ -86,6 +67,8 @@ IndicatorCard.propTypes = {
   name: PropTypes.string,
   values: PropTypes.any,
   size: PropTypes.number,
+  indicatorIds: PropTypes.array,
+  areaName: PropTypes.string.isRequired,
 };
 
 IndicatorCard.defaultProps = {
@@ -93,6 +76,7 @@ IndicatorCard.defaultProps = {
   name: '',
   values: null,
   size: 1,
+  indicatorIds: [],
 };
 
 export default IndicatorCard;

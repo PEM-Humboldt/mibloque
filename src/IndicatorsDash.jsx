@@ -27,22 +27,24 @@ class IndicatorsDash extends React.Component {
   }
 
   componentDidMount() {
-    const { activeArea } = this.props;
-    const areaId = (activeArea && activeArea.name) ? activeArea.name : null;
-    if (areaId) {
-      this.loadIndicators(areaId);
-    } else {
-      this.reportConnError();
+    const { areaName } = this.props;
+    this.loadIndicators(areaName);
+  }
+
+  componentDidUpdate() {
+    const { activeArea, areaName, setActiveArea } = this.props;
+    if (!activeArea) {
+      setActiveArea(areaName);
     }
   }
 
   /**
    * Load indicators and topics list for selected area from RestAPI
    *
-   * @param {string} areaId id for selected area
+   * @param {string} areaName id for selected area
    */
-  loadIndicators = (areaId) => {
-    RestAPI.requestIndicatorsByArea(areaId)
+  loadIndicators = (areaName) => {
+    RestAPI.requestIndicatorsByArea(areaName)
       .then((res) => {
         res.topics.unshift('Todas');
         this.setState({
@@ -80,8 +82,7 @@ class IndicatorsDash extends React.Component {
       activeTab,
       tabs,
     } = this.state;
-
-    const { activeArea } = this.props;
+    const { activeArea, areaName } = this.props;
 
     const masonryComp = (
       <Masonry
@@ -94,6 +95,8 @@ class IndicatorsDash extends React.Component {
             size={item.size}
             name={item.name}
             values={item.values}
+            areaName={areaName}
+            indicatorIds={item.ids.map((ind) => ind.id)}
           />
         ))}
       </Masonry>
@@ -154,10 +157,13 @@ class IndicatorsDash extends React.Component {
 
 IndicatorsDash.propTypes = {
   activeArea: PropTypes.object,
+  areaName: PropTypes.string.isRequired,
+  setActiveArea: PropTypes.func,
 };
 
 IndicatorsDash.defaultProps = {
   activeArea: {},
+  setActiveArea: () => {},
 };
 
 export default IndicatorsDash;

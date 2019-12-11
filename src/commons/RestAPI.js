@@ -70,19 +70,12 @@ class RestAPI {
   /**
    * Request indicators list by area
    *
-   * @param {String} areaId area id to request
+   * @param {String} name name area to request
+   * @param {String} indicatorIds string with all ids in area to request in query param structure
    */
-  static requestIndicatorsByArea(areaId) {
-    return RestAPI.makeGetRequest(`anh_areas/${areaId}/indicators`);
-  }
-
-  /**
-   * Request biomes list by area
-   *
-   * @param {String} areaId area id to request
-   */
-  static requestBiomesByArea(areaId) {
-    return RestAPI.makeGetRequest(`anh_areas/${areaId}/indicators/biomes`);
+  static requestIndicatorsByArea(name, indicatorIds) {
+    if (indicatorIds) return RestAPI.makeGetRequest(`anh_areas/${name}/indicators?${indicatorIds}`);
+    return RestAPI.makeGetRequest(`anh_areas/${name}/indicators`);
   }
 
   /** ***************************** */

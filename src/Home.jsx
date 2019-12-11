@@ -12,27 +12,22 @@ class Home extends React.Component {
     this.state = {
       data: [],
       selectedElement: null,
-      selectedArea: null,
       toggledBar: null,
-      sedimentaryList: [],
     };
   }
 
   async componentDidMount() {
     try {
       const areasResponse = await RestAPI.requestANHAreas();
-      const sedimentaries = await RestAPI.requestSedimentaryBasins();
       this.setState({
         toggledBar: false,
         data: areasResponse.map((element) => ({
           name: element.name,
           label: element.name,
         })),
-        sedimentaryList: sedimentaries,
       });
     } catch (error) {
       // TODO: Set state in a error (handling error)
-
     }
   }
 
@@ -40,7 +35,6 @@ class Home extends React.Component {
     this.setState({
       selectedElement,
     });
-    this.callArea(selectedElement);
   };
 
   showSideBar = () => {
@@ -53,27 +47,11 @@ class Home extends React.Component {
     this.setState({ toggledBar: !toggledBar });
   }
 
-  async callArea(selectedElement) {
-    const { sedimentaryList } = this.state;
-    try {
-      const response = await RestAPI.requestAreaSelected(selectedElement.name);
-      this.setState({
-        selectedArea: {
-          sedimentary_name: sedimentaryList.find((item) => (item.code === response.sedimentary_code)).name,
-          ...response,
-        },
-      });
-    } catch (error) {
-      // TODO: Set state in a error (handling error)
-
-    }
-  }
-
   render() {
     const {
-      selectedArea, selectedElement, toggledBar, data, sedimentaryList,
+      selectedElement, toggledBar, data,
     } = this.state;
-    const { setActiveArea } = this.props;
+    const { sedimentaryList, setActiveArea } = this.props;
     const isToggled = toggledBar;
     return (
       <Layout
@@ -117,12 +95,12 @@ class Home extends React.Component {
               >
                 cuencas sedimentarias
               </button>
-              <Link to="/summary">
+              <Link to={`/summary/${selectedElement ? selectedElement.name : ''}`}>
                 <input
                   type="submit"
                   key="1-o"
                   value="ir a mi área"
-                  onClick={() => setActiveArea(selectedArea)}
+                  onClick={() => setActiveArea(selectedElement ? selectedElement.name : null)}
                 />
               </Link>
             </div>
@@ -165,10 +143,12 @@ class Home extends React.Component {
 
 Home.propTypes = {
   setActiveArea: PropTypes.func,
+  sedimentaryList: PropTypes.array,
 };
 
 Home.defaultProps = {
   setActiveArea: () => {},
+  sedimentaryList: [],
 };
 
 export default Home;
