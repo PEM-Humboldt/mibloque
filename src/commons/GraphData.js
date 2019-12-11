@@ -16,10 +16,10 @@ class GraphData {
     return rawData;
   }
 
-  static prepareData(code, rawData, order) {
+  static prepareData(code, rawData) {
     switch (code) {
       case 1:
-        return ColumnChartData.prepareData(rawData, order);
+        return ColumnChartData.prepareData(rawData);
       case 2:
         return GraphData.sankeyData(rawData);
       case 3:

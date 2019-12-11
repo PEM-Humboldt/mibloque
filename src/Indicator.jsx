@@ -21,6 +21,7 @@ class Indicator extends React.Component {
       biomesList: [],
       connError: false,
       data: null,
+      fullData: null,
       code: 4,
       groupName: '',
     };
@@ -52,7 +53,8 @@ class Indicator extends React.Component {
         if (res.biomes) {
           state.biomesList = res.biomes.map((item) => ({ value: item.id, label: item.name }));
         }
-        state.data = GraphData.prepareData(res.code, res.values, res.biomes); // TODO: Change 1 for correct code
+        state.data = GraphData.prepareData(res.code, res.values, res.biomes);
+        state.fullData = state.data;
         state.code = res.code;
         state.groupName = res.group_name;
         this.setState(state);
@@ -76,6 +78,14 @@ class Indicator extends React.Component {
    */
   handleBiomesSelect = (selectedOption) => {
     this.setState({ selectedOption });
+    const { fullData } = this.state;
+    const state = {};
+    if (selectedOption) {
+      state.data = fullData.filter((row) => row[0] === 'Bioma' || row[0] === selectedOption.label);
+    } else {
+      state.data = fullData;
+    }
+    this.setState(state);
   };
 
   /**
