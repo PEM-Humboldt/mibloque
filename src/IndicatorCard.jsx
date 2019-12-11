@@ -36,7 +36,7 @@ class IndicatorCard extends React.Component {
     } = this.props;
     const indicatorIdsQuery = indicatorIds.map((ind) => `ids=${ind}`).join('&');
     const className = this.validClassIndicator(size).validClass;
-
+    
     if (!values) return null;
     return (
       <Link
@@ -47,7 +47,7 @@ class IndicatorCard extends React.Component {
       >
         <div className={className} key={name}>
           {RenderGraph(
-            GraphData.prepareData(code, values, null, indicatorsName),
+            GraphData.prepareData(code, values, indicatorsName),
             '',
             '',
             GraphData.validGraphType(code).validGraphType,
