@@ -9,10 +9,11 @@ class GraphData {
   static treeMapData(rawData, titles, graphDescription) {
     const graphTitle = graphDescription || 'Ecosistemas amenazados dentro del bloque';
     const dataTransformed = [[
-      'Cifra',
       'Indicador',
-      'Valor',
+      'Padre',
+      'Area',
       'Color',
+      // 'Porcentaje',
     ],
     [graphTitle, null, 0, -5]];
     titles.forEach((element) => {
@@ -28,6 +29,7 @@ class GraphData {
     });
     return dataTransformed;
   }
+
 
   static barChartData(rawData) {
     // TODO: If requires a lot of functions please create a new class.
