@@ -77,6 +77,7 @@ class Home extends React.Component {
     const isToggled = toggledBar;
     return (
       <Layout
+        activateHome={false}
         activeArea={null}
       >
         <section className="sectionhome">

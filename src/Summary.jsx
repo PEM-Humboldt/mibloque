@@ -167,11 +167,6 @@ class Summary extends React.Component {
               </Link>
               <h1>Sobre el área</h1>
               <div className="line" />
-              <h5 className="hectareas vulne">
-                Vulnerabilidad:
-                {' '}
-                <b>{activeArea.vulnerability ? numberWithCommas(Number(activeArea.vulnerability).toFixed(2)) : 'Sin información disponible'}</b>
-              </h5>
               <h5 className="hectareas">
                 <b>{activeArea.area ? numberWithCommas(Number(activeArea.area).toFixed(2)) : 'Sin información disponible'}</b>
                 {' '}
