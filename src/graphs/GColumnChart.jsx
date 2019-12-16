@@ -33,7 +33,6 @@ class GColumnChart extends React.Component {
       width: width - (padding * 2),
       height: height - (padding * 2),
       isStacked: true,
-      hAxis: { textStyle: { fontSize: 0 }, titleTextStyle: { fontSize: 12 } },
       tooltip: { trigger: 'none' },
       vAxes: {
         0: { title: labelY },
@@ -54,6 +53,9 @@ class GColumnChart extends React.Component {
       },
       ...options,
     };
+    if (withTooltip) {
+      fullOptions.hAxis = { textStyle: { fontSize: 0 }, titleTextStyle: { fontSize: 12 } };
+    }
     // eslint-disable-next-line no-undef
     const chart = new google.charts.Bar(document.getElementById('chart'));
     chart.draw(chartData, google.charts.Bar.convertOptions(fullOptions));

@@ -40,7 +40,8 @@ class ColumnChartData {
     const row = [];
     years.forEach((year) => {
       descriptions.forEach((desc) => {
-        row.push(data[year][desc] ? data[year][desc] : 0);
+        if (!data[year]) row.push(0);
+        else row.push(data[year][desc] ? data[year][desc] : 0);
       });
     });
     return row;
