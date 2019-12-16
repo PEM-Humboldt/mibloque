@@ -6,8 +6,15 @@ class GraphData {
     return rawData;
   }
 
-  static treeMapData(rawData, titles, graphDescription) {
-    const graphTitle = graphDescription || 'Ecosistemas amenazados dentro del bloque';
+  static treeMapData(rawData, titles, graphTitle) {
+    const totalArea = Number(rawData[28][0].indicator_value); // Level 1
+    // const totalPercentage = rawData[17]; // Level 1
+    const threatAreas = rawData[27]; // Level 2
+    // const threatPercentages = rawData[16]; // Level 2
+    const detailAreas = rawData[14]; // Level 3
+    // const detailPercentages = rawData[15]; // Level 3
+    const composedTitle = `${graphTitle} - ${totalArea} ha`;
+    console.log(totalArea, threatAreas, detailAreas);
     const dataTransformed = [[
       'Indicador',
       'Padre',
@@ -15,18 +22,40 @@ class GraphData {
       'Color',
       // 'Porcentaje',
     ],
-    [graphTitle, null, 0, -5]];
+    [composedTitle, null, totalArea, totalArea],
+    ];
     titles.forEach((element) => {
-      dataTransformed.push([element.name, graphTitle, 0, 12]);
-      rawData[element.id].forEach((item) => {
-        dataTransformed.push([
-          (`${item.value_description || 'Sin clasificación'} - ${item.indicator_value}` || 'Sin clasificación'),
-          element.name,
-          Number(item.indicator_value) || 0,
-          Number(item.indicator_value) || 0,
-        ]);
-      });
+      if (!element.name.includes('orcentaj')) {
+        rawData[element.id].forEach((item) => {
+          switch (item.id_indicator) {
+            case element.id:
+              console.log(element.name);
+              threatAreas.forEach((threat) => {
+                if (element.name.includes(threat.value_description)) {
+                  console.log(threat.value_description);
+                  dataTransformed.push([element.name, threat.value_description, Number(item.indicator_value), 12]);
+                }
+              });
+              console.log(Object.values(dataTransformed).find((iter) => iter[0] === element.name), element.name);
+              if (!Object.values(dataTransformed).find((iter) => iter === element.name)) {
+                dataTransformed.push([element.name, composedTitle, Number(item.indicator_value), 12]);
+              }
+              dataTransformed.push([item.value_description, element.name, Number(item.indicator_value), 12]);
+              break;
+            default:
+              console.log(element.name);
+              dataTransformed.push([
+                (`${item.value_description || 'Sin clasificación'} - ${item.indicator_value}` || 'Sin clasificación'),
+                element.name,
+                Number(item.indicator_value) || 0,
+                Number(item.indicator_value) || 0,
+              ]);
+              break;
+          }
+        });
+      }
     });
+    console.log(dataTransformed);
     return dataTransformed;
   }
 
@@ -36,14 +65,14 @@ class GraphData {
     return rawData;
   }
 
-  static prepareData(code, rawData, titles) {
+  static prepareData(code, rawData, order, titles, name) {
     switch (code) {
       case 1:
-        return ColumnChartData.prepareData(rawData);
+        return ColumnChartData.prepareData(rawData, order);
       case 2:
         return GraphData.sankeyData(rawData);
       case 3:
-        return GraphData.treeMapData(rawData, titles);
+        return GraphData.treeMapData(rawData, titles, name);
       case 4:
         return GraphData.barChartData(rawData);
       default:

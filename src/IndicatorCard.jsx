@@ -47,7 +47,7 @@ class IndicatorCard extends React.Component {
       >
         <div className={className} key={name}>
           {RenderGraph(
-            GraphData.prepareData(code, values, indicatorsName),
+            GraphData.prepareData(code, values, null, indicatorsName, name),
             '',
             '',
             GraphData.validGraphType(code).validGraphType,

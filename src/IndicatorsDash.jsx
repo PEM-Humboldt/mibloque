@@ -46,6 +46,7 @@ class IndicatorsDash extends React.Component {
   loadIndicators = (areaName) => {
     RestAPI.requestIndicatorsByArea(areaName)
       .then((res) => {
+        console.log(res);
         res.topics.unshift('Todas');
         this.setState({
           data: res.indicators,
