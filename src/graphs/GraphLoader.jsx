@@ -181,7 +181,11 @@ const GraphLoader = ({
     default:
       break;
   }
-  return graph;
+  return (
+    <div className="graph">
+      {graph}
+    </div>
+  );
 };
 
 GraphLoader.propTypes = {
