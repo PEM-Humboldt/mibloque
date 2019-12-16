@@ -83,7 +83,9 @@ class Indicator extends React.Component {
     const { fullData } = this.state;
     const state = {};
     if (selectedOption) {
-      state.data = fullData.filter((row) => row[0] === 'Bioma' || row[0] === selectedOption.label);
+      const data = fullData.filter((row) => row[0] === 'Bioma' || row[0] === selectedOption.label);
+      const dumb = [' ', null, null, null, null, null, null];
+      state.data = [data[0], dumb, data[1], dumb];
     } else {
       state.data = fullData;
     }

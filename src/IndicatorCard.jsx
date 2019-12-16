@@ -52,6 +52,7 @@ class IndicatorCard extends React.Component {
             graph={GraphData.validGraphType(code).validGraphType}
             title={name}
             padding={0}
+            options={{ legend: { position: 'none' } }}
           />
         </div>
       </Link>

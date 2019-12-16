@@ -36,6 +36,7 @@ const RenderGraph = ({
   padding,
   parentWidth,
   parentHeight,
+  options,
 }) => {
   // While data is being retrieved
   let errorMessage = null;
@@ -67,6 +68,7 @@ const RenderGraph = ({
       width={width || parentWidth}
       height={height || parentHeight}
       padding={padding}
+      options={options}
     />
   );
 };
@@ -86,6 +88,7 @@ RenderGraph.propTypes = {
   // Array or object, depending on graphType
   data: PropTypes.any.isRequired,
   padding: PropTypes.number,
+  options: PropTypes.object,
 };
 
 RenderGraph.defaultProps = {
@@ -98,6 +101,7 @@ RenderGraph.defaultProps = {
   width: null,
   height: null,
   padding: 0,
+  options: {},
 };
 
 export default withParentSize(RenderGraph);

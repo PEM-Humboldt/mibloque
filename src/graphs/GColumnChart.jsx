@@ -23,11 +23,12 @@ class GColumnChart extends React.Component {
       height,
       labelY,
       padding,
+      options,
     } = this.props;
     // eslint-disable-next-line new-cap
     const chartData = new google.visualization.arrayToDataTable(data);
 
-    const options = {
+    const fullOptions = {
       width: width - (padding * 2),
       height: height - (padding * 2),
       axisTitlesPosition: 'none',
@@ -49,10 +50,11 @@ class GColumnChart extends React.Component {
         4: { targetAxisIndex: 2 },
         5: { targetAxisIndex: 2 },
       },
+      ...options,
     };
     // eslint-disable-next-line no-undef
     const chart = new google.charts.Bar(document.getElementById('chart'));
-    chart.draw(chartData, google.charts.Bar.convertOptions(options));
+    chart.draw(chartData, google.charts.Bar.convertOptions(fullOptions));
     google.visualization.events.addListener(chart, 'error', (err) => {
       google.visualization.errors.removeError(err.id);
     });
@@ -94,6 +96,8 @@ GColumnChart.propTypes = {
   width: PropTypes.number,
   height: PropTypes.number,
   padding: PropTypes.number,
+  loader: PropTypes.element,
+  options: PropTypes.object,
 };
 
 GColumnChart.defaultProps = {
@@ -101,6 +105,8 @@ GColumnChart.defaultProps = {
   width: null,
   height: null,
   padding: 0,
+  loader: 'Cargando...',
+  options: {},
 };
 
 export default GColumnChart;

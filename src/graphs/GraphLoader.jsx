@@ -35,6 +35,7 @@ const GraphLoader = ({
   width,
   height,
   padding,
+  options,
 }) => {
   let graph = ('');
   switch (graphType) {
@@ -62,6 +63,7 @@ const GraphLoader = ({
           loader={<div>Cargando...</div>}
           labelY={labelY}
           padding={padding}
+          options={options}
         />
       );
       break;
@@ -194,6 +196,7 @@ GraphLoader.propTypes = {
   width: PropTypes.number,
   height: PropTypes.number,
   units: PropTypes.string,
+  options: PropTypes.object,
 };
 
 GraphLoader.defaultProps = {
@@ -205,6 +208,7 @@ GraphLoader.defaultProps = {
   width: null,
   height: null,
   units: 'ha',
+  options: {},
 };
 
 export default GraphLoader;
