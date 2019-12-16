@@ -268,7 +268,7 @@ class Summary extends React.Component {
                 biomesDataGraps && Object.values(biomesDataGraps).map((biome) => {
                   const localColor = this.getColorCode(biome.name);
                   return (
-                    <div key={biome.name} style={{ 'padding-bottom': '5px' }}>
+                    <div key={biome.name} style={{ paddingBottom: '5px' }}>
                       <RenderGraph
                         data={[
                           biome,
