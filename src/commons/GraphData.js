@@ -6,14 +6,15 @@ class GraphData {
     return rawData;
   }
 
-  static treeMapData(rawData, titles, graphTitle) {
+  static treeMapData(rawData, titles, areaTitle) {
     const totalArea = Number(rawData[28][0].indicator_value); // Level 1
     // const totalPercentage = rawData[17]; // Level 1
     const threatAreas = rawData[27]; // Level 2
     // const threatPercentages = rawData[16]; // Level 2
     const detailAreas = rawData[14]; // Level 3
     // const detailPercentages = rawData[15]; // Level 3
-    const composedTitle = `${graphTitle} - ${totalArea} ha`;
+    const firstLevelLabel = 'Ecosistemas en lista roja dentro del área de interés';
+    const areaLabel = `${areaTitle} - ${totalArea} ha`;
     console.log(totalArea, threatAreas, detailAreas);
     const dataTransformed = [[
       'Indicador',
@@ -22,23 +23,24 @@ class GraphData {
       'Color',
       // 'Porcentaje',
     ],
-    [composedTitle, null, totalArea, totalArea],
+    [firstLevelLabel, null, totalArea, totalArea],
+    [areaLabel, firstLevelLabel, totalArea, totalArea],
     ];
     titles.forEach((element) => {
       if (!element.name.includes('orcentaj')) {
         rawData[element.id].forEach((item) => {
           switch (item.id_indicator) {
             case element.id:
-              console.log(element.name);
               threatAreas.forEach((threat) => {
-                if (element.name.includes(threat.value_description)) {
-                  console.log(threat.value_description);
+                console.log(threat.value_description);
+                if (element.name.includes(String(threat.value_description))) {
+                  console.log(element.name);
                   dataTransformed.push([element.name, threat.value_description, Number(item.indicator_value), 12]);
                 }
               });
               console.log(Object.values(dataTransformed).find((iter) => iter[0] === element.name), element.name);
-              if (!Object.values(dataTransformed).find((iter) => iter === element.name)) {
-                dataTransformed.push([element.name, composedTitle, Number(item.indicator_value), 12]);
+              if (!Object.values(dataTransformed).find((iter) => iter[0] === element.name)) {
+                dataTransformed.push([element.name, areaLabel, Number(item.indicator_value), 12]);
               }
               dataTransformed.push([item.value_description, element.name, Number(item.indicator_value), 12]);
               break;

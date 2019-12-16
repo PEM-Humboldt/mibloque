@@ -3,38 +3,41 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Chart } from 'react-google-charts';
 import SmallBarStackGraph from './SmallBarStackGraph';
+import GColumnChart from './GColumnChart';
 
-const GraphLoader = (
-  {
-  /**
-   * Allow to select one of the available graphs
-   *
-   * @param {string}  graphType graph types name,
-   *  this param validates which graph to render
+/**
+ * Allow to select one of the available graphs
+ *
+ * @param {string}  graphType graph types name,
+ *  this param validates which graph to render
 
-   * @param {object}  data values to render,
-   * @param {string}  labelX information showed in the graph label X,
-   * @param {string}  labelY information showed in the graph label Y,
-   * @param {string}  graphType Type of graph to render,
-   * @param {string}  title title to render if the selected graph allows it,
-   * @param {string}  subtitle subtitle to render if the selected graph allows it,
-   * @param {array}   colors color palette to sort elements inside the graph
-   * @param {string}  units information showed in the graph,
-   * @param {string}  width dynamic width sent by parent component,
-   * @param {string}  height dynamic height sent by parent component,
-   */
-    data,
-    labelX,
-    labelY,
-    graphType,
-    title,
-    subtitle,
-    colors,
-    units,
-    width,
-    height,
-  },
-) => {
+  * @param {object}  data values to render,
+  * @param {string}  labelX information showed in the graph label X,
+  * @param {string}  labelY information showed in the graph label Y,
+  * @param {string}  graphType Type of graph to render,
+  * @param {string}  title title to render if the selected graph allows it,
+  * @param {string}  subtitle subtitle to render if the selected graph allows it,
+  * @param {array}   colors color palette to sort elements inside the graph
+  * @param {string}  units information showed in the graph,
+  * @param {number}  width dynamic width sent by parent component,
+  * @param {number}  height dynamic height sent by parent component,
+  * @param {number}  padding to determine chart padding
+ */
+const GraphLoader = ({
+  data,
+  labelX,
+  labelY,
+  graphType,
+  title,
+  subtitle,
+  colors,
+  units,
+  width,
+  height,
+  padding,
+  options,
+  withTooltip,
+}) => {
   let graph = ('');
   switch (graphType) {
     case 'SmallBarStackGraph':
@@ -54,60 +57,15 @@ const GraphLoader = (
       break;
     case 'ColumnChart':
       graph = (
-        <Chart
+        <GColumnChart
+          data={data}
           width={width}
           height={height}
-          chartType="ColumnChart"
-          loader={<div>Loading Chart</div>}
-          data={data}
-          options={{
-            title,
-            chartArea: { width: '70%' },
-            isStacked: false,
-            legend: { position: 'bottom', maxLines: 3 },
-            vAxis: {
-              title: labelY,
-              viewWindow: {
-                min: 0,
-              },
-            },
-            vAxes: {
-              0: {
-              },
-              1: {
-                gridlines: {
-                  color: 'transparent',
-                },
-                textStyle: {
-                  color: 'transparent',
-                },
-              },
-              2: {
-                gridlines: {
-                  color: 'transparent',
-                },
-                textStyle: {
-                  color: 'transparent',
-                },
-              },
-            },
-            series: {
-              2: {
-                targetAxisIndex: 1,
-              },
-              3: {
-                targetAxisIndex: 1,
-              },
-              4: {
-                targetAxisIndex: 2,
-              },
-              5: {
-                targetAxisIndex: 2,
-              },
-            },
-          }}
-          // For tests
-          rootProps={{ 'data-testid': '2' }}
+          loader={<div>Cargando...</div>}
+          labelY={labelY}
+          padding={padding}
+          options={options}
+          withTooltip={withTooltip}
         />
       );
       break;
@@ -176,7 +134,6 @@ const GraphLoader = (
           loader={<div>Loading Chart</div>}
           data={data}
           options={{
-            title,
             minColor: '#f00',
             midColor: '#ddd',
             maxColor: '#0d0',
@@ -192,7 +149,7 @@ const GraphLoader = (
       break;
   }
   return (
-    <div>
+    <div className="graph">
       {graph}
     </div>
   );
@@ -210,6 +167,9 @@ GraphLoader.propTypes = {
   width: PropTypes.number,
   height: PropTypes.number,
   units: PropTypes.string,
+  options: PropTypes.object,
+  padding: PropTypes.number,
+  withTooltip: PropTypes.bool,
 };
 
 GraphLoader.defaultProps = {
@@ -218,9 +178,12 @@ GraphLoader.defaultProps = {
   colors: ['blue'],
   labelX: '',
   labelY: '',
-  width: 400,
-  height: 200,
+  width: null,
+  height: null,
   units: 'ha',
+  options: {},
+  padding: 0,
+  withTooltip: true,
 };
 
 export default GraphLoader;
