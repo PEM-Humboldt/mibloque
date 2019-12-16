@@ -53,6 +53,7 @@ class IndicatorCard extends React.Component {
             title={name}
             padding={0}
             options={{ legend: { position: 'none' } }}
+            withTooltip={false}
           />
         </div>
       </Link>

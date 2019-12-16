@@ -24,6 +24,7 @@ class GColumnChart extends React.Component {
       labelY,
       padding,
       options,
+      withTooltip,
     } = this.props;
     // eslint-disable-next-line new-cap
     const chartData = new google.visualization.arrayToDataTable(data);
@@ -31,8 +32,9 @@ class GColumnChart extends React.Component {
     const fullOptions = {
       width: width - (padding * 2),
       height: height - (padding * 2),
-      axisTitlesPosition: 'none',
       isStacked: true,
+      hAxis: { textStyle: { fontSize: 0 }, titleTextStyle: { fontSize: 12 } },
+      tooltip: { trigger: 'none' },
       vAxes: {
         0: { title: labelY },
         1: {
@@ -57,6 +59,12 @@ class GColumnChart extends React.Component {
     chart.draw(chartData, google.charts.Bar.convertOptions(fullOptions));
     google.visualization.events.addListener(chart, 'error', (err) => {
       google.visualization.errors.removeError(err.id);
+    });
+    google.visualization.events.addListener(chart, 'onmouseover', () => {
+      if (!withTooltip) {
+        // eslint-disable-next-line no-undef
+        document.querySelectorAll('#chart g:last-of-type')[0].style.display = 'none';
+      }
     });
   }
 
@@ -98,6 +106,7 @@ GColumnChart.propTypes = {
   padding: PropTypes.number,
   loader: PropTypes.element,
   options: PropTypes.object,
+  withTooltip: PropTypes.bool,
 };
 
 GColumnChart.defaultProps = {
@@ -107,6 +116,7 @@ GColumnChart.defaultProps = {
   padding: 0,
   loader: 'Cargando...',
   options: {},
+  withTooltip: true,
 };
 
 export default GColumnChart;
