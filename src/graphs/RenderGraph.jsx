@@ -1,10 +1,10 @@
 /** eslint verified */
 import React from 'react';
-import { ParentSize } from '@vx/responsive';
+import PropTypes from 'prop-types';
+import { withParentSize } from '@vx/responsive';
 import GraphLoader from './GraphLoader';
 
-const RenderGraph = (
-  /**
+/**
    * Set the Parent size to render a graph
    *
    * @param {any} data Graph data, it can be null (data hasn't loaded), false (data not available)
@@ -16,9 +16,27 @@ const RenderGraph = (
    * @param {string} subtitle graph title
    * @param {array} colors color palette to sort elements inside the graph
    * @param {string} units to show in axis X
+   * @param {number}  width dynamic width sent by parent component,
+   * @param {number}  height dynamic height sent by parent component,
+   * @param {number}  padding to determine chart padding
+   * @param {number}  parentWidth parent width according to vx class
+   * @param {number}  parentHeight parent height according to vx class
    */
-  data, labelX, labelY, graph, title, subtitle, colors, units,
-) => {
+const RenderGraph = ({
+  data,
+  labelX,
+  labelY,
+  graph,
+  title,
+  subtitle,
+  colors,
+  units,
+  width,
+  height,
+  padding,
+  parentWidth,
+  parentHeight,
+}) => {
   // While data is being retrieved
   let errorMessage = null;
   // (data === null) while waiting for response
@@ -35,28 +53,51 @@ const RenderGraph = (
       </div>
     );
   }
+
   return (
-    <ParentSize
-      key={title}
-    >
-      {(parent) => (
-        parent.width ? (
-          <GraphLoader
-            data={data}
-            labelX={labelX}
-            labelY={labelY}
-            graphType={graph}
-            title={title}
-            subtitle={subtitle}
-            colors={colors}
-            units={units}
-            width={parent.width}
-            height={parent.height}
-          />
-        ) : ('')
-      )}
-    </ParentSize>
+    <GraphLoader
+      data={data}
+      labelX={labelX}
+      labelY={labelY}
+      graphType={graph}
+      title={title}
+      subtitle={subtitle}
+      colors={colors}
+      units={units}
+      width={width || parentWidth}
+      height={height || parentHeight}
+      padding={padding}
+    />
   );
 };
 
-export default RenderGraph;
+RenderGraph.propTypes = {
+  labelX: PropTypes.string,
+  labelY: PropTypes.string,
+  graph: PropTypes.string.isRequired,
+  title: PropTypes.string,
+  subtitle: PropTypes.string,
+  colors: PropTypes.array,
+  units: PropTypes.string,
+  width: PropTypes.number,
+  height: PropTypes.number,
+  parentWidth: PropTypes.number.isRequired,
+  parentHeight: PropTypes.number.isRequired,
+  // Array or object, depending on graphType
+  data: PropTypes.any.isRequired,
+  padding: PropTypes.number,
+};
+
+RenderGraph.defaultProps = {
+  title: '',
+  subtitle: '',
+  colors: ['blue'],
+  labelX: '',
+  labelY: '',
+  units: 'ha',
+  width: null,
+  height: null,
+  padding: 0,
+};
+
+export default withParentSize(RenderGraph);

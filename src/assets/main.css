@@ -94,11 +94,6 @@ header h3 b {
   position: absolute;
 }
 
-/*Indicator informer*/
-.indicator {
-  padding: 20px;
-}
-
 nav {
   display: -webkit-flex;
   display: -moz-flex;

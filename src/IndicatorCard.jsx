@@ -46,16 +46,13 @@ class IndicatorCard extends React.Component {
         }}
       >
         <div className={className} key={name}>
-          {RenderGraph(
-            GraphData.prepareData(code, values),
-            '',
-            '',
-            GraphData.validGraphType(code).validGraphType,
-            name,
-            null,
-            null,
-            null,
-          )}
+          <RenderGraph
+            data={GraphData.prepareData(code, values)}
+            labelY="Hectáreas"
+            graph={GraphData.validGraphType(code).validGraphType}
+            title={name}
+            padding={0}
+          />
         </div>
       </Link>
     );
