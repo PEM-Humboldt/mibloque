@@ -22,6 +22,8 @@ import GColumnChart from './GColumnChart';
   * @param {number}  width dynamic width sent by parent component,
   * @param {number}  height dynamic height sent by parent component,
   * @param {number}  padding to determine chart padding
+  * @param {number}  options object with extra options to pass to graph
+  * @param {boolean} withTooltip boolean to determine if tooltip should be shown
  */
 const GraphLoader = ({
   data,
