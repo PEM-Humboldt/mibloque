@@ -1,5 +1,6 @@
 /** eslint verified */
 import React from 'react';
+import L from 'leaflet';
 import PropTypes from 'prop-types';
 
 import CloseIcon from '@material-ui/icons/Close';
@@ -20,6 +21,8 @@ class Indicator extends React.Component {
     this.state = {
       selectedOption: null,
       biomesList: [],
+      geoIds:[],
+      geometries:[],
       connError: false,
     };
   }
@@ -34,7 +37,50 @@ class Indicator extends React.Component {
     if (!activeArea) {
       setActiveArea(areaName);
     }
+
+
+
   }
+
+  /** 
+   * Load geometry for the incoming indicator
+   * @param {string} gids indicator ids for a selected area
+   * 
+  */
+ 
+  LoadGeometry = (gids) =>{
+    
+    const gidsQuery = gids.map((gid) => `ids=${gid}`).join('&');
+    console.log('hola '+gids+'. ');
+    RestAPI.requestGeometryByGid(gidsQuery)
+    .then((res) => {
+      if (res.features) {
+        console.log(res.features[0].geometry);
+        this.setState({
+          geometries: {
+            areas: {
+              displayName: "Foo",
+              id: 1,
+              active: true,
+              layer: L.geoJSON(res.features[0].geometry, {
+                style: {
+                  color: '#fed0b4',
+                  stroke: false,
+                  fillColor: 'red',
+                  fillOpacity: 0.5,
+                },
+              }),
+            },
+        }});
+        
+      }
+    })
+    .catch(() => {
+      this.reportConnError();
+    });
+    
+  }
+  
 
   /**
    * Load indicators data for selected area from RestAPI and specified ids
@@ -43,12 +89,31 @@ class Indicator extends React.Component {
    * @param {string} ids indicator ids for selected area
    */
   loadData = (name, ids) => {
+    this.setState({geometries:[]});
     const idsQuery = ids.map((id) => `ids=${id}`).join('&');
     RestAPI.requestIndicatorsByArea(name, idsQuery)
       .then((res) => {
         const state = {};
         if (res.biomes) {
           state.biomesList = res.biomes.map((item) => ({ value: item.id, label: item.name }));
+        }
+        if(res.values && res.code){
+          if(res.code===1){
+            const x=[];
+            for(const obj in res.values){
+              for(const i in res.values[obj]){
+                x.push(res.values[obj][i]);
+              }
+            }
+            //Se toma el mayor area del último año
+            const aux=[x.filter(f=>f.year===Math.max.apply(Math,x.map(o=>o.year))).sort((a,b)=>parseFloat(a.indicator_value)<parseFloat(b.indicator_value))[0].id];
+            this.setState({geoIds:aux});
+          }
+
+
+        }
+        if(this.state.geoIds){
+          this.LoadGeometry(this.state.geoIds);
         }
         // TODO: state.indicatorsValues - Process indicators
         this.setState(state);
@@ -89,7 +154,7 @@ class Indicator extends React.Component {
       biomesList,
       connError,
     } = this.state;
-    const { layers, activeArea } = this.props;
+    const {  activeArea } = this.props;
 
     let biomesSelect = null;
     if (biomesList.length > 0) {
@@ -174,11 +239,11 @@ class Indicator extends React.Component {
             </p>
             {biomesSelect}
             <br />
-            {layers
+            {this.state.geometries
               && (
-              <div className="smallMap">
+              <div id="miniMap" className="smallMap">
                 <MapViewer
-                  layers={layers}
+                  layers={this.state.geometries}
                   controls={false}
                 />
               </div>
