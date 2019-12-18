@@ -20,6 +20,12 @@ body {
   background-color: #f5f1f0;
 }
 
+.bgimghome {
+  background-image: url(./img/fondoilust.png);
+  background-repeat: no-repeat;
+  background-position: right bottom;
+}
+
 h1, h2 {
   font-family: 'Libre Baskerville', serif;
 }
@@ -88,11 +94,6 @@ header h3 b {
   position: absolute;
 }
 
-/*Indicator informer*/
-.indicator {
-  padding: 20px;
-}
-
 nav {
   display: -webkit-flex;
   display: -moz-flex;
@@ -138,9 +139,6 @@ section {
 }
 
 .sectionhome {
-  background-image: url(./img/fondoilust.png);
-  background-repeat: no-repeat;
-  background-position: right bottom;
   display: -webkit-flex;
   display: -moz-flex;
   display: -ms-flex;
@@ -460,17 +458,12 @@ footer h2 {
   color: #5DB2BA;
   font-size: 22px;
   display: block;
-  padding: 0 0 25px;
+  padding: 25px 0;
   font-weight: 400;
 }
 
 .hectareas b {
   font-weight: 600;
-}
-
-.vulne {
-  padding: 25px 0 0;
-  color: #D37750;
 }
 
 .blockdata p {
@@ -613,6 +606,8 @@ footer h2 {
     padding: 15px;
   }
 }
+
+.graph svg > g > g:last-child { pointer-events: none }
 
 @media screen and (max-width: 820px){
   nav {

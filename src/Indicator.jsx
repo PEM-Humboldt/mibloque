@@ -10,10 +10,9 @@ import Select from 'react-select';
 import Layout from './Layout';
 import MapViewer from './commons/MapViewer';
 import RenderGraph from './graphs/RenderGraph';
+import GraphData from './commons/GraphData';
 import RestAPI from './commons/RestAPI';
 
-// Data mockups
-import { graphData1 } from './assets/mockups/summaryData';
 
 class Indicator extends React.Component {
   constructor(props) {
@@ -24,6 +23,12 @@ class Indicator extends React.Component {
       geoIds:[],
       geometries:[],
       connError: false,
+      data: null,
+      fullData: null,
+      code: 4,
+      groupName: '',
+      graphSize: { width: 0, height: 0 },
+      selectHeight: 0,
     };
   }
 
@@ -147,6 +152,10 @@ class Indicator extends React.Component {
           this.LoadIndicatorGeometry(this.state.geoIds);
         }
         // TODO: state.indicatorsValues - Process indicators
+        state.data = GraphData.prepareData(res.code, res.values, res.biomes);
+        state.fullData = state.data;
+        state.code = res.code;
+        state.groupName = res.group_name;
         this.setState(state);
       })
       .catch(() => {
@@ -168,6 +177,16 @@ class Indicator extends React.Component {
    */
   handleBiomesSelect = (selectedOption) => {
     this.setState({ selectedOption });
+    const { fullData } = this.state;
+    const state = {};
+    if (selectedOption) {
+      const data = fullData.filter((row) => row[0] === 'Bioma' || row[0] === selectedOption.label);
+      const dumb = [' ', null, null, null, null, null, null];
+      state.data = [data[0], dumb, data[1], dumb];
+    } else {
+      state.data = fullData;
+    }
+    this.setState(state);
   };
 
   /**
@@ -179,32 +198,78 @@ class Indicator extends React.Component {
     this.setState({ [state]: false });
   };
 
+  setGraphWidth = (domElem) => {
+    if (domElem) {
+      this.setState((prevState) => ({
+        graphSize: {
+          height: prevState.graphSize.height,
+          width: domElem.offsetWidth,
+        },
+      }));
+    }
+  }
+
+  setGraphHeight = (domElem) => {
+    if (domElem) {
+      this.setState((prevState) => ({
+        graphSize: {
+          height: domElem.offsetHeight,
+          width: prevState.graphSize.width,
+        },
+      }));
+    }
+  }
+
+  setSelectHeight = (domElem) => {
+    if (domElem) this.setState({ selectHeight: domElem.select.controlRef.offsetHeight });
+  }
+
   render() {
     const {
       selectedOption,
       biomesList,
       connError,
+      data,
+      code,
+      groupName,
+      graphSize: { height: graphHeight, width: graphWidth },
+      selectHeight,
     } = this.state;
     const {  activeArea } = this.props;
 
     let biomesSelect = null;
     if (biomesList.length > 0) {
       biomesSelect = (
-        <div>
-          <h2>Biomas</h2>
-          <div className="line" />
-          <br />
-          <Select
-            value={selectedOption}
-            onChange={this.handleBiomesSelect}
-            options={biomesList}
-            placeholder="Seleccione un bioma"
-            isSearchable="true"
-            isClearable="true"
+        <Select
+          ref={this.setSelectHeight}
+          value={selectedOption}
+          onChange={this.handleBiomesSelect}
+          options={biomesList}
+          placeholder="Seleccione un bioma"
+          isSearchable="true"
+          isClearable="true"
+        />
+      );
+    }
+
+    let graph = null;
+    if (data && graphHeight !== 0 && graphWidth !== 0) {
+      graph = (
+        <div className="indicator">
+          {biomesSelect}
+          <RenderGraph
+            data={data}
+            labelY="Hectáreas"
+            graph={GraphData.validGraphType(code).validGraphType}
+            title={groupName}
+            width={graphWidth}
+            height={graphHeight - selectHeight}
+            padding={20}
           />
         </div>
       );
     }
+
     return (
       <Layout
         activeArea={activeArea}
@@ -235,18 +300,10 @@ class Indicator extends React.Component {
             </button>
           </div>
         </Modal>
-        <section className="sectionintern">
+        <section className="sectionintern" ref={this.setGraphHeight}>
           <div className="internheader" />
-          <div className="sheet">
-            <div className="indicator">
-              {graphData1
-                ? RenderGraph(
-                  graphData1, '', '', 'TreeMap',
-                  'Cobertura', 'Tendencia', ['#5f8f2c', '#fff'], null, null,
-                  '', '%',
-                )
-                : 'Cargando...'}
-            </div>
+          <div className="sheet" ref={this.setGraphWidth}>
+            {graph || 'cargando...'}
           </div>
           <div className="blockdata">
             <h1>¿Cómo leer esta cifra en el área?</h1>
@@ -268,7 +325,6 @@ class Indicator extends React.Component {
               Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie
               consequat, vel illum dolore eu feugiat nulla facilisis at.
             </p>
-            {biomesSelect}
             <br />
             {this.state.geometries
               && (

@@ -11,18 +11,21 @@ const Layout = ({
   activateIndicators,
   activateSummary,
   children,
-}) => (
-  <div>
-    <Header
-      activeArea={activeArea}
-      activateHome={activateHome}
-      activateIndicators={activateIndicators}
-      activateSummary={activateSummary}
-    />
-    {children}
-    <Footer />
-  </div>
-);
+}) => {
+  const className = !activateHome ? 'bgimghome' : '';
+  return (
+    <div className={className}>
+      <Header
+        activeArea={activeArea}
+        activateHome={activateHome}
+        activateIndicators={activateIndicators}
+        activateSummary={activateSummary}
+      />
+      {children}
+      <Footer />
+    </div>
+  );
+};
 
 Layout.propTypes = {
   children: PropTypes.any,

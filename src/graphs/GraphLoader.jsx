@@ -3,38 +3,43 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Chart } from 'react-google-charts';
 import SmallBarStackGraph from './SmallBarStackGraph';
+import GColumnChart from './GColumnChart';
 
-const GraphLoader = (
-  {
-  /**
-   * Allow to select one of the available graphs
-   *
-   * @param {string}  graphType graph types name,
-   *  this param validates which graph to render
+/**
+ * Allow to select one of the available graphs
+ *
+ * @param {string}  graphType graph types name,
+ *  this param validates which graph to render
 
-   * @param {object}  data values to render,
-   * @param {string}  labelX information showed in the graph label X,
-   * @param {string}  labelY information showed in the graph label Y,
-   * @param {string}  graphType Type of graph to render,
-   * @param {string}  title title to render if the selected graph allows it,
-   * @param {string}  subtitle subtitle to render if the selected graph allows it,
-   * @param {array}   colors color palette to sort elements inside the graph
-   * @param {string}  units information showed in the graph,
-   * @param {string}  width dynamic width sent by parent component,
-   * @param {string}  height dynamic height sent by parent component,
-   */
-    data,
-    labelX,
-    labelY,
-    graphType,
-    title,
-    subtitle,
-    colors,
-    units,
-    width,
-    height,
-  },
-) => {
+  * @param {object}  data values to render,
+  * @param {string}  labelX information showed in the graph label X,
+  * @param {string}  labelY information showed in the graph label Y,
+  * @param {string}  graphType Type of graph to render,
+  * @param {string}  title title to render if the selected graph allows it,
+  * @param {string}  subtitle subtitle to render if the selected graph allows it,
+  * @param {array}   colors color palette to sort elements inside the graph
+  * @param {string}  units information showed in the graph,
+  * @param {number}  width dynamic width sent by parent component,
+  * @param {number}  height dynamic height sent by parent component,
+  * @param {number}  padding to determine chart padding
+  * @param {number}  options object with extra options to pass to graph
+  * @param {boolean} withTooltip boolean to determine if tooltip should be shown
+ */
+const GraphLoader = ({
+  data,
+  labelX,
+  labelY,
+  graphType,
+  title,
+  subtitle,
+  colors,
+  units,
+  width,
+  height,
+  padding,
+  options,
+  withTooltip,
+}) => {
   let graph = ('');
   switch (graphType) {
     case 'SmallBarStackGraph':
@@ -54,32 +59,15 @@ const GraphLoader = (
       break;
     case 'ColumnChart':
       graph = (
-        <Chart
+        <GColumnChart
+          data={data}
           width={width}
           height={height}
-          chartType="ColumnChart"
-          loader={<div>Loading Chart</div>}
-          data={[
-            ['Zonobioma Alternohigrico Tropical Tolima grande', 'Natural', 'Secundario'],
-            ['2002', 2230.26000, 116.47900],
-            ['2009', 2203.60000, 46.93000],
-            ['2012', 2000.66000, 482.66500],
-          ]}
-          options={{
-            title: 'Hectareas de Bosque Natural y Secundaria para cada año por Bioma',
-            chartArea: { width: '70%' },
-            isStacked: true,
-            legend: { position: 'bottom', maxLines: 3 },
-            hAxis: {
-              title: 'Zonobioma Alternohigrico Tropical Tolima grande',
-              minValue: 0,
-            },
-            vAxis: {
-              title: 'Hectareas',
-            },
-          }}
-          // For tests
-          rootProps={{ 'data-testid': '2' }}
+          loader={<div>Cargando...</div>}
+          labelY={labelY}
+          padding={padding}
+          options={options}
+          withTooltip={withTooltip}
         />
       );
       break;
@@ -198,7 +186,7 @@ const GraphLoader = (
       break;
   }
   return (
-    <div>
+    <div className="graph">
       {graph}
     </div>
   );
@@ -216,6 +204,9 @@ GraphLoader.propTypes = {
   width: PropTypes.number,
   height: PropTypes.number,
   units: PropTypes.string,
+  options: PropTypes.object,
+  padding: PropTypes.number,
+  withTooltip: PropTypes.bool,
 };
 
 GraphLoader.defaultProps = {
@@ -224,9 +215,12 @@ GraphLoader.defaultProps = {
   colors: ['blue'],
   labelX: '',
   labelY: '',
-  width: 400,
-  height: 200,
+  width: null,
+  height: null,
   units: 'ha',
+  options: {},
+  padding: 0,
+  withTooltip: true,
 };
 
 export default GraphLoader;
