@@ -1,4 +1,5 @@
 import ColumnChartData from './ColumnChartData';
+import BarChartData from './BarChartData';
 
 class GraphData {
   static sankeyData(rawData) {
@@ -25,7 +26,7 @@ class GraphData {
       case 3:
         return GraphData.treeMapData(rawData);
       case 4:
-        return GraphData.barChartData(rawData);
+        return BarChartData.prepareData(rawData);
       default:
         return { results: rawData, groups: 1 };
     }
