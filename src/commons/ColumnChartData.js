@@ -56,7 +56,7 @@ class ColumnChartData {
     const headers = ['Bioma'];
     years.forEach((year) => {
       descriptions.forEach((desc) => {
-        headers.push(`${year}-${desc}`);
+        headers.push(descriptions.length === 1 ? `${year}` : `${year}-${desc}`);
       });
     });
     return headers;
@@ -83,7 +83,7 @@ class ColumnChartData {
         rawData[0].name_biome,
         ...ColumnChartData.constructOneBiome(years, descriptions, data),
       ]);
-      return results;
+      return { results, groups: descriptionSet.size };
     }
     let yearSet = new Set();
     let descriptionSet = new Set();
@@ -106,7 +106,7 @@ class ColumnChartData {
       ]);
     });
 
-    return results;
+    return { results, groups: descriptionSet.size };
   }
 }
 
