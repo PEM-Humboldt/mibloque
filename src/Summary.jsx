@@ -268,20 +268,21 @@ class Summary extends React.Component {
                 biomesDataGraps && Object.values(biomesDataGraps).map((biome) => {
                   const localColor = this.getColorCode(biome.name);
                   return (
-                    <div key={biome.name} style={{ 'padding-bottom': '5px' }}>
-                      {
-                        RenderGraph(
-                          [
-                            biome,
-                            {
-                              area: (activeArea.area - biome.area),
-                              type: 'empty',
-                              color: '#fff',
-                            },
-                          ], '', '', 'SmallBarStackGraph',
-                          biome.name, '', [localColor, '#fff'], 'ha',
-                        )
-                      }
+                    <div key={biome.name} style={{ paddingBottom: '5px' }}>
+                      <RenderGraph
+                        data={[
+                          biome,
+                          {
+                            area: (activeArea.area - biome.area),
+                            type: 'empty',
+                            color: '#fff',
+                          },
+                        ]}
+                        graph="SmallBarStackGraph"
+                        subtitle={biome.name}
+                        colors={[localColor, '#fff']}
+                        units="ha"
+                      />
                       {biome.area ? (
                         <span key={biome.area}>
                           <b>
