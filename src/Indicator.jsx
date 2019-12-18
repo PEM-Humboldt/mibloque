@@ -30,6 +30,7 @@ class Indicator extends React.Component {
   componentDidMount() {
     const { areaName, indicatorIds } = this.props;
     this.loadData(areaName, indicatorIds);
+    this.loadBlockGeometry(areaName);
   }
 
   componentDidUpdate() {
@@ -37,9 +38,34 @@ class Indicator extends React.Component {
     if (!activeArea) {
       setActiveArea(areaName);
     }
+  }
 
-
-
+  loadBlockGeometry = (areaName) =>{
+    
+      RestAPI.requestGeometryByArea(areaName)
+      .then((res)=>{
+        this.setState({
+          geometries: {
+            areaBorder: {
+              displayName: areaName,
+              id: 1,
+              active: true,
+              layer: L.geoJSON(res, {
+                style: {
+                  color: '#8B7765',
+                  stroke: true,
+                  fillColor: 'transparent',
+                  fillOpacity: 0.5,
+                },
+              }),
+            }
+          },
+        });
+      })
+      .catch(()=> {
+        this.reportConnError();
+      });
+     
   }
 
   /** 
@@ -48,19 +74,21 @@ class Indicator extends React.Component {
    * 
   */
  
-  LoadGeometry = (gids) =>{
+  LoadIndicatorGeometry = (gids) =>{
     
     const gidsQuery = gids.map((gid) => `ids=${gid}`).join('&');
     console.log('hola '+gids+'. ');
     RestAPI.requestGeometryByGid(gidsQuery)
     .then((res) => {
       if (res.features) {
-        console.log(res.features[0].geometry);
-        this.setState({
-          geometries: {
-            areas: {
+        const aux_geom=this.state.geometries.areaBorder;
+        console.log(aux_geom);
+        console.log("entró");
+        this.setState({geometries: {
+            areaBorder:aux_geom,
+            area: {
               displayName: "Foo",
-              id: 1,
+              id: 2,
               active: true,
               layer: L.geoJSON(res.features[0].geometry, {
                 style: {
@@ -70,9 +98,12 @@ class Indicator extends React.Component {
                   fillOpacity: 0.5,
                 },
               }),
-            },
-        }});
-        
+            }
+          }
+        });
+      console.log(res.features[0].geometry);
+      //aux_geom.push(item);
+      //this.setState({geometries: aux_geom});
       }
     })
     .catch(() => {
@@ -113,7 +144,7 @@ class Indicator extends React.Component {
 
         }
         if(this.state.geoIds){
-          this.LoadGeometry(this.state.geoIds);
+          this.LoadIndicatorGeometry(this.state.geoIds);
         }
         // TODO: state.indicatorsValues - Process indicators
         this.setState(state);

@@ -52,9 +52,6 @@ class MapViewer extends React.Component {
     if (countActiveLayers === 0) {
       this.mapRef.current.leafletElement.setView(config.params.center, 5);
     }
-    console.log("didupdate mapviewer:");
-    console.log(layers);
-    console.log("--- end didupdate mapviewer");
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
