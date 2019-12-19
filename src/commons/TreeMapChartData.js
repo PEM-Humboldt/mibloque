@@ -1,10 +1,13 @@
-// Pairs: [percentage, area, color]
-const firstLevel = [12, 28, 0];
-const secondLevel = [16, 27, 5];
-const thirdLevel = [15, 14, 10];
+// Pairs: [percentage, area]
+const firstLevel = [17, 28];
+const secondLevel = [16, 27];
+const thirdLevel = [15, 14];
 
 // Label to name the graph
-const firstLevelLabel = 'Ecosistemas en lista roja dentro del área de interés';
+const title = 'Ecosistemas en lista roja dentro del área de interés';
+
+// Label to first area in the graph
+const firstLevelLabel = 'Area total del bloque con algún grado de amenaza';
 
 const redListColors = [
   { name: 'CR', value: 0 }, // value: '#EF0928'
@@ -13,5 +16,5 @@ const redListColors = [
 ];
 
 export {
-  firstLevelLabel, firstLevel, secondLevel, thirdLevel, redListColors,
+  firstLevelLabel, firstLevel, secondLevel, thirdLevel, redListColors, title,
 };

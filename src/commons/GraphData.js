@@ -1,11 +1,8 @@
 import ColumnChartData from './ColumnChartData';
-<<<<<<< HEAD
 import {
-  firstLevelLabel, firstLevel, secondLevel, thirdLevel, redListColors,
+  firstLevelLabel, firstLevel, secondLevel, thirdLevel, redListColors, title,
 } from './TreeMapChartData';
-=======
 import BarChartData from './BarChartData';
->>>>>>> 72c6856d5df28acaa1fc904f9b64fd381aba1903
 
 class GraphData {
   static sankeyData(rawData) {
@@ -13,10 +10,10 @@ class GraphData {
     return { results: rawData, groups: 1 };
   }
 
-  static treeMapData(rawData, titles, areaTitle) {
+  static treeMapData(rawData) {
     /* First level */
     const totalArea = Number(rawData[firstLevel[1]][0].indicator_value);
-    const areaLabel = `${areaTitle} - ${totalArea} ha`;
+    const areaLabel = `${firstLevelLabel} - ${totalArea} ha`;
     const dataTransformed = [[
       'Indicador',
       'Padre',
@@ -25,8 +22,8 @@ class GraphData {
       // 'Porcentaje',
     ],
     // Set level 1 data in dataTransformed
-    [firstLevelLabel, null, totalArea, -10],
-    [areaLabel, firstLevelLabel, totalArea, 5],
+    [title, null, totalArea, -10],
+    [areaLabel, title, totalArea, 5],
     ];
     /* Second level */
     const threatAreas = rawData[secondLevel[1]].map((item) => ({
@@ -61,14 +58,14 @@ class GraphData {
     return { results: rawData, groups: 1 };
   }
 
-  static prepareData(code, rawData, order, titles, name) {
+  static prepareData(code, rawData, order) {
     switch (code) {
       case 1:
         return ColumnChartData.prepareData(rawData, order);
       case 2:
         return GraphData.sankeyData(rawData);
       case 3:
-        return GraphData.treeMapData(rawData, titles, name);
+        return GraphData.treeMapData(rawData);
       case 4:
         return BarChartData.prepareData(rawData);
       default:

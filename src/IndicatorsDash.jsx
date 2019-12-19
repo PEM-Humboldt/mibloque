@@ -46,7 +46,6 @@ class IndicatorsDash extends React.Component {
   loadIndicators = (areaName) => {
     RestAPI.requestIndicatorsByArea(areaName)
       .then((res) => {
-        console.log(res);
         res.topics.unshift('Todas');
         this.setState({
           data: res.indicators,
@@ -98,7 +97,6 @@ class IndicatorsDash extends React.Component {
             values={item.values}
             areaName={areaName}
             indicatorIds={item.ids.map((ind) => ind.id)}
-            indicatorsName={item.ids}
           />
         ))}
       </Masonry>
