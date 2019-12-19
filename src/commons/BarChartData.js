@@ -42,27 +42,80 @@ class BarChartData {
 
     return { validIndicator, indicatorNamePositive, indicatorNameNegative };
   }
+
   /**
    * Construct an array to be inserted in the transformed graph data
    *
    * @param {Array} rawData
    * @param {String} valueDescription
    */
-
   static processOneRow(rawData, valueDescription) {
-    const row = [];
+    const row = {
+      description: valueDescription,
+      value: 0,
+      perc: 0,
+    };
     const rowComputed = [];
-    row.push(valueDescription);
     rawData.forEach((item) => {
       if (item.value_description === valueDescription) {
-        row.push(parseFloat(item.indicator_value, 10));
+        if (this.validateValuePercentage(item.id_indicator)) {
+          row.value = parseFloat(item.indicator_value, 10);
+        } else {
+          row.perc = parseFloat(item.indicator_value, 10);
+        }
       }
     });
-    const desc = row[0];
-    const value = row[1];
-    const valueTransf = (((100 - row[2]) * row[1]) / row[2]);
+    const desc = row.description;
+    const { value, perc } = row;
+    const valueTransf = (((100 - perc) * value) / perc);
     rowComputed.push(desc, value, -valueTransf);
     return rowComputed;
+  }
+
+  /**
+   * Validate indicator value vs percentage
+   *
+   * @param {Integer} idIndicator id indicator to be validated
+   */
+  static validateValuePercentage(idIndicator) {
+    let isValue = false;
+    switch (idIndicator) {
+      case 12:
+        isValue = true;
+        break;
+      case 18:
+        isValue = true;
+        break;
+      case 20:
+        isValue = true;
+        break;
+      case 22:
+        isValue = true;
+        break;
+      case 24:
+        isValue = true;
+        break;
+      case 13:
+        isValue = false;
+        break;
+      case 19:
+        isValue = false;
+        break;
+      case 21:
+        isValue = false;
+        break;
+      case 23:
+        isValue = false;
+        break;
+      case 25:
+        isValue = false;
+        break;
+      default:
+        isValue = false;
+        break;
+    }
+
+    return isValue;
   }
 
   /**
