@@ -156,13 +156,18 @@ class Indicator extends React.Component {
         }
         let geoIds = [];
         if (res.values && res.code) {
-          const x = [];
+          let x = [];
+
           // Putting the response on an Array to allow filtering and sorting functions
-          Object.values(res.values).forEach((obj) => {
-            obj.forEach((i) => {
-              x.push(i);
+          if (!Array.isArray(res.values)) {
+            Object.values(res.values).forEach((obj) => {
+              obj.forEach((i) => {
+                x.push(i);
+              });
             });
-          });
+          } else {
+            x = res.values;
+          }
 
           if (res.code === 1) {
             // Picking the biggest area for the last year
