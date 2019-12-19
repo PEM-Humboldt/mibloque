@@ -1,16 +1,18 @@
-// Pairs: [percetage,area]
-const firstLevel = [17, 28];
-const secondLevel = [16, 27];
-const thirdLevel = [15, 14];
+class TreeMapData {
+  /**
+   * Integrate functions to define 3 levels data for the graph
+   *
+   * @param {Array} rawData group data to organize
+   * @param {Array} categories ids and names to categorize values in rawData
+   * @param {Array} graphDescription text to be setted as title
+   */
+  static organizeData(rawData, categories, graphDescription) {
+  /**
+   * Types of threat
+   */
+    const threatTypes = ['CR,', 'EN', 'VU'];
+    return rawData;
+  }
 
-const firstLevelLabel = 'Ecosistemas en lista roja dentro del área de interés';
-
-const colors = [
-  { name: 'CR', value: '239, 9, 40' }, // #EF0928
-  { name: 'EN', value: '251, 106, 42' }, // #FB6A2A
-  { name: 'VU', value: '223, 151, 53' }, // #DF9735
-];
-
-export {
-  colors, firstLevelLabel, firstLevel, secondLevel, thirdLevel,
-};
+}
+export default TreeMapData;

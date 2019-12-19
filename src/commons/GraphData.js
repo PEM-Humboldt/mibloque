@@ -1,7 +1,4 @@
 import ColumnChartData from './ColumnChartData';
-import {
-  firstLevelLabel, firstLevel, secondLevel, thirdLevel,
-} from './TreeMapChartData';
 
 class GraphData {
   static sankeyData(rawData) {
@@ -10,9 +7,15 @@ class GraphData {
   }
 
   static treeMapData(rawData, titles, areaTitle) {
-    /* First level */
-    const totalArea = Number(rawData[firstLevel[1]][0].indicator_value);
+    const totalArea = Number(rawData[28][0].indicator_value); // Level 1
+    // const totalPercentage = rawData[17]; // Level 1
+    const threatAreas = rawData[27]; // Level 2
+    // const threatPercentages = rawData[16]; // Level 2
+    const detailAreas = rawData[14]; // Level 3
+    // const detailPercentages = rawData[15]; // Level 3
+    const firstLevelLabel = 'Ecosistemas en lista roja dentro del área de interés';
     const areaLabel = `${areaTitle} - ${totalArea} ha`;
+    console.log(totalArea, threatAreas, detailAreas);
     const dataTransformed = [[
       'Indicador',
       'Padre',
@@ -20,48 +23,29 @@ class GraphData {
       'Color',
       // 'Porcentaje',
     ],
-    // Set level 1 data in dataTransformed
-    [firstLevelLabel, null, totalArea, 5],
-    [areaLabel, firstLevelLabel, totalArea, 5],
+    [firstLevelLabel, null, totalArea, totalArea],
+    [areaLabel, firstLevelLabel, totalArea, totalArea],
     ];
-    /* Second level */
-    const threatAreas = rawData[27].map((item) => ({
-      name: item.value_description,
-      value: item.indicator_value,
-    }));
-    threatAreas.forEach((data) => {
-      console.log(data);
-      console.log(data.value);
-      dataTransformed.push([data.name, areaLabel, Number(data.value), Number(data.value)]);
-    });
-    console.log(threatAreas[0]);
-    // const threatPercentages = rawData[16]; // Level 2
-    const detailAreas = rawData[14]; // Level 3
-    // const detailPercentages = rawData[15]; // Level 3
-    console.log(totalArea, threatAreas, detailAreas);
-    
     titles.forEach((element) => {
       if (!element.name.includes('orcentaj')) {
-        // threatAreas.forEach((threat) => (console.log(threat)));
         rawData[element.id].forEach((item) => {
-          // if (!Object.values(dataTransformed).find((iter) => iter[0] === element.name)) {
-          //   // console.log('Este dato', element.name, item);
-          //   dataTransformed.push([element.name, areaLabel, Number(item.indicator_value), 12]);
-          // }
           switch (item.id_indicator) {
             case element.id:
               threatAreas.forEach((threat) => {
-                // console.log(threat.value_description);
-                // if (element.name.includes(String(threat.value_description))) {
-                //   // console.log(element.name);
-                //   dataTransformed.push([element.name, threat.value_description, Number(item.indicator_value), 12]);
-                // }
+                console.log(threat.value_description);
+                if (element.name.includes(String(threat.value_description))) {
+                  console.log(element.name);
+                  dataTransformed.push([element.name, threat.value_description, Number(item.indicator_value), 12]);
+                }
               });
-              // console.log(Object.values(dataTransformed).find((iter) => iter[0] === element.name), element.name);
-              // dataTransformed.push([item.value_description, element.name, Number(item.indicator_value), 12]);
+              console.log(Object.values(dataTransformed).find((iter) => iter[0] === element.name), element.name);
+              if (!Object.values(dataTransformed).find((iter) => iter[0] === element.name)) {
+                dataTransformed.push([element.name, areaLabel, Number(item.indicator_value), 12]);
+              }
+              dataTransformed.push([item.value_description, element.name, Number(item.indicator_value), 12]);
               break;
             default:
-              // console.log(element.name);
+              console.log(element.name);
               dataTransformed.push([
                 (`${item.value_description || 'Sin clasificación'} - ${item.indicator_value}` || 'Sin clasificación'),
                 element.name,
@@ -80,7 +64,7 @@ class GraphData {
 
   static barChartData(rawData) {
     // TODO: If requires a lot of functions please create a new class.
-    return { results: rawData, groups: 1 };
+    return rawData;
   }
 
   static prepareData(code, rawData, order, titles, name) {
@@ -94,7 +78,7 @@ class GraphData {
       case 4:
         return GraphData.barChartData(rawData);
       default:
-        return { results: rawData, groups: 1 };
+        return GraphData.barChartData(rawData);
     }
   }
 
