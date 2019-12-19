@@ -25,14 +25,28 @@ class GColumnChart extends React.Component {
       padding,
       options,
       withTooltip,
+      dataGroups,
+      title,
     } = this.props;
     // eslint-disable-next-line new-cap
     const chartData = new google.visualization.arrayToDataTable(data);
 
+    const isStacked = dataGroups > 1;
+    const series = {};
+    if (dataGroups > 1) {
+      let index = 0;
+      for (let target = 0; target <= dataGroups; target += 1) {
+        for (let i = 0; i < dataGroups; i += 1) {
+          series[index] = { targetAxisIndex: target };
+          index += 1;
+        }
+      }
+    }
+
     const fullOptions = {
       width: width - (padding * 2),
       height: height - (padding * 2),
-      isStacked: true,
+      isStacked,
       tooltip: { trigger: 'none' },
       vAxes: {
         0: { title: labelY },
@@ -45,19 +59,14 @@ class GColumnChart extends React.Component {
           textStyle: { color: 'transparent' },
         },
       },
-      series: {
-        2: { targetAxisIndex: 1 },
-        3: { targetAxisIndex: 1 },
-        4: { targetAxisIndex: 2 },
-        5: { targetAxisIndex: 2 },
-      },
+      series,
       ...options,
     };
     if (withTooltip) {
       fullOptions.hAxis = { textStyle: { fontSize: 0 }, titleTextStyle: { fontSize: 12 } };
     }
     // eslint-disable-next-line no-undef
-    const chart = new google.charts.Bar(document.getElementById('chart'));
+    const chart = new google.charts.Bar(document.getElementById(`chart-${title}`));
     chart.draw(chartData, google.charts.Bar.convertOptions(fullOptions));
     google.visualization.events.addListener(chart, 'error', (err) => {
       google.visualization.errors.removeError(err.id);
@@ -65,14 +74,17 @@ class GColumnChart extends React.Component {
     google.visualization.events.addListener(chart, 'onmouseover', () => {
       if (!withTooltip) {
         // eslint-disable-next-line no-undef
-        document.querySelectorAll('#chart g:last-of-type')[0].style.display = 'none';
+        document.querySelectorAll('[id^=chart] g:last-of-type').forEach((elem) => {
+          // eslint-disable-next-line no-param-reassign
+          elem.style.display = 'none';
+        });
       }
     });
   }
 
   render = () => {
     const { loaded } = this.state;
-    const { padding, loader } = this.props;
+    const { padding, loader, title } = this.props;
     let html = null;
     if (!loaded) {
       html = (
@@ -84,7 +96,6 @@ class GColumnChart extends React.Component {
             google.charts.load('current', { packages: ['corechart', 'bar'] });
             google.charts.setOnLoadCallback(() => {
               this.setState({ loaded: true, google });
-              this.draw();
             });
           }}
         />
@@ -93,7 +104,7 @@ class GColumnChart extends React.Component {
     return (
       <div>
         {html}
-        <div id="chart" style={{ padding }}>{loader}</div>
+        <div id={`chart-${title}`} style={{ padding }}>{loader}</div>
       </div>
     );
   }
@@ -109,6 +120,8 @@ GColumnChart.propTypes = {
   loader: PropTypes.element,
   options: PropTypes.object,
   withTooltip: PropTypes.bool,
+  dataGroups: PropTypes.number,
+  title: PropTypes.string,
 };
 
 GColumnChart.defaultProps = {
@@ -119,6 +132,8 @@ GColumnChart.defaultProps = {
   loader: 'Cargando...',
   options: {},
   withTooltip: true,
+  dataGroups: 1,
+  title: Math.random().toString(36).substring(2, 5) + Math.random().toString(36).substring(2, 5),
 };
 
 export default GColumnChart;

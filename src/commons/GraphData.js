@@ -3,17 +3,17 @@ import ColumnChartData from './ColumnChartData';
 class GraphData {
   static sankeyData(rawData) {
     // TODO: If requires a lot of functions please create a new class.
-    return rawData;
+    return { results: rawData, groups: 1 };
   }
 
   static treeMapData(rawData) {
     // TODO: If requires a lot of functions please create a new class.
-    return rawData;
+    return { results: rawData, groups: 1 };
   }
 
   static barChartData(rawData) {
     // TODO: If requires a lot of functions please create a new class.
-    return rawData;
+    return { results: rawData, groups: 1 };
   }
 
   static prepareData(code, rawData, order) {
@@ -27,7 +27,7 @@ class GraphData {
       case 4:
         return GraphData.barChartData(rawData);
       default:
-        return GraphData.barChartData(rawData);
+        return { results: rawData, groups: 1 };
     }
   }
 

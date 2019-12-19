@@ -39,6 +39,7 @@ const GraphLoader = ({
   padding,
   options,
   withTooltip,
+  dataGroups,
 }) => {
   let graph = ('');
   switch (graphType) {
@@ -68,6 +69,8 @@ const GraphLoader = ({
           padding={padding}
           options={options}
           withTooltip={withTooltip}
+          dataGroups={dataGroups}
+          title={title}
         />
       );
       break;
@@ -207,6 +210,7 @@ GraphLoader.propTypes = {
   options: PropTypes.object,
   padding: PropTypes.number,
   withTooltip: PropTypes.bool,
+  dataGroups: PropTypes.number,
 };
 
 GraphLoader.defaultProps = {
@@ -221,6 +225,7 @@ GraphLoader.defaultProps = {
   options: {},
   padding: 0,
   withTooltip: true,
+  dataGroups: 1,
 };
 
 export default GraphLoader;

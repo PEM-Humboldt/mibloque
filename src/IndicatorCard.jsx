@@ -38,6 +38,7 @@ class IndicatorCard extends React.Component {
     const className = this.validClassIndicator(size).validClass;
 
     if (!values) return null;
+    const { results, groups } = GraphData.prepareData(code, values);
     return (
       <Link
         to={{
@@ -47,13 +48,14 @@ class IndicatorCard extends React.Component {
       >
         <div className={className} key={name}>
           <RenderGraph
-            data={GraphData.prepareData(code, values)}
+            data={results}
             labelY="Hectáreas"
             graph={GraphData.validGraphType(code).validGraphType}
             title={name}
             padding={0}
             options={{ legend: { position: 'none' } }}
             withTooltip={false}
+            dataGroups={groups}
           />
         </div>
       </Link>
