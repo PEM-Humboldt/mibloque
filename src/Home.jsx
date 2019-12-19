@@ -24,7 +24,7 @@ class Home extends React.Component {
         data: areasResponse.map((element) => ({
           name: element.name,
           label: element.name,
-        })).sort((a,b)=>a.name>b.name),
+        })).sort((a, b) => a.name > b.name),
       });
     } catch (error) {
       // TODO: Set state in a error (handling error)

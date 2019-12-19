@@ -1,7 +1,11 @@
 import ColumnChartData from './ColumnChartData';
+<<<<<<< HEAD
 import {
   firstLevelLabel, firstLevel, secondLevel, thirdLevel, redListColors,
 } from './TreeMapChartData';
+=======
+import BarChartData from './BarChartData';
+>>>>>>> 72c6856d5df28acaa1fc904f9b64fd381aba1903
 
 class GraphData {
   static sankeyData(rawData) {
@@ -66,7 +70,7 @@ class GraphData {
       case 3:
         return GraphData.treeMapData(rawData, titles, name);
       case 4:
-        return GraphData.barChartData(rawData);
+        return BarChartData.prepareData(rawData);
       default:
         return { results: rawData, groups: 1 };
     }

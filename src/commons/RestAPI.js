@@ -87,13 +87,11 @@ class RestAPI {
    *
    * @param {String} geographicIds string with all geographic ids to be displayed on the MapViewer
    */
-  
   static requestGeometryByGid(geographicIds) {
     if (geographicIds) return RestAPI.makeGetRequest(`indicators/geometry?${geographicIds}`);
-    return RestAPI.makeGetRequest(`indicators/geometry`);
+    return Promise.reject(Error('Ids are required to get indicators geometries'));
   }
-  
- 
+
   /** ***************************** */
   /** API GENERAL REQUEST STRUCTURE */
   /** ***************************** */
