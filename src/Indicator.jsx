@@ -1,5 +1,6 @@
 /** eslint verified */
 import React from 'react';
+import L from 'leaflet';
 import PropTypes from 'prop-types';
 
 import CloseIcon from '@material-ui/icons/Close';
@@ -11,6 +12,7 @@ import MapViewer from './commons/MapViewer';
 import RenderGraph from './graphs/RenderGraph';
 import GraphData from './commons/GraphData';
 import RestAPI from './commons/RestAPI';
+import { green } from '@material-ui/core/colors';
 
 
 class Indicator extends React.Component {
@@ -19,6 +21,8 @@ class Indicator extends React.Component {
     this.state = {
       selectedOption: null,
       biomesList: [],
+      geoIds:[],
+      geometries:{},
       connError: false,
       data: null,
       dataGroups: 1,
@@ -33,6 +37,7 @@ class Indicator extends React.Component {
   componentDidMount() {
     const { areaName, indicatorIds } = this.props;
     this.loadData(areaName, indicatorIds);
+    this.loadBlockGeometry(areaName);
   }
 
   componentDidUpdate() {
@@ -42,6 +47,96 @@ class Indicator extends React.Component {
     }
   }
 
+  loadBlockGeometry = (areaName) =>{
+    
+      RestAPI.requestGeometryByArea(areaName)
+      .then((res)=>{
+        this.setState({
+          geometries: {
+            areaBorder: {
+              displayName: areaName,
+              id: 1,
+              active: true,
+              layer: L.geoJSON(res, {
+                style: {
+                  color: '#8B7765',
+                  stroke: true,
+                  fillColor: 'transparent',
+                  fillOpacity: 0.5,
+                },
+              }),
+            }
+          },
+        });
+      })
+      .catch(()=> {
+        this.reportConnError();
+      });
+     
+  }
+
+  /** 
+   * Load geometry for the incoming indicator
+   * @param {string} gids indicator ids for a selected area
+   * 
+  */
+ 
+  LoadIndicatorGeometry = (code,gids) =>{
+    
+
+    const bufferColorsByIdIndicator={3:'black',4:'black',5:'black',6:'red',7:'#f4b400',8:'green'}
+    const coverageColorsByCoverage={1:'#f4b400',2:'#fada80'}
+    const ecosystemsRedListColorsByThreat={['CR']:'#EF0928',['EN']:'#FB6A2A',['VU']:'#DF9735'}
+
+    const gidsQuery = gids.map((gid) => `ids=${gid}`).join('&');
+    RestAPI.requestGeometryByGid(gidsQuery)
+    .then((res) => {
+      if (res.features) {
+        
+        if(code===1){
+          const temp={   area: {
+            displayName: "Foo",
+            id: 2,
+            active: true,
+            layer: L.geoJSON(res.features[0].geometry, {
+              style: {
+                color: '#f4b400',
+                stroke: false,
+                fillColor: coverageColorsByCoverage[res.features[0].properties.id_indicator],
+                fillOpacity: 0.7,
+              },
+            }),
+          }};
+          this.setState(prevState=>({geometries:{...prevState.geometries, ...temp }}));
+        }
+        if(code===2){
+          for(const i in res.features){
+            const geom={[res.features[i].properties.gid]:{
+              displayName: "buff_"+res.features[i].properties.gid,
+              id: res.features[i].properties.gid,
+              active: true,
+              layer: L.geoJSON(res.features[i].geometry, {
+                style: {
+                  stroke: false,
+                  fillColor: bufferColorsByIdIndicator[res.features[i].properties.id_indicator ],
+                  fillOpacity: (res.features[i].properties.id_indicator<=5?0.5:0.1),
+                },
+              }),
+            }};
+          this.setState(prevState=>({geometries:{...prevState.geometries, ...geom }}));
+          }
+        }
+        if(code===3){
+          
+        }
+    }})
+    .catch(() => {
+      this.reportConnError();
+    });
+    
+  }
+  
+
   /**
    * Load indicators data for selected area from RestAPI and specified ids
    *
@@ -49,6 +144,7 @@ class Indicator extends React.Component {
    * @param {string} ids indicator ids for selected area
    */
   loadData = (name, ids) => {
+    this.setState({geometries:{}});
     const idsQuery = ids.map((id) => `ids=${id}`).join('&');
     RestAPI.requestIndicatorsByArea(name, idsQuery)
       .then((res) => {
@@ -56,6 +152,33 @@ class Indicator extends React.Component {
         if (res.biomes) {
           state.biomesList = res.biomes.map((item) => ({ value: item.id, label: item.name }));
         }
+        if(res.values && res.code){
+          const x=[];
+          let aux=[];
+          //Putting the response on an Array to allow filtering and sorting functions
+          for(const obj in res.values){
+            for(const i in res.values[obj]){
+              x.push(res.values[obj][i]);
+            }
+          }
+          if(res.code===1){
+            //Picking the biggest area for the last year
+            aux=[x.filter(f=>f.year===Math.max.apply(Math,x.map(o=>o.year))).sort((a,b)=>parseFloat(a.indicator_value)<parseFloat(b.indicator_value))[0].id];
+          }
+          if(res.code===2){
+            //Picking all the geometries 
+            aux=x.filter(f=>f.id_indicator!==9 && f.id_indicator!==10 &&  f.id_indicator!==11).map((o)=>o.id);
+          }
+          if(res.code===3){
+            //TODO: include LRE geometries
+          }
+          this.setState({geoIds:aux});
+        }
+        if(this.state.geoIds.length>0){
+          this.LoadIndicatorGeometry(res.code,this.state.geoIds);
+        }
+        // TODO: state.indicatorsValues - Process indicators
+        state.data = GraphData.prepareData(res.code, res.values, res.biomes);
         const { results, groups } = GraphData.prepareData(res.code, res.values, res.biomes);
         state.data = results;
         state.dataGroups = groups;
@@ -142,7 +265,7 @@ class Indicator extends React.Component {
       graphSize: { height: graphHeight, width: graphWidth },
       selectHeight,
     } = this.state;
-    const { layers, activeArea } = this.props;
+    const {  activeArea } = this.props;
 
     let biomesSelect = null;
     if (biomesList.length > 0) {
@@ -234,11 +357,11 @@ class Indicator extends React.Component {
               consequat, vel illum dolore eu feugiat nulla facilisis at.
             </p>
             <br />
-            {layers
+            {this.state.geometries
               && (
-              <div className="smallMap">
+              <div id="miniMap" className="smallMap">
                 <MapViewer
-                  layers={layers}
+                  layers={this.state.geometries}
                   controls={false}
                 />
               </div>

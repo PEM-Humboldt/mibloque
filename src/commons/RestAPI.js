@@ -78,6 +78,22 @@ class RestAPI {
     return RestAPI.makeGetRequest(`anh_areas/${name}/indicators`);
   }
 
+  /** ******************************** */
+  /**    INDICATORS GEOMETRY DETAILS   */
+  /** ******************************** */
+
+  /**
+   * Request geometry related to an id or many ids
+   *
+   * @param {String} geographicIds string with all geographic ids to be displayed on the MapViewer
+   */
+  
+  static requestGeometryByGid(geographicIds) {
+    if (geographicIds) return RestAPI.makeGetRequest(`indicators/geometry?${geographicIds}`);
+    return RestAPI.makeGetRequest(`indicators/geometry`);
+  }
+  
+ 
   /** ***************************** */
   /** API GENERAL REQUEST STRUCTURE */
   /** ***************************** */
