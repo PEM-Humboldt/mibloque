@@ -6,7 +6,7 @@ import {
 class GraphData {
   static sankeyData(rawData) {
     // TODO: If requires a lot of functions please create a new class.
-    return rawData;
+    return { results: rawData, groups: 1 };
   }
 
   static treeMapData(rawData, titles, areaTitle) {
@@ -74,7 +74,7 @@ class GraphData {
       }
     });
     console.log(dataTransformed);
-    return dataTransformed;
+    return { results: dataTransformed, groups: 1 };;
   }
 
 
