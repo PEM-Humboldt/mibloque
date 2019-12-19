@@ -111,23 +111,23 @@ class Indicator extends React.Component {
             this.setState((prevState) => ({ geometries: { ...prevState.geometries, ...temp } }));
           }
           if (code === 2) {
-            for (const i in res.features) {
+            res.features.forEach((i) => {
               const geom = {
-                [res.features[i].properties.gid]: {
-                  displayName: `buff_+${res.features[i].properties.gid}`,
-                  id: res.features[i].properties.gid,
+                [i.properties.gid]: {
+                  displayName: `buff_+${i.properties.gid}`,
+                  id: i.properties.gid,
                   active: true,
-                  layer: L.geoJSON(res.features[i].geometry, {
+                  layer: L.geoJSON(i.geometry, {
                     style: {
                       stroke: false,
-                      fillColor: bufferColorsByIdIndicator[res.features[i].properties.id_indicator ],
-                      fillOpacity: (res.features[i].properties.id_indicator<=5?0.5:0.1),
+                      fillColor: bufferColorsByIdIndicator[i.properties.id_indicator],
+                      fillOpacity: (i.properties.id_indicator <= 5 ? 0.5 : 0.1),
                     },
                   }),
                 },
               };
               this.setState((prevState) => ({ geometries: { ...prevState.geometries, ...geom } }));
-            }
+            });
           }
           if (code === 3) {
             // TODO: Implement threat ecosystems geometries
@@ -158,11 +158,11 @@ class Indicator extends React.Component {
         if (res.values && res.code) {
           const x = [];
           // Putting the response on an Array to allow filtering and sorting functions
-          for(const obj in res.values){
-            for(const i in res.values[obj]){
-              x.push(res.values[obj][i]);
-            }
-          }
+          Object.values(res.values).forEach((obj) => {
+            obj.forEach((i) => {
+              x.push(i);
+            });
+          });
 
           if (res.code === 1) {
             // Picking the biggest area for the last year
