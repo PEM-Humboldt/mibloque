@@ -12,28 +12,28 @@ class BarChartData {
     switch (idIndicator) {
       case 12:
         validIndicator = true;
-        indicatorNamePositive = 'Superficie de áreas protegidas dentro del bloque';
-        indicatorNameNegative = 'Superficie de áreas protegidas fuera del bloque';
+        indicatorNamePositive = 'Superficie del área protegida dentro del bloque';
+        indicatorNameNegative = 'Superficie del área protegida fuera del bloque';
         break;
       case 18:
         validIndicator = true;
-        indicatorNamePositive = 'Área de reserva de ley 2da de 1959 dentro del bloque';
-        indicatorNameNegative = 'Área de reserva de ley 2da de 1959 fuera del bloque';
+        indicatorNamePositive = 'Superficie del área de reserva de ley 2da de 1959 dentro del bloque';
+        indicatorNameNegative = 'Superficie del área de reserva de ley 2da de 1959 fuera del bloque';
         break;
       case 20:
         validIndicator = true;
-        indicatorNamePositive = 'Área de territorios étnicos en el bloque';
-        indicatorNameNegative = 'Área de territorios étnicos fuera del bloque';
+        indicatorNamePositive = 'Superficie del área del territorio étnico dentro del bloque';
+        indicatorNameNegative = 'Superficie del área del territorio étnico fuera del bloque';
         break;
       case 22:
         validIndicator = true;
-        indicatorNamePositive = 'Área de ZRC dentro del bloque';
-        indicatorNameNegative = 'Área de ZRC fuera del bloque';
+        indicatorNamePositive = 'Superficie del área de la ZRC dentro del bloque';
+        indicatorNameNegative = 'Superficie del área de la ZRC fuera del bloque';
         break;
       case 24:
         validIndicator = true;
-        indicatorNamePositive = 'Area del ecosistema estrategicos dentro del bloque';
-        indicatorNameNegative = 'Area del ecosistema estrategicos fuera del bloque';
+        indicatorNamePositive = 'Superficie del área del ecosistema estrategico dentro del bloque';
+        indicatorNameNegative = 'Superficie del área del ecosistema estrategico fuera del bloque';
         break;
       default:
         validIndicator = false;
