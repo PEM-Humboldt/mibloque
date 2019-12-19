@@ -88,6 +88,8 @@ class Indicator extends React.Component {
     const coverageColorsByCoverage={1:'#f4b400',2:'#fada80'}
     const ecosystemsRedListColorsByThreat={['CR']:'#EF0928',['EN']:'#FB6A2A',['VU']:'#DF9735'}
 
+    
+
     const gidsQuery = gids.map((gid) => `ids=${gid}`).join('&');
     RestAPI.requestGeometryByGid(gidsQuery)
     .then((res) => {
@@ -127,7 +129,7 @@ class Indicator extends React.Component {
           }
         }
         if(code===3){
-          
+          // TODO: Implement threat ecosystems geometries
         }
     }})
     .catch(() => {
@@ -161,9 +163,12 @@ class Indicator extends React.Component {
               x.push(res.values[obj][i]);
             }
           }
+          
           if(res.code===1){
             //Picking the biggest area for the last year
-            aux=[x.filter(f=>f.year===Math.max.apply(Math,x.map(o=>o.year))).sort((a,b)=>parseFloat(a.indicator_value)<parseFloat(b.indicator_value))[0].id];
+            if(x[0].id_indicator!==26){
+              aux=[x.filter(f=>f.year===Math.max.apply(Math,x.map(o=>o.year))).sort((a,b)=>parseFloat(a.indicator_value)<parseFloat(b.indicator_value))[0].id];
+            }
           }
           if(res.code===2){
             //Picking all the geometries 
