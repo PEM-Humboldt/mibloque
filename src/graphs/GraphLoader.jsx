@@ -136,9 +136,9 @@ const GraphLoader = ({
           loader={<div>Loading Chart</div>}
           data={data}
           options={{
-            minColor: '#f00',
-            midColor: '#ddd',
-            maxColor: '#0d0',
+            minColor: '#fc907c',
+            midColor: '#ffbf63',
+            maxColor: '#edaa9d',
             headerHeight: 15,
             fontColor: 'black',
             showScale: true,
