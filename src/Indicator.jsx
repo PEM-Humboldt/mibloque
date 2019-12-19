@@ -127,7 +127,7 @@ class Indicator extends React.Component {
   }
 
   setSelectHeight = (domElem) => {
-    if (domElem) this.setState({ selectHeight: domElem.select.controlRef.offsetHeight });
+    if (domElem) this.setState({ selectHeight: domElem.offsetHeight });
   }
 
   render() {
@@ -148,7 +148,6 @@ class Indicator extends React.Component {
     if (biomesList.length > 0) {
       biomesSelect = (
         <Select
-          ref={this.setSelectHeight}
           value={selectedOption}
           onChange={this.handleBiomesSelect}
           options={biomesList}
@@ -159,11 +158,22 @@ class Indicator extends React.Component {
       );
     }
 
+    const graphHeader = (
+      <div
+        ref={this.setSelectHeight}
+      >
+        <div className="graphtitle2">
+          a
+        </div>
+        {biomesSelect}
+      </div>
+    );
+
     let graph = null;
     if (data && graphHeight !== 0 && graphWidth !== 0) {
       graph = (
         <div className="indicator">
-          {biomesSelect}
+          {graphHeader}
           <RenderGraph
             data={data}
             labelY="Hectáreas"
