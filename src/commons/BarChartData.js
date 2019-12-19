@@ -58,7 +58,7 @@ class BarChartData {
     const rowComputed = [];
     rawData.forEach((item) => {
       if (item.value_description === valueDescription) {
-        if (this.validateValuePercentage(item.id_indicator)) {
+        if (BarChartData.validateValuePercentage(item.id_indicator)) {
           row.value = parseFloat(item.indicator_value, 10);
         } else {
           row.perc = parseFloat(item.indicator_value, 10);
@@ -73,49 +73,24 @@ class BarChartData {
   }
 
   /**
-   * Validate indicator value vs percentage
+   * Validate if an indicator is a percentage
    *
    * @param {Integer} idIndicator id indicator to be validated
    */
   static validateValuePercentage(idIndicator) {
-    let isValue = false;
-    switch (idIndicator) {
-      case 12:
-        isValue = true;
-        break;
-      case 18:
-        isValue = true;
-        break;
-      case 20:
-        isValue = true;
-        break;
-      case 22:
-        isValue = true;
-        break;
-      case 24:
-        isValue = true;
-        break;
-      case 13:
-        isValue = false;
-        break;
-      case 19:
-        isValue = false;
-        break;
-      case 21:
-        isValue = false;
-        break;
-      case 23:
-        isValue = false;
-        break;
-      case 25:
-        isValue = false;
-        break;
-      default:
-        isValue = false;
-        break;
-    }
-
-    return isValue;
+    const indicatorMap = {
+      12: true,
+      18: true,
+      20: true,
+      22: true,
+      24: true,
+      13: false,
+      19: false,
+      21: false,
+      23: false,
+      25: false,
+    };
+    return indicatorMap[idIndicator] || false;
   }
 
   /**
@@ -131,9 +106,9 @@ class BarChartData {
           indicatorNamePositive,
           validIndicator,
           indicatorNameNegative,
-        } = this.validateIndicator(item.id_indicator);
+        } = BarChartData.validateIndicator(item.id_indicator);
         if (validIndicator) {
-          const row = this.processOneRow(rawData, item.value_description);
+          const row = BarChartData.processOneRow(rawData, item.value_description);
           results.push(['', indicatorNamePositive, indicatorNameNegative]);
           results.push(row);
         }
