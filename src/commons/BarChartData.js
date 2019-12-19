@@ -59,16 +59,17 @@ class BarChartData {
     rawData.forEach((item) => {
       if (item.value_description === valueDescription) {
         if (BarChartData.validateValuePercentage(item.id_indicator)) {
-          row.value = parseFloat(item.indicator_value, 10);
+          row.value = Number(parseFloat(item.indicator_value, 10).toFixed(2));
         } else {
-          row.perc = parseFloat(item.indicator_value, 10);
+          row.perc = Number(parseFloat(item.indicator_value, 10).toFixed(2));
         }
       }
     });
     const desc = row.description;
     const { value, perc } = row;
-    const valueTransf = (((100 - perc) * value) / perc);
-    rowComputed.push(desc, value, -valueTransf);
+    const valueTransf = Number(-(((100 - perc) * value) / perc).toFixed(2));
+    // console.log('value: ', value);
+    rowComputed.push(desc, value, valueTransf);
     return rowComputed;
   }
 
