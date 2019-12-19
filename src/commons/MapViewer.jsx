@@ -8,7 +8,7 @@ import { Map, TileLayer } from 'react-leaflet';
 
 const config = {};
 config.params = {
-  center: [5.2500, -64.9167], // Location: Mariquita-Tolima
+  center: [4.4159, -72.1598], // Location: Mariquita-Tolima
 };
 
 class MapViewer extends React.Component {
@@ -92,7 +92,7 @@ class MapViewer extends React.Component {
       <Map
         ref={this.mapRef}
         center={config.params.center}
-        zoom={5}
+        zoom={11}
         onClick={this.onMapClick}
         attributionControl={controls}
         zoomControl={controls}

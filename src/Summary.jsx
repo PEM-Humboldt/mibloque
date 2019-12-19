@@ -87,7 +87,7 @@ class Summary extends React.Component {
             active: true,
             layer: L.geoJSON(geometryAreaRequest, {
               style: {
-                color: '#0000FF',
+                color: '#8B7765',
                 stroke: true,
                 fillColor: 'transparent',
                 fillOpacity: 0.5,

@@ -81,22 +81,12 @@ const GraphLoader = ({
           height={height}
           chartType="BarChart"
           loader={<div>Loading Chart</div>}
-          data={[
-            ['City', '2010 Population', '2000 Population'],
-            ['New York City, NY', 8175000, 8008000],
-          ]}
+          data={data}
           options={{
-            title: 'Population of Largest U.S. Cities',
-            chartArea: { width: '50%' },
-            bars: 'vertical',
+            title,
+            legend: { position: 'bottom', maxLines: 5 },
+            chartArea: { width: '70%' },
             isStacked: true,
-            hAxis: {
-              title: 'Total Population',
-              minValue: 0,
-            },
-            vAxis: {
-              title: 'City',
-            },
           }}
           // For tests
           rootProps={{ 'data-testid': '3' }}
@@ -111,16 +101,18 @@ const GraphLoader = ({
           chartType="Sankey"
           loader={<div>Loading Chart</div>}
           data={[
-            ['From', 'To', 'Weight'],
-            ['A', 'X', 5],
-            ['A', 'Y', 7],
-            ['A', 'Z', 6],
-            ['B', 'X', 2],
-            ['B', 'Y', 9],
-            ['B', 'Z', 4],
+            ['From', 'To', 'Superficie en hectáreas'],
+            ['Reserva Natural de la Sociedad Civil: Amanecer en el Palmar 1', '5 Km', 4.98000],
+            ['Reserva Natural de la Sociedad Civil: Amanecer en el Palmar 2', '5 Km', 6.61000],
+            ['Reserva Natural de la Sociedad Civil: El Madrono', '5 Km', 206.16000],
+            ['Reserva Natural de la Sociedad Civil: Fundo Palmarito', '15 Km', 145.42000],
+            ['Reserva Natural de la Sociedad Civil: Fundo Palmarito', '25 Km', 302.14000],
+            ['Reserva Natural de la Sociedad Civil: Hato Venecia De Guanapalo', '25 Km', 6510.23000],
+            ['Reserva Natural de la Sociedad Civil: Cano Viejo', '25 Km', 149.91000],
+            ['Reserva Natural de la Sociedad Civil: La Travesada', '25 Km', 578.17000],
+            ['Reserva Natural de la Sociedad Civil: La Bramadora', '25 Km', 1283.84000],
           ]}
           options={{
-            // Material design options
             chart: {
               title,
               subtitle,
