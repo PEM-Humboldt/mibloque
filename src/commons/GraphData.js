@@ -30,58 +30,24 @@ class GraphData {
       value: item.indicator_value,
     }));
     threatAreas.forEach((data) => {
-      console.log(data);
-      console.log(data.value);
       dataTransformed.push([data.name, areaLabel, Number(data.value), Number(data.value)]);
     });
     /* Third level */
-    const detailAreas = rawData[thirdLevel[1]].map((item) => {
-      console.log(item);
-      // item.includes();
-      console.log(redListColors);
-      console.log(item.value_description);
+    rawData[thirdLevel[1]].map((item) => {
+      redListColors.forEach((color) => {
+        if (item.value_description.includes(`${color.name}:`)) {
+          dataTransformed.push(
+            [
+              item.value_description,
+              color.name,
+              Number(item.indicator_value),
+              color.value,
+            ],
+          );
+        }
+      });
       return true;
     });
-    detailAreas.forEach((data) => {
-      console.log(data);
-      // dataTransformed.push([data.name, areaLabel, Number(data.value), Number(data.value)]);
-    });
-    console.log(totalArea, threatAreas, detailAreas);
-    
-    titles.forEach((element) => {
-      if (!element.name.includes('orcentaj')) {
-        // threatAreas.forEach((threat) => (console.log(threat)));
-        rawData[element.id].forEach((item) => {
-          // if (!Object.values(dataTransformed).find((iter) => iter[0] === element.name)) {
-          //   // console.log('Este dato', element.name, item);
-          //   dataTransformed.push([element.name, areaLabel, Number(item.indicator_value), 12]);
-          // }
-          switch (item.id_indicator) {
-            case element.id:
-              threatAreas.forEach((threat) => {
-                // console.log(threat.value_description);
-                // if (element.name.includes(String(threat.value_description))) {
-                //   // console.log(element.name);
-                //   dataTransformed.push([element.name, threat.value_description, Number(item.indicator_value), 12]);
-                // }
-              });
-              // console.log(Object.values(dataTransformed).find((iter) => iter[0] === element.name), element.name);
-              // dataTransformed.push([item.value_description, element.name, Number(item.indicator_value), 12]);
-              break;
-            default:
-              // console.log(element.name);
-              dataTransformed.push([
-                (`${item.value_description || 'Sin clasificación'} - ${item.indicator_value}` || 'Sin clasificación'),
-                element.name,
-                Number(item.indicator_value) || 0,
-                Number(item.indicator_value) || 0,
-              ]);
-              break;
-          }
-        });
-      }
-    });
-    console.log(dataTransformed);
     return { results: dataTransformed, groups: 1 };
   }
 

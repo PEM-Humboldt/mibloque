@@ -7,9 +7,9 @@ const thirdLevel = [15, 14, 10];
 const firstLevelLabel = 'Ecosistemas en lista roja dentro del área de interés';
 
 const redListColors = [
-  { name: 'CR', value: '#EF0928' },
-  { name: 'EN', value: '#FB6A2A' },
-  { name: 'VU', value: '#DF9735' },
+  { name: 'CR', value: 0 }, // value: '#EF0928'
+  { name: 'EN', value: 5 }, // value: '#FB6A2A'
+  { name: 'VU', value: 10 }, // value: '#DF9735'
 ];
 
 export {
