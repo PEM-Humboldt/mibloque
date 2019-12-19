@@ -12,6 +12,7 @@ import MapViewer from './commons/MapViewer';
 import RenderGraph from './graphs/RenderGraph';
 import GraphData from './commons/GraphData';
 import RestAPI from './commons/RestAPI';
+import { green } from '@material-ui/core/colors';
 
 
 class Indicator extends React.Component {
@@ -21,7 +22,7 @@ class Indicator extends React.Component {
       selectedOption: null,
       biomesList: [],
       geoIds:[],
-      geometries:[],
+      geometries:{},
       connError: false,
       data: null,
       fullData: null,
@@ -79,38 +80,55 @@ class Indicator extends React.Component {
    * 
   */
  
-  LoadIndicatorGeometry = (gids) =>{
+  LoadIndicatorGeometry = (code,gids) =>{
     
+
+    const bufferColorsByIdIndicator={3:'black',4:'black',5:'black',6:'red',7:'#f4b400',8:'green'}
+    const coverageColorsByCoverage={1:'#f4b400',2:'#fada80'}
+    const ecosystemsRedListColorsByThreat={['CR']:'#EF0928',['EN']:'#FB6A2A',['VU']:'#DF9735'}
+
     const gidsQuery = gids.map((gid) => `ids=${gid}`).join('&');
-    console.log('hola '+gids+'. ');
     RestAPI.requestGeometryByGid(gidsQuery)
     .then((res) => {
       if (res.features) {
-        const aux_geom=this.state.geometries.areaBorder;
-        console.log(aux_geom);
-        console.log("entró");
-        this.setState({geometries: {
-            areaBorder:aux_geom,
-            area: {
-              displayName: "Foo",
-              id: 2,
+        
+        if(code===1){
+          const temp={   area: {
+            displayName: "Foo",
+            id: 2,
+            active: true,
+            layer: L.geoJSON(res.features[0].geometry, {
+              style: {
+                color: '#f4b400',
+                stroke: false,
+                fillColor: coverageColorsByCoverage[res.features[0].properties.id_indicator],
+                fillOpacity: 0.7,
+              },
+            }),
+          }};
+          this.setState(prevState=>({geometries:{...prevState.geometries, ...temp }}));
+        }
+        if(code===2){
+          for(const i in res.features){
+            const geom={[res.features[i].properties.gid]:{
+              displayName: "buff_"+res.features[i].properties.gid,
+              id: res.features[i].properties.gid,
               active: true,
-              layer: L.geoJSON(res.features[0].geometry, {
+              layer: L.geoJSON(res.features[i].geometry, {
                 style: {
-                  color: '#fed0b4',
                   stroke: false,
-                  fillColor: 'red',
-                  fillOpacity: 0.5,
+                  fillColor: bufferColorsByIdIndicator[res.features[i].properties.id_indicator ],
+                  fillOpacity: (res.features[i].properties.id_indicator<=5?0.5:0.1),
                 },
               }),
-            }
+            }};
+          this.setState(prevState=>({geometries:{...prevState.geometries, ...geom }}));
           }
-        });
-      console.log(res.features[0].geometry);
-      //aux_geom.push(item);
-      //this.setState({geometries: aux_geom});
-      }
-    })
+        }
+        if(code===3){
+          
+        }
+    }})
     .catch(() => {
       this.reportConnError();
     });
@@ -125,7 +143,7 @@ class Indicator extends React.Component {
    * @param {string} ids indicator ids for selected area
    */
   loadData = (name, ids) => {
-    this.setState({geometries:[]});
+    this.setState({geometries:{}});
     const idsQuery = ids.map((id) => `ids=${id}`).join('&');
     RestAPI.requestIndicatorsByArea(name, idsQuery)
       .then((res) => {
@@ -134,22 +152,29 @@ class Indicator extends React.Component {
           state.biomesList = res.biomes.map((item) => ({ value: item.id, label: item.name }));
         }
         if(res.values && res.code){
-          if(res.code===1){
-            const x=[];
-            for(const obj in res.values){
-              for(const i in res.values[obj]){
-                x.push(res.values[obj][i]);
-              }
+          const x=[];
+          let aux=[];
+          //Putting the response on an Array to allow filtering and sorting functions
+          for(const obj in res.values){
+            for(const i in res.values[obj]){
+              x.push(res.values[obj][i]);
             }
-            //Se toma el mayor area del último año
-            const aux=[x.filter(f=>f.year===Math.max.apply(Math,x.map(o=>o.year))).sort((a,b)=>parseFloat(a.indicator_value)<parseFloat(b.indicator_value))[0].id];
-            this.setState({geoIds:aux});
           }
-
-
+          if(res.code===1){
+            //Picking the biggest area for the last year
+            aux=[x.filter(f=>f.year===Math.max.apply(Math,x.map(o=>o.year))).sort((a,b)=>parseFloat(a.indicator_value)<parseFloat(b.indicator_value))[0].id];
+          }
+          if(res.code===2){
+            //Picking all the geometries 
+            aux=x.filter(f=>f.id_indicator!==9 && f.id_indicator!==10 &&  f.id_indicator!==11).map((o)=>o.id);
+          }
+          if(res.code===3){
+            //TODO: include LRE geometries
+          }
+          this.setState({geoIds:aux});
         }
-        if(this.state.geoIds){
-          this.LoadIndicatorGeometry(this.state.geoIds);
+        if(this.state.geoIds.length>0){
+          this.LoadIndicatorGeometry(res.code,this.state.geoIds);
         }
         // TODO: state.indicatorsValues - Process indicators
         state.data = GraphData.prepareData(res.code, res.values, res.biomes);
