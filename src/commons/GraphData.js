@@ -1,18 +1,9 @@
 import ColumnChartData from './ColumnChartData';
 import BarChartData from './BarChartData';
+import SankeyChartData from './SankeyChartData';
 
 class GraphData {
-  static sankeyData(rawData) {
-    // TODO: If requires a lot of functions please create a new class.
-    return { results: rawData, groups: 1 };
-  }
-
   static treeMapData(rawData) {
-    // TODO: If requires a lot of functions please create a new class.
-    return { results: rawData, groups: 1 };
-  }
-
-  static barChartData(rawData) {
     // TODO: If requires a lot of functions please create a new class.
     return { results: rawData, groups: 1 };
   }
@@ -22,7 +13,7 @@ class GraphData {
       case 1:
         return ColumnChartData.prepareData(rawData, order);
       case 2:
-        return GraphData.sankeyData(rawData);
+        return SankeyChartData.prepareData(rawData);
       case 3:
         return GraphData.treeMapData(rawData);
       case 4:
