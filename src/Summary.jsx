@@ -270,8 +270,61 @@ class Summary extends React.Component {
                 title="Licencias ambientales"
               />
             </div>
+            <h2>
+              <strong>Biomas IAvH con factores de compensación</strong>
+            </h2>
             <p>
-              La información espacial que se muestra en la figura corresponde a la identificación de condiciones sociales, culturales, económicas y biofísicas, algunas de las cuales son determinantes ambientales del ordenamiento territorial y pueden generar restricciones al desarrollo de las actividades de exploración y explotación de hidrocarburos. Este análisis hace parte del procedimiento que la ANH ha establecido para la coordinación y concurrencia con las entidades territoriales y demás autoridades y entidades con presencia en el territorio, con el fin de posibilitar la definición y determinación de nuevas áreas de interés de hidrocarburos.
+              <strong>
+                <em>¿De dónde proviene esta información?</em>
+              </strong>
+            </p>
+            <p>
+              Los biomas del Instituto Alexander von Humboldt (IAvH) y los Factores de Compensación
+              (FC) asociados a estos se construyeron a partir de 4 criterios: (i) representatividad
+              del ecosistema en el sistema nacional de áreas protegidas (SINAP); (ii) rareza; (iii)
+              remanencia y; (iv) tasa de trasformación anual (TNC, 2017). El valor de FC representa
+              la sumatoria de los 4 factores, la cual está en un rango entre 4 y 10 así:
+            </p>
+            <p style={{ textAlign: 'center' }}>
+              <strong>FC = Crp + Cra + Crm + Ctt</strong>
+            </p>
+            <p><em>Dónde: </em></p>
+            <p style={{ paddingLeft: '60px' }}>
+              <strong>Crp </strong>
+              = Valor del criterio de representatividad. Expresado entre 1 — 3
+              <br />
+              <strong>Cra </strong>
+              = Valor del criterio de rareza. Expresado entre 1 — 2
+              <br />
+              <strong>Crm </strong>
+              = Valor del criterio de remanencia. Expresado entre 1 — 3
+              <br />
+              <strong>Ctt </strong>
+              = Valor del criterio de tasa de transformación. Expresado entre 1 — 2
+            </p>
+            <p><strong><em>¿Cómo interpretar esta información?</em></strong></p>
+            <p>
+              El valor presentado representa el FC de cada uno de los ecosistemas que intersectan
+              al polígono ANH, este valor es útil para conocer el costo final de la compensación si
+              se llega a realizar un proyecto en el bioma en particular. El FC se usa como
+              multiplicador al total de hectáreas que afecta el proyecto en el bioma IAvH
+              específico. La ecuación es: Ac = Ai x Fc Donde: Ac = área a compensar por Pérdida de
+              Biodiversidad Ai = área potencialmente impactada del ecosistema natural por el
+              desarrollo del proyecto, obra o actividad. Fc = Factor de compensación
+            </p>
+            <p><strong><em>Referencia: </em></strong></p>
+            <p>
+              Minambiente (2012). MANUAL DE COMPENSACIONES DEL COMPONENTE BIÓTICO.
+              Ministro de Ambiente y Desarrollo Sostenible. Bogotá D.C., Colombia. 66 pp.
+            </p>
+            <p>
+              IDEAM, IGAC, IAvH, Invemar, I. Sinchi e IIAP (2007). Ecosistemas continentales,
+              costeros y marinos de Colombia. Instituto de Hidrología, Meteorología y Estudios
+              Ambientales, Instituto Geográfico Agustín Codazzi, Instituto de Investigación de
+              Recursos Biológicos Alexander von Humboldt, Instituto de Investigaciones Ambientales
+              del Pacífico Jhon von Neumann, Instituto de Investigaciones Marinas y Costeras José
+              Benito Vives De Andréis e Instituto Amazónico de Investigaciones Científicas Sinchi.
+              Bogotá, D. C, 276 p.
             </p>
             <h1>Biomas</h1>
             <div className="line" />
