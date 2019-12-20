@@ -44,6 +44,9 @@ class Summary extends React.Component {
       ],
       connError: false,
       layers: {},
+      minibd: false,
+      alleft: false,
+      nogo: false,
     };
   }
 
@@ -139,9 +142,17 @@ class Summary extends React.Component {
     this.setState({ [state]: false });
   };
 
+  toggleBlock = () => {
+    this.setState((prevState) => ({
+      minibd: !prevState.minibd,
+      alleft: !prevState.alleft,
+      nogo: !prevState.alleft,
+    }));
+  }
+
   render() {
     const {
-      biomesDataGraps, connError, layers,
+      biomesDataGraps, connError, layers, minibd, alleft, nogo,
     } = this.state;
     const { activeArea, areaName } = this.props;
 
@@ -182,12 +193,14 @@ class Summary extends React.Component {
               layers={layers}
             />
           </div>
-          <div className="blockdata">
+          <div className={`blockdata ${minibd? 'minibd' : ''}`}>
+            <button onClick={this.toggleBlock} className={`arrowLink ${alleft? 'alleft' : ''}`}>
+            </button>
             <Link to={`/indicatorsDash/${areaName}`}>
               <button
                 type="button"
                 key="indBtn"
-                className="generalbtn absright"
+                className={`generalbtn absright ${nogo? 'nogo' : ''}`}
               >
                 indicadores
               </button>

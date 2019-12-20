@@ -89,7 +89,7 @@ header h3 b {
 
 .sheet {
   background-color: #fff;
-  width: calc(100vw - 590px);
+  width: calc(100% - 590px);
   box-sizing: border-box;
   position: absolute;
 }
@@ -132,10 +132,14 @@ nav a:nth-of-type(2) {
   margin-left: 20px;
 }
 
+.navbtns {
+  min-width: 80px;
+}
+
 section {
   position: relative;
   width: 100%;
-  min-height: calc(100vh - 279px);
+  min-height: calc(100vh - 249px);
 }
 
 .sectionhome {
@@ -145,6 +149,10 @@ section {
   display: -o-flex;
   display: flex;
   align-items: center;
+}
+
+.sectionintern {
+    min-height: calc(100vh - 120px);
 }
 
 .mancha {
@@ -163,23 +171,23 @@ section {
 }
 
 .columna {
-  width: 465px;
+  width: 425px;
   background-color: #fff;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-    padding: 40px;
-    display: inline-block;
-    text-align: left;
-    border-radius: 15px;
-    z-index: 2;
-    position: relative;
-    margin: 0 100px 20px 7%;
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+  padding: 40px;
+  display: inline-block;
+  text-align: left;
+  border-radius: 15px;
+  z-index: 2;
+  position: relative;
+  margin: 0 100px 20px 7%;
 }
 
 h1 {
   color: #EDA539;
   font-weight: 400;
-  font-size: 36px;
+  font-size: 26px;
   padding-bottom: 15px;
 }
 
@@ -212,7 +220,7 @@ h1 {
 
 .columna p {
   padding: 30px 0;
-  font-size: 16px;
+  font-size: 14px;
   color: #424242;
 }
 
@@ -220,14 +228,14 @@ h1 {
   display: inline-block;
   position: relative;
   z-index: 5;
-  width: 600px;
+  width: 500px;
   vertical-align: top;
 }
 
 .sectionhome form p {
-  font-size: 18px;
+  font-size: 15px;
   color: #424242;
-  width: 400px;
+  width: 380px;
   font-weight: 500;
   background-color: rgba(256,256,256,.7);
     padding: 20px 20px 40px;
@@ -257,7 +265,7 @@ h1 {
 
 .home_selector {
   color: #B19980;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 300;
   font-style: italic;
   width: 100%;
@@ -303,8 +311,8 @@ h1 {
   text-transform: uppercase;
   color: #fff;
   padding: 13px 20px;
-  font-size: 20px;
-  font-weight: 500;
+  font-size: 17px;
+  font-weight: 400;
   outline: none;
   cursor: pointer;
   display: inline-block;
@@ -323,11 +331,11 @@ h1 {
   width: 0;
   box-sizing: border-box;
   overflow: scroll;
-    -webkit-animation: bounce 2s infinite 2s;
-    animation: bounce 2s infinite 2s;
-    -webkit-transition: all .2s ease-in;
-    transition: all .2s ease-in;
-    transform: scale(1)
+  -webkit-animation: bounce 2s infinite 2s;
+  animation: bounce 2s infinite 2s;
+  -webkit-transition: all .2s ease-in;
+  transition: all .2s ease-in;
+  transform: scale(1)
 }
 
 .vis {
@@ -394,8 +402,12 @@ footer h2 {
   line-height: 40px;
 }
 
+.logos img {
+    height: 70px;
+  }
+
 .mapasitio {
-  margin-top: 30px;
+  margin-top: 20px;
 }
 
 .mapasitio a {
@@ -417,7 +429,7 @@ footer h2 {
   background-color: #eeeeec;
   -webkit-flex: 3 1 60%;
           flex: 3 1 60%;
- -webkit-order: 1;
+  -webkit-order: 1;
          order: 1;
   z-index: 0;
 }
@@ -447,6 +459,46 @@ footer h2 {
   padding: 20px 30px;
   border-left: 1px solid #577376;
   overflow-y: scroll;
+  -webkit-transition: all 1s;
+  -moz-transition: all 1s;
+  -ms-transition: all 1s;
+  -o-transition: all 1s;
+  transition: all 1s;
+}
+
+.minibd {
+  width: 10px;
+}
+
+.arrowLink {
+  border: solid black;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 7px;
+  position: absolute;
+  margin-top: 16px;
+  margin-left: -27px;
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  -webkit-transition: all 1s;
+  -moz-transition: all 1s;
+  -ms-transition: all 1s;
+  -o-transition: all 1s;
+  transition: all 1s;
+  z-index: 30;
+  cursor: pointer;
+}
+
+.alleft {
+  -webkit-transform: rotate(135deg);
+  -moz-transform: rotate(135deg);
+  -ms-transform: rotate(135deg);
+  -o-transform: rotate(135deg);
+  transform: rotate(135deg);
+  margin-left: -19px;
 }
 
 .absright {
@@ -480,7 +532,6 @@ footer h2 {
 }
 
 .nogo {
-  /*opacity: .3;*/
   display: none;
 }
 
@@ -522,9 +573,9 @@ footer h2 {
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 3px 5px rgba(0,0,0,0.12), 0 3px 7px rgba(0,0,0,0.24);
-  padding: 10px;
-  width: 400px;
-  height: 200px;
+  padding: 0;
+  width: 420px;
+  height: 220px;
   margin: 0 30px 30px 0;
   display: inline-block;
   vertical-align: top;
@@ -532,12 +583,12 @@ footer h2 {
 }
 
 .box2 {
-  height: 430px;
+  height: 450px;
 }
 
 .box3 {
-  height: 430px;
-  width: 820px;
+  height: 450px;
+  width: 840px;
 }
 
 .boxes h6 {
@@ -547,18 +598,76 @@ footer h2 {
   font-size: 16px;
 }
 
+.graphtitle, .graphtitle2 {
+  height: 30px;
+  background-color: #5C5042;
+  font-size: 12px;
+  color: #fff;
+  display: block;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding: 5px 10px 0;
+  box-sizing: border-box;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.graphtitle2 {
+  border-radius: initial;
+  padding: 10px;
+  height: auto;
+}
+
+.insidegraph {
+  height: calc(100% - 72px);
+  padding: 10px 10px 5px;
+}
+
+.graphLink {
+  text-align: right;
+  color: #D37750;
+  cursor: pointer;
+  padding-right: 20px;
+  height: 20px;
+  box-sizing: border-box;
+  text-transform: uppercase;
+  font-weight: 300;
+  vertical-align: top;
+  line-height: 20px;
+}
+
+.graphLink b {
+  font-weight: 700;
+  font-size: 18px;
+  vertical-align: top;
+  line-height: 20px;
+}
+
+.graphLink:hover {
+  color: #9B2E27;
+}
+
 .nocolor {
   color: transparent;
-  }
+}
 
- .leaflet-container {
-   box-sizing: border-box;
- }
+.leaflet-container {
+  box-sizing: border-box;
+}
 
- .smgraphtitle {
-   color: #5DB2BA;
-   font-size: 16px;
- }
+.smgraphtitle {
+  color: #5DB2BA;
+  font-size: 16px;
+}
+
+.indicator div[class*="control"] {
+  padding: 0 !important;
+  background-color: #e3e3e3;
+  border-bottom: 1px solid #EDA539 !important;
+  border-radius: 0 !important;
+  outline: none;
+}
 
 /* Media Queries */
 
