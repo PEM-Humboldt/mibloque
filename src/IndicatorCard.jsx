@@ -48,7 +48,7 @@ class IndicatorCard extends React.Component {
       >
         <div className={className} key={name}>
           <div className="graphtitle">
-          a
+            {name}
           </div>
           <div className="insidegraph">
             <RenderGraph

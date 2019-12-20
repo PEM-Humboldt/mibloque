@@ -89,7 +89,7 @@ header h3 b {
 
 .sheet {
   background-color: #fff;
-  width: calc(100vw - 590px);
+  width: calc(100% - 590px);
   box-sizing: border-box;
   position: absolute;
 }
