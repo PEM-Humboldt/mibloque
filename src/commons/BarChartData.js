@@ -12,28 +12,28 @@ class BarChartData {
     switch (idIndicator) {
       case 12:
         validIndicator = true;
-        indicatorNamePositive = 'Superficie del área protegida dentro del bloque';
-        indicatorNameNegative = 'Superficie del área protegida fuera del bloque';
+        indicatorNamePositive = 'Área protegida dentro del bloque';
+        indicatorNameNegative = 'Área protegida fuera del bloque';
         break;
       case 18:
         validIndicator = true;
-        indicatorNamePositive = 'Superficie del área de reserva de ley 2da de 1959 dentro del bloque';
-        indicatorNameNegative = 'Superficie del área de reserva de ley 2da de 1959 fuera del bloque';
+        indicatorNamePositive = 'Área de reserva de ley 2da de 1959 dentro del bloque';
+        indicatorNameNegative = 'Área de reserva de ley 2da de 1959 fuera del bloque';
         break;
       case 20:
         validIndicator = true;
-        indicatorNamePositive = 'Superficie del área del territorio étnico dentro del bloque';
-        indicatorNameNegative = 'Superficie del área del territorio étnico fuera del bloque';
+        indicatorNamePositive = 'Área del territorio étnico dentro del bloque';
+        indicatorNameNegative = 'Área del territorio étnico fuera del bloque';
         break;
       case 22:
         validIndicator = true;
-        indicatorNamePositive = 'Superficie del área de la ZRC dentro del bloque';
-        indicatorNameNegative = 'Superficie del área de la ZRC fuera del bloque';
+        indicatorNamePositive = 'Área de la ZRC dentro del bloque';
+        indicatorNameNegative = 'Área de la ZRC fuera del bloque';
         break;
       case 24:
         validIndicator = true;
-        indicatorNamePositive = 'Superficie del área del ecosistema estrategico dentro del bloque';
-        indicatorNameNegative = 'Superficie del área del ecosistema estrategico fuera del bloque';
+        indicatorNamePositive = 'Área del ecosistema estrategico dentro del bloque';
+        indicatorNameNegative = 'Área del ecosistema estrategico fuera del bloque';
         break;
       default:
         validIndicator = false;
@@ -41,6 +41,27 @@ class BarChartData {
     }
 
     return { validIndicator, indicatorNamePositive, indicatorNameNegative };
+  }
+
+  /**
+   * Validate if an indicator is a percentage
+   *
+   * @param {Integer} idIndicator id indicator to be validated
+   */
+  static validateValuePercentage(idIndicator) {
+    const indicatorMap = {
+      12: true,
+      18: true,
+      20: true,
+      22: true,
+      24: true,
+      13: false,
+      19: false,
+      21: false,
+      23: false,
+      25: false,
+    };
+    return indicatorMap[idIndicator] || false;
   }
 
   /**
@@ -70,27 +91,6 @@ class BarChartData {
     const valueTransf = Number(-(((100 - perc) * value) / perc).toFixed(2));
     rowComputed.push(desc, value, valueTransf);
     return rowComputed;
-  }
-
-  /**
-   * Validate if an indicator is a percentage
-   *
-   * @param {Integer} idIndicator id indicator to be validated
-   */
-  static validateValuePercentage(idIndicator) {
-    const indicatorMap = {
-      12: true,
-      18: true,
-      20: true,
-      22: true,
-      24: true,
-      13: false,
-      19: false,
-      21: false,
-      23: false,
-      25: false,
-    };
-    return indicatorMap[idIndicator] || false;
   }
 
   /**
