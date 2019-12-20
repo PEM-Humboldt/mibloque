@@ -86,6 +86,9 @@ const GraphLoader = ({
             legend: { position: 'bottom', maxLines: 5 },
             chartArea: { width: '70%' },
             isStacked: true,
+            hAxis: {
+              title: 'Hectáreas',
+            },
           }}
           // For tests
           rootProps={{ 'data-testid': '3' }}
