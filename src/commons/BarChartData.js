@@ -12,28 +12,28 @@ class BarChartData {
     switch (idIndicator) {
       case 12:
         validIndicator = true;
-        indicatorNamePositive = 'Área protegida dentro del bloque';
-        indicatorNameNegative = 'Área protegida fuera del bloque';
+        indicatorNamePositive = 'Área protegida dentro del bloque (ha)';
+        indicatorNameNegative = 'Área protegida fuera del bloque (ha)';
         break;
       case 18:
         validIndicator = true;
-        indicatorNamePositive = 'Área de reserva de ley 2da de 1959 dentro del bloque';
-        indicatorNameNegative = 'Área de reserva de ley 2da de 1959 fuera del bloque';
+        indicatorNamePositive = 'Área de reserva de ley 2da de 1959 dentro del bloque (ha)';
+        indicatorNameNegative = 'Área de reserva de ley 2da de 1959 fuera del bloque (ha)';
         break;
       case 20:
         validIndicator = true;
-        indicatorNamePositive = 'Área del territorio étnico dentro del bloque';
-        indicatorNameNegative = 'Área del territorio étnico fuera del bloque';
+        indicatorNamePositive = 'Área del territorio étnico dentro del bloque (ha)';
+        indicatorNameNegative = 'Área del territorio étnico fuera del bloque (ha)';
         break;
       case 22:
         validIndicator = true;
-        indicatorNamePositive = 'Área de la ZRC dentro del bloque';
-        indicatorNameNegative = 'Área de la ZRC fuera del bloque';
+        indicatorNamePositive = 'Área de la ZRC dentro del bloque (ha)';
+        indicatorNameNegative = 'Área de la ZRC fuera del bloque (ha)';
         break;
       case 24:
         validIndicator = true;
-        indicatorNamePositive = 'Área del ecosistema estrategico dentro del bloque';
-        indicatorNameNegative = 'Área del ecosistema estrategico fuera del bloque';
+        indicatorNamePositive = 'Área del ecosistema estrategico dentro del bloque (ha)';
+        indicatorNameNegative = 'Área del ecosistema estrategico fuera del bloque (ha)';
         break;
       default:
         validIndicator = false;
