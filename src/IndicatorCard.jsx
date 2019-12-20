@@ -63,7 +63,8 @@ class IndicatorCard extends React.Component {
             />
           </div>
           <div className="graphLink">
-            ver indicador <b>+</b>
+            ver indicador
+            <b>+</b>
           </div>
         </div>
       </Link>
