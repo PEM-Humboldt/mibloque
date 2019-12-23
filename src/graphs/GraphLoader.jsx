@@ -96,6 +96,7 @@ const GraphLoader = ({
     case 'Sankey':
       graph = (
         <Chart
+          className="p30"
           width={width}
           height={height}
           chartType="Sankey"
@@ -113,6 +114,7 @@ const GraphLoader = ({
             ['Reserva Natural de la Sociedad Civil: La Bramadora', '25 Km', 1283.84000],
           ]}
           options={{
+            chartArea: { width: '70%' },
             chart: {
               title,
               subtitle,
@@ -125,6 +127,7 @@ const GraphLoader = ({
     case 'TreeMap':
       graph = (
         <Chart
+          className="p30"
           width={width}
           height={height}
           chartType="TreeMap"

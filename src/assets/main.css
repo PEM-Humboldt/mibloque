@@ -619,6 +619,11 @@ footer h2 {
   height: auto;
 }
 
+.p30 {
+  padding: 15px;
+  box-sizing: border-box;
+}
+
 .insidegraph {
   height: calc(100% - 72px);
   padding: 10px 10px 5px;
