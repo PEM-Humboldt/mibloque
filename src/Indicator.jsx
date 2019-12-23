@@ -70,6 +70,7 @@ class Indicator extends React.Component {
       });
   }
 
+
   /**
    * Load geometry for the incoming indicator
    *
@@ -85,9 +86,7 @@ class Indicator extends React.Component {
       8: 'green',
     };
     const coverageColorsByCoverage = { 1: '#f4b400', 2: '#fada80' };
-    // TODO: Use the following colors for code = 3
-    // const ecosystemsRedListColorsByThreat = { CR: '#EF0928', EN: '#FB6A2A', VU: '#DF9735' };
-
+    const ecosystemsRedListColorsByThreat = { CR: '#EF0928', EN: '#FB6A2A', VU: '#DF9735' };
     const gidsQuery = gids.map((gid) => `ids=${gid}`).join('&');
     RestAPI.requestGeometryByGid(gidsQuery)
       .then((res) => {
@@ -130,7 +129,46 @@ class Indicator extends React.Component {
             });
           }
           if (code === 3) {
-            // TODO: Implement threat ecosystems geometries
+            res.features.forEach((i) => {
+              const geom = {
+                [i.properties.gid]: {
+                  displayName: `lre_+${i.properties.gid}`,
+                  id: i.properties.gid,
+                  active: true,
+                  layer: L.geoJSON(i.geometry, {
+                    style: {
+                      stroke: false,
+                      fillColor: ecosystemsRedListColorsByThreat[
+                        i.properties.value_description.substring(0, 2)],
+                      fillOpacity: 0.5,
+                    },
+                  }),
+                },
+              };
+              this.setState((prevState) => ({ geometries: { ...prevState.geometries, ...geom } }));
+            });
+          }
+          if (code === 4) {
+            res.features.forEach((i) => {
+              const geom = {
+                [i.properties.gid]: {
+                  displayName: `lre_+${i.properties.gid}`,
+                  id: i.properties.gid,
+                  active: true,
+                  layer: L.geoJSON(i.geometry, {
+                    style: {
+                      color: 'silver',
+                      weight: 2,
+                      stroke: true,
+                      dashArray: '3',
+                      fillColor: 'black',
+                      fillOpacity: 0.5,
+                    },
+                  }),
+                },
+              };
+              this.setState((prevState) => ({ geometries: { ...prevState.geometries, ...geom } }));
+            });
           }
         }
       })
@@ -187,10 +225,23 @@ class Indicator extends React.Component {
               .map((o) => o.id);
           }
           if (res.code === 3) {
-            // TODO: include LRE geometries
+            // Picking geometries by ecosystem only
+            geoIds = x
+              .filter((f) => f.id_indicator === 14)
+              .map((o) => o.id);
+          }
+          if (res.code === 4) {
+            // Picking geometries by ecosystem only
+            geoIds = x
+              .filter((f) => f.id_indicator === 12 || f.id_indicator === 18
+                          || f.id_indicator === 20 || f.id_indicator === 22
+                          || f.id_indicator === 24)
+              .map((o) => o.id);
           }
         }
         if (geoIds.length > 0) {
+          // geometries = GeometryMapper.loadIndicatorGeometry(res.code, geoIds, state.geometries);
+          // console.log('voy voy');
           this.loadIndicatorGeometry(res.code, geoIds);
         }
         // TODO: state.indicatorsValues - Process indicators
