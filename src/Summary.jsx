@@ -193,14 +193,18 @@ class Summary extends React.Component {
               layers={layers}
             />
           </div>
-          <div className={`blockdata ${minibd? 'minibd' : ''}`}>
-            <button onClick={this.toggleBlock} className={`arrowLink ${alleft? 'alleft' : ''}`}>
-            </button>
+          <div className={`blockdata ${minibd ? 'minibd' : ''}`}>
+            {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
+            <button
+              onClick={this.toggleBlock}
+              className={`arrowLink ${alleft ? 'alleft' : ''}`}
+              type="button"
+            />
             <Link to={`/indicatorsDash/${areaName}`}>
               <button
                 type="button"
                 key="indBtn"
-                className={`generalbtn absright ${nogo? 'nogo' : ''}`}
+                className={`generalbtn absright ${nogo ? 'nogo' : ''}`}
               >
                 indicadores
               </button>

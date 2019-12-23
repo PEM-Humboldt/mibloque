@@ -32,7 +32,7 @@ const Header = ({
       <div className="navbtns">
         {activateSummary
           && (
-            <Link to="/summary">
+            <Link to={`/summary/${activeArea.name}`}>
               <img
                 src={backIcon}
                 alt="Visor de Mi Bloque"
@@ -41,7 +41,7 @@ const Header = ({
           )}
         {activateIndicators
           && (
-            <Link to="/indicatorsDash">
+            <Link to={`/indicatorsDash/${activeArea.name}`}>
               <img
                 src={backIcon}
                 alt="Volver a Indicadores"
