@@ -9,7 +9,7 @@ const tooltipGen = (data) => (row, size) => {
     <div class='tm_tooltip'>
       ${data[row][0]}
       <br />
-      ${Number(size).toFixed(2)}
+      <b>${Number(size).toFixed(2)}</b>
     </div>
   `;
 };
