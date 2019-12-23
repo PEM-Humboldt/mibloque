@@ -15,7 +15,6 @@ class SankeyChartData {
       9: false,
       10: false,
       11: false,
-      12: false,
     };
     return indicatorMap[idIndicator] || false;
   }
