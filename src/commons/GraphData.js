@@ -32,11 +32,11 @@ class GraphData {
     /* Third level */
     rawData[thirdLevel[1]].map((item) => {
       redListColors.forEach((color) => {
-        if (item.value_description.includes(`${color.name} `)) {
+        if (item.value_description.includes(`${color.name}:`)) {
           dataTransformed.push(
             [
               item.value_description,
-              item.name,
+              Object.values(dataTransformed).find((element) => element[0].includes(`${color.name} -`))[0],
               Number(item.indicator_value),
               color.value,
             ],
