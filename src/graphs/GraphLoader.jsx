@@ -95,12 +95,14 @@ const GraphLoader = ({
     case 'Sankey':
       graph = (
         <Chart
+          className="p30"
           width={width}
           height={height}
           chartType="Sankey"
           loader={<div>Loading Chart</div>}
           data={data}
           options={{
+            chartArea: { width: '70%' },
             chart: {
               title,
               subtitle,
@@ -113,6 +115,7 @@ const GraphLoader = ({
     case 'TreeMap':
       graph = (
         <Chart
+          className="p30"
           width={width}
           height={height}
           chartType="TreeMap"

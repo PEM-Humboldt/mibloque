@@ -370,12 +370,12 @@ class Indicator extends React.Component {
             </button>
           </div>
         </Modal>
-        <section className="sectionintern" ref={this.setGraphHeight}>
+        <section className="sectionintern sectintresp" ref={this.setGraphHeight}>
           <div className="internheader" />
           <div className="sheet" ref={this.setGraphWidth}>
             {graph || 'cargando...'}
           </div>
-          <div className="blockdata">
+          <div className="blockdata bdresponsive">
             <h1>¿Cómo leer esta cifra en el área?</h1>
             <div className="line" />
             <br />
