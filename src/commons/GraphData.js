@@ -3,13 +3,9 @@ import {
   firstLevelLabel, firstLevel, secondLevel, thirdLevel, redListColors, title,
 } from './TreeMapChartData';
 import BarChartData from './BarChartData';
+import SankeyChartData from './SankeyChartData';
 
 class GraphData {
-  static sankeyData(rawData) {
-    // TODO: If requires a lot of functions please create a new class.
-    return { results: rawData, groups: 1 };
-  }
-
   static treeMapData(rawData) {
     /* First level */
     const totalArea = Number(rawData[firstLevel[1]][0].indicator_value);
@@ -52,18 +48,21 @@ class GraphData {
     return { results: dataTransformed, groups: 1 };
   }
 
+<<<<<<< HEAD
 
   static barChartData(rawData) {
     // TODO: If requires a lot of functions please create a new class.
     return { results: rawData, groups: 1 };
   }
 
+=======
+>>>>>>> 4ff2662b27a756f96ab12983ae1981bc2b8683ec
   static prepareData(code, rawData, order) {
     switch (code) {
       case 1:
         return ColumnChartData.prepareData(rawData, order);
       case 2:
-        return GraphData.sankeyData(rawData);
+        return SankeyChartData.prepareData(rawData);
       case 3:
         return GraphData.treeMapData(rawData);
       case 4:

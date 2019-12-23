@@ -47,16 +47,25 @@ class IndicatorCard extends React.Component {
         }}
       >
         <div className={className} key={name}>
-          <RenderGraph
-            data={results}
-            labelY="Hectáreas"
-            graph={GraphData.validGraphType(code).validGraphType}
-            title={name}
-            padding={0}
-            options={{ legend: { position: 'none' } }}
-            withTooltip={false}
-            dataGroups={groups}
-          />
+          <div className="graphtitle">
+            {name}
+          </div>
+          <div className="insidegraph">
+            <RenderGraph
+              data={results}
+              labelY="Hectáreas"
+              graph={GraphData.validGraphType(code).validGraphType}
+              title={name}
+              padding={0}
+              options={{ legend: { position: 'none' } }}
+              withTooltip={false}
+              dataGroups={groups}
+            />
+          </div>
+          <div className="graphLink">
+            ver indicador
+            <b>+</b>
+          </div>
         </div>
       </Link>
     );

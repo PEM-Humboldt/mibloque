@@ -44,6 +44,9 @@ class Summary extends React.Component {
       ],
       connError: false,
       layers: {},
+      minibd: false,
+      alleft: false,
+      nogo: false,
     };
   }
 
@@ -139,9 +142,17 @@ class Summary extends React.Component {
     this.setState({ [state]: false });
   };
 
+  toggleBlock = () => {
+    this.setState((prevState) => ({
+      minibd: !prevState.minibd,
+      alleft: !prevState.alleft,
+      nogo: !prevState.alleft,
+    }));
+  }
+
   render() {
     const {
-      biomesDataGraps, connError, layers,
+      biomesDataGraps, connError, layers, minibd, alleft, nogo,
     } = this.state;
     const { activeArea, areaName } = this.props;
 
@@ -182,12 +193,18 @@ class Summary extends React.Component {
               layers={layers}
             />
           </div>
-          <div className="blockdata">
+          <div className={`blockdata ${minibd ? 'minibd' : ''}`}>
+            {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
+            <button
+              onClick={this.toggleBlock}
+              className={`arrowLink ${alleft ? 'alleft' : ''}`}
+              type="button"
+            />
             <Link to={`/indicatorsDash/${areaName}`}>
               <button
                 type="button"
                 key="indBtn"
-                className="generalbtn absright"
+                className={`generalbtn absright ${nogo ? 'nogo' : ''}`}
               >
                 indicadores
               </button>
@@ -258,7 +275,14 @@ class Summary extends React.Component {
               />
             </div>
             <p>
-              La información espacial que se muestra en la figura corresponde a la identificación de condiciones sociales, culturales, económicas y biofísicas, algunas de las cuales son determinantes ambientales del ordenamiento territorial y pueden generar restricciones al desarrollo de las actividades de exploración y explotación de hidrocarburos. Este análisis hace parte del procedimiento que la ANH ha establecido para la coordinación y concurrencia con las entidades territoriales y demás autoridades y entidades con presencia en el territorio, con el fin de posibilitar la definición y determinación de nuevas áreas de interés de hidrocarburos.
+              La información espacial que se muestra en la figura corresponde a la identificación de
+              condiciones sociales, culturales, económicas y biofísicas, algunas de las cuales son
+              determinantes ambientales del ordenamiento territorial y pueden generar restricciones
+              al desarrollo de las actividades de exploración y explotación de hidrocarburos. Este
+              análisis hace parte del procedimiento que la ANH ha establecido para la coordinación y
+              concurrencia con las entidades territoriales y demás autoridades y entidades con
+              presencia en el territorio, con el fin de posibilitar la definición y determinación
+              de nuevas áreas de interés de hidrocarburos.
             </p>
             <h1>Biomas</h1>
             <div className="line" />
