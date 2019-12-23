@@ -27,7 +27,7 @@ class Indicator extends React.Component {
       code: 4,
       groupName: '',
       graphSize: { width: 0, height: 0 },
-      selectHeight: 0,
+      graphHeaderHeight: 0,
     };
   }
 
@@ -244,8 +244,6 @@ class Indicator extends React.Component {
           // console.log('voy voy');
           this.loadIndicatorGeometry(res.code, geoIds);
         }
-        // TODO: state.indicatorsValues - Process indicators
-        state.data = GraphData.prepareData(res.code, res.values, res.biomes);
         const { results, groups } = GraphData.prepareData(res.code, res.values, res.biomes);
         state.data = results;
         state.dataGroups = groups;
@@ -316,8 +314,8 @@ class Indicator extends React.Component {
     }
   }
 
-  setSelectHeight = (domElem) => {
-    if (domElem) this.setState({ selectHeight: domElem.select.controlRef.offsetHeight });
+  setGraphHeaderHeight = (domElem) => {
+    if (domElem) this.setState({ graphHeaderHeight: domElem.offsetHeight });
   }
 
   render() {
@@ -330,7 +328,7 @@ class Indicator extends React.Component {
       code,
       groupName,
       graphSize: { height: graphHeight, width: graphWidth },
-      selectHeight,
+      graphHeaderHeight,
       geometries,
     } = this.state;
     const { activeArea } = this.props;
@@ -339,7 +337,6 @@ class Indicator extends React.Component {
     if (biomesList.length > 0) {
       biomesSelect = (
         <Select
-          ref={this.setSelectHeight}
           value={selectedOption}
           onChange={this.handleBiomesSelect}
           options={biomesList}
@@ -350,18 +347,27 @@ class Indicator extends React.Component {
       );
     }
 
+    const graphHeader = (
+      <div ref={this.setGraphHeaderHeight}>
+        <div className="graphtitle2">
+          {groupName}
+        </div>
+        {biomesSelect}
+      </div>
+    );
+
     let graph = null;
     if (data && graphHeight !== 0 && graphWidth !== 0) {
       graph = (
         <div className="indicator">
-          {biomesSelect}
+          {graphHeader}
           <RenderGraph
             data={data}
             labelY="Hectáreas"
             graph={GraphData.validGraphType(code).validGraphType}
             title={groupName}
             width={graphWidth}
-            height={graphHeight - selectHeight}
+            height={graphHeight - graphHeaderHeight}
             padding={20}
             dataGroups={dataGroups}
           />

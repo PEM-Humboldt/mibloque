@@ -81,22 +81,11 @@ const GraphLoader = ({
           height={height}
           chartType="BarChart"
           loader={<div>Loading Chart</div>}
-          data={[
-            ['City', '2010 Population', '2000 Population'],
-            ['New York City, NY', 8175000, 8008000],
-          ]}
+          data={data}
           options={{
-            title: 'Population of Largest U.S. Cities',
-            chartArea: { width: '50%' },
-            bars: 'vertical',
+            legend: { position: 'bottom', maxLines: 5 },
+            chartArea: { width: '70%' },
             isStacked: true,
-            hAxis: {
-              title: 'Total Population',
-              minValue: 0,
-            },
-            vAxis: {
-              title: 'City',
-            },
           }}
           // For tests
           rootProps={{ 'data-testid': '3' }}
@@ -110,17 +99,8 @@ const GraphLoader = ({
           height={height}
           chartType="Sankey"
           loader={<div>Loading Chart</div>}
-          data={[
-            ['From', 'To', 'Weight'],
-            ['A', 'X', 5],
-            ['A', 'Y', 7],
-            ['A', 'Z', 6],
-            ['B', 'X', 2],
-            ['B', 'Y', 9],
-            ['B', 'Z', 4],
-          ]}
+          data={data}
           options={{
-            // Material design options
             chart: {
               title,
               subtitle,
