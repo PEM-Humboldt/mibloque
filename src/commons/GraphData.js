@@ -23,7 +23,7 @@ class GraphData {
     ];
     /* Second level */
     const threatAreas = rawData[secondLevel[1]].map((item) => ({
-      name: item.value_description,
+      name: `${item.value_description} - ${item.indicator_value} ha`,
       value: item.indicator_value,
     }));
     threatAreas.forEach((data) => {
@@ -32,11 +32,11 @@ class GraphData {
     /* Third level */
     rawData[thirdLevel[1]].map((item) => {
       redListColors.forEach((color) => {
-        if (item.value_description.includes(`${color.name}:`)) {
+        if (item.value_description.includes(`${color.name} `)) {
           dataTransformed.push(
             [
               item.value_description,
-              color.name,
+              item.name,
               Number(item.indicator_value),
               color.value,
             ],
@@ -48,15 +48,6 @@ class GraphData {
     return { results: dataTransformed, groups: 1 };
   }
 
-<<<<<<< HEAD
-
-  static barChartData(rawData) {
-    // TODO: If requires a lot of functions please create a new class.
-    return { results: rawData, groups: 1 };
-  }
-
-=======
->>>>>>> 4ff2662b27a756f96ab12983ae1981bc2b8683ec
   static prepareData(code, rawData, order) {
     switch (code) {
       case 1:
