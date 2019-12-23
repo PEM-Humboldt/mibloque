@@ -1,9 +1,18 @@
-/** eslint verified */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Chart } from 'react-google-charts';
 import SmallBarStackGraph from './SmallBarStackGraph';
 import GColumnChart from './GColumnChart';
+
+const tooltipGen = (data) => (row, size) => {
+  return `
+    <div class='tm_tooltip'>
+      ${data[row][0]}
+      <br />
+      ${Number(size).toFixed(2)}
+    </div>
+  `;
+};
 
 /**
  * Allow to select one of the available graphs
@@ -125,6 +134,7 @@ const GraphLoader = ({
             headerHeight: 15,
             fontColor: 'black',
             showScale: true,
+            generateTooltip: tooltipGen(data),
           }}
           rootProps={{ 'data-testid': '1' }}
         />
