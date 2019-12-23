@@ -569,7 +569,7 @@ footer h2 {
   font-size: 11px;
   color: #91a99f;
   text-indent: -5px;
-  width: 480px !important; 
+  width: 480px !important;
 }
 
 .iconos {
@@ -655,7 +655,7 @@ footer h2 {
   display: block;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  padding: 5px 10px 0;
+  padding: 7px 10px 0;
   box-sizing: border-box;
   white-space: nowrap;
   overflow: hidden;
