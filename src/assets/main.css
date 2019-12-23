@@ -459,6 +459,7 @@ footer h2 {
   padding: 20px 30px;
   border-left: 1px solid #577376;
   overflow-y: scroll;
+  overflow-x: hidden;
   -webkit-transition: all 1s;
   -moz-transition: all 1s;
   -ms-transition: all 1s;
@@ -518,9 +519,57 @@ footer h2 {
   font-weight: 600;
 }
 
+.blockdata h3 {
+  margin: 15px 0;
+  padding-bottom: 5px;
+  font-weight: 700;
+  font-size: 18px;
+  color: #5c5042;
+  border-bottom: 1px solid #5c5042;
+  display: inline-block;
+}
+
+.blockdata h4 {
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: 400;
+  padding-bottom: 5px;
+  color: #d26b4d;
+}
+
 .blockdata p {
   width: 500px;
   margin-bottom: 25px;
+  text-align: justify;
+}
+
+.formulacenter {
+  margin-left: 30px;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 10px;
+  border: 1px solid #5db2ba;
+  color: #5db2ba;
+  display: block;
+  width: 150px !important;
+  margin-bottom: 5px !important;
+}
+
+.formulaexplained {
+  margin-left: 35px;
+}
+
+.formulaexplained b {
+  color: #5db2ba;
+}
+
+.referencias {
+  padding-left: 5px;
+  margin-bottom: 10px !important;
+  font-size: 11px;
+  color: #91a99f;
+  text-indent: -5px;
+  width: 480px !important; 
 }
 
 .iconos {
