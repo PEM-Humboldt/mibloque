@@ -1,4 +1,3 @@
-/** eslint verified */
 import React from 'react';
 import L from 'leaflet';
 import PropTypes from 'prop-types';
@@ -28,6 +27,7 @@ class Indicator extends React.Component {
       groupName: '',
       graphSize: { width: 0, height: 0 },
       graphHeaderHeight: 0,
+      metadata: '',
     };
   }
 
@@ -35,6 +35,7 @@ class Indicator extends React.Component {
     const { areaName, indicatorIds } = this.props;
     this.loadData(areaName, indicatorIds);
     this.loadAreaGeometry(areaName);
+    this.loadMetadata(indicatorIds[0]);
   }
 
   componentDidUpdate() {
@@ -177,7 +178,6 @@ class Indicator extends React.Component {
       });
   }
 
-
   /**
    * Load indicators data for selected area from RestAPI and specified ids
    *
@@ -258,6 +258,21 @@ class Indicator extends React.Component {
   }
 
   /**
+   * Set state with the metadata to show in this component
+   *
+   * @param {Number} id indicator id
+   */
+  loadMetadata = (id) => {
+    RestAPI.requestMetadataById(id)
+      .then((res) => {
+        this.setState({ metadata: res.metadata });
+      })
+      .catch(() => {
+        this.reportConnError();
+      });
+  }
+
+  /**
    * Report a connection error from one of the child components
    */
   reportConnError = () => {
@@ -330,6 +345,7 @@ class Indicator extends React.Component {
       graphSize: { height: graphHeight, width: graphWidth },
       graphHeaderHeight,
       geometries,
+      metadata,
     } = this.state;
     const { activeArea } = this.props;
 
@@ -405,31 +421,17 @@ class Indicator extends React.Component {
             </button>
           </div>
         </Modal>
-        <section className="sectionintern" ref={this.setGraphHeight}>
+        <section className="sectionintern sectintresp" ref={this.setGraphHeight}>
           <div className="internheader" />
           <div className="sheet" ref={this.setGraphWidth}>
             {graph || 'cargando...'}
           </div>
-          <div className="blockdata">
+          <div className="blockdata bdresponsive">
             <h1>¿Cómo leer esta cifra en el área?</h1>
             <div className="line" />
             <br />
-            <p>
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-              sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
-              Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit
-              lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor
-              in hendrerit in vulputate velit esse molestie consequat, vel illum
-              dolore eu feugiat nulla facilisis at.
-              <br />
-              <br />
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-              sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna
-              aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci
-              tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-              Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie
-              consequat, vel illum dolore eu feugiat nulla facilisis at.
-            </p>
+            {/* eslint-disable-next-line react/no-danger */}
+            <div dangerouslySetInnerHTML={{ __html: metadata }} />
             <br />
             {geometries
               && (

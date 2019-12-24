@@ -88,9 +88,8 @@ export default withTooltip(
     return (
       <div>
         <div className="smgraphtitle">
-          {title}
+          {subtitle}
         </div>
-        {subtitle}
         <svg width={width - 15} height={25}>
           <Group top={margin.top} left={margin.left}>
             {`${Number((0.20 * 100).toFixed(2))} % `}
