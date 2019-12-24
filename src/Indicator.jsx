@@ -158,11 +158,11 @@ class Indicator extends React.Component {
                   active: true,
                   layer: L.geoJSON(i.geometry, {
                     style: {
-                      color: 'silver',
+                      color: 'blue',
                       weight: 2,
                       stroke: true,
                       dashArray: '3',
-                      fillColor: 'black',
+                      fillColor: 'blue',
                       fillOpacity: 0.5,
                     },
                   }),
