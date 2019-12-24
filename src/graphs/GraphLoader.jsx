@@ -7,7 +7,7 @@ import GColumnChart from './GColumnChart';
 const tooltipGen = (data) => (row, size) => {
   return `
     <div class='tm_tooltip'>
-      ${data[row][0]}
+      ${data[row][0].v}
       <br />
       <b>${Number(size).toFixed(2)}</b>
     </div>
@@ -119,7 +119,9 @@ const GraphLoader = ({
         />
       );
       break;
-    case 'TreeMap':
+    case 'TreeMap': {
+      const tooltipData = Array.from(data);
+      tooltipData.shift();
       graph = (
         <Chart
           width={width}
@@ -134,12 +136,13 @@ const GraphLoader = ({
             headerHeight: 15,
             fontColor: 'black',
             showScale: true,
-            generateTooltip: tooltipGen(data),
+            generateTooltip: tooltipGen(tooltipData),
           }}
           rootProps={{ 'data-testid': '1' }}
         />
       );
       break;
+    }
     default:
       break;
   }
