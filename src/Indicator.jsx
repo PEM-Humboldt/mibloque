@@ -328,7 +328,6 @@ class Indicator extends React.Component {
           {graphHeader}
           <RenderGraph
             data={data}
-            labelY="Hectáreas"
             graph={GraphData.validGraphType(code).validGraphType}
             title={groupName}
             width={graphWidth}

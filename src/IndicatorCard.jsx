@@ -53,7 +53,6 @@ class IndicatorCard extends React.Component {
           <div className="insidegraph">
             <RenderGraph
               data={results}
-              labelY="Hectáreas"
               graph={GraphData.validGraphType(code).validGraphType}
               title={name}
               padding={0}
