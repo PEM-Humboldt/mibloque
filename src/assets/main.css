@@ -676,12 +676,19 @@ footer h2 {
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
   font-size: 12px;
   color: #6e6e6e;
+  width: 220px;
+  z-index:10000;
+  position: absolute;
 }
 
 .tm_tooltip b {
   font-size: 16px;
   font-weight: 600;
   color: #EDA539;
+}
+
+.graph g > text {
+  fill: #5C5042 !important;
 }
 
 /* Media Queries */
