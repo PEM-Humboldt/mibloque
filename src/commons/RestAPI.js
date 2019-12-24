@@ -78,6 +78,15 @@ class RestAPI {
     return RestAPI.makeGetRequest(`anh_areas/${name}/indicators`);
   }
 
+  /**
+   * Request indicators metadata by its id
+   *
+   * @param {String} id indicator id to request
+   */
+  static requestMetadataById(id) {
+    return RestAPI.makeGetRequest(`indicators/${id}/metadata`);
+  }
+
   /** ******************************** */
   /**    INDICATORS GEOMETRY DETAILS   */
   /** ******************************** */

@@ -56,7 +56,7 @@ class ColumnChartData {
     const headers = ['Bioma'];
     years.forEach((year) => {
       descriptions.forEach((desc) => {
-        headers.push(descriptions.length === 1 ? `${year}` : `${year}-${desc}`);
+        headers.push(descriptions.length === 1 ? `${year}` : `${year} - ${desc}`);
       });
     });
     return headers;

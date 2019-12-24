@@ -76,7 +76,10 @@ const GraphLoader = ({
           loader={<div>Cargando...</div>}
           labelY={labelY}
           padding={padding}
-          options={options}
+          options={{
+            ...options,
+            colors,
+          }}
           withTooltip={withTooltip}
           dataGroups={dataGroups}
           title={title}
@@ -95,6 +98,7 @@ const GraphLoader = ({
             legend: { position: 'bottom', maxLines: 5 },
             chartArea: { width: '70%' },
             isStacked: true,
+            colors,
           }}
           // For tests
           rootProps={{ 'data-testid': '3' }}
@@ -104,12 +108,17 @@ const GraphLoader = ({
     case 'Sankey':
       graph = (
         <Chart
+          className="p30"
           width={width}
           height={height}
           chartType="Sankey"
           loader={<div>Loading Chart</div>}
           data={data}
           options={{
+            sankey: {
+              node: { colors },
+            },
+            chartArea: { width: '70%' },
             chart: {
               title,
               subtitle,
@@ -124,6 +133,7 @@ const GraphLoader = ({
       tooltipData.shift();
       graph = (
         <Chart
+          className="p30"
           width={width}
           height={height}
           chartType="TreeMap"
@@ -174,7 +184,10 @@ GraphLoader.propTypes = {
 GraphLoader.defaultProps = {
   title: '',
   subtitle: '',
-  colors: ['blue'],
+  colors: [
+    '#003d59', '#5a1d44', '#902130', '#6d819c', '#db9d6b', '#fb9334', '#fe6625', '#ab5727',
+    '#44857d', '#167070',
+  ],
   labelX: '',
   labelY: '',
   width: null,

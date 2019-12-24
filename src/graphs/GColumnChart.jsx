@@ -49,7 +49,7 @@ class GColumnChart extends React.Component {
       isStacked,
       tooltip: { trigger: 'none' },
       vAxes: {
-        0: { title: labelY },
+        0: { title: dataGroups > 1 ? 'Hectáreas' : 'Índice' },
         1: {
           gridlines: { color: 'transparent', count: 0 },
           textStyle: { color: 'transparent' },

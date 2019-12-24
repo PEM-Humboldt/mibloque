@@ -274,16 +274,6 @@ class Summary extends React.Component {
                 title="Licencias ambientales"
               />
             </div>
-            <p>
-              La información espacial que se muestra en la figura corresponde a la identificación de
-              condiciones sociales, culturales, económicas y biofísicas, algunas de las cuales son
-              determinantes ambientales del ordenamiento territorial y pueden generar restricciones
-              al desarrollo de las actividades de exploración y explotación de hidrocarburos. Este
-              análisis hace parte del procedimiento que la ANH ha establecido para la coordinación y
-              concurrencia con las entidades territoriales y demás autoridades y entidades con
-              presencia en el territorio, con el fin de posibilitar la definición y determinación
-              de nuevas áreas de interés de hidrocarburos.
-            </p>
             <h1>Biomas</h1>
             <div className="line" />
             <br />
@@ -328,6 +318,51 @@ class Summary extends React.Component {
                 })
               }
             </div>
+            <h3>Biomas IAvH con factores de compensación</h3>
+            <h4>¿De dónde proviene esta información?</h4>
+            <p>
+              Los biomas del Instituto Alexander von Humboldt (IAvH) y los Factores de Compensación (FC) asociados a estos se construyeron a partir de 4 criterios: <b>(i)</b> representatividad del ecosistema en el sistema nacional de áreas protegidas (SINAP); <b>(ii)</b> rareza; <b>(iii)</b> remanencia; <b>(iv)</b> tasa de trasformación anual (TNC, 2017). El valor de FC representa la sumatoria de los 4 factores, la cual está en un rango entre 4 y 10 así:
+            </p>
+            <p className="formulacenter">
+            FC = Crp + Cra + Crm + Ctt
+            </p>
+            <p className="formulaexplained">
+              <b>Crp </b>
+              = Valor del criterio de representatividad. Expresado entre 1 — 3
+              <br />
+              <b>Cra </b>
+              = Valor del criterio de rareza. Expresado entre 1 — 2
+              <br />
+              <b>Crm </b>
+              = Valor del criterio de remanencia. Expresado entre 1 — 3
+              <br />
+              <b>Ctt </b>
+              = Valor del criterio de tasa de transformación. Expresado entre 1 — 2
+            </p>
+            <h4>¿Cómo interpretar esta información?</h4>
+            <p>
+              El valor presentado representa el FC de cada uno de los ecosistemas que intersectan
+              al polígono ANH, este valor es útil para conocer el costo final de la compensación si
+              se llega a realizar un proyecto en el bioma en particular. El FC se usa como
+              multiplicador al total de hectáreas que afecta el proyecto en el bioma IAvH
+              específico.<br />La ecuación es: <b>Ac = Ai x Fc</b>, donde <b>Ac</b> = Área a compensar por pérdida de
+              biodiversidad. <b>Ai</b> = Área potencialmente impactada del ecosistema natural por el
+              desarrollo del proyecto, obra o actividad. <b>Fc</b> = Factor de compensación.
+            </p>
+            <h4>Referencias</h4>
+            <p className="referencias">
+              · Minambiente (2012). MANUAL DE COMPENSACIONES DEL COMPONENTE BIÓTICO.
+              Ministro de Ambiente y Desarrollo Sostenible. Bogotá D.C., Colombia. 66 pp.
+            </p>
+            <p className="referencias">
+              · IDEAM, IGAC, IAvH, Invemar, I. Sinchi e IIAP (2007). Ecosistemas continentales,
+              costeros y marinos de Colombia. Instituto de Hidrología, Meteorología y Estudios
+              Ambientales, Instituto Geográfico Agustín Codazzi, Instituto de Investigación de
+              Recursos Biológicos Alexander von Humboldt, Instituto de Investigaciones Ambientales
+              del Pacífico Jhon von Neumann, Instituto de Investigaciones Marinas y Costeras José
+              Benito Vives De Andréis e Instituto Amazónico de Investigaciones Científicas Sinchi.
+              Bogotá, D. C, 276 p.
+            </p>
           </div>
         </section>
       </Layout>
