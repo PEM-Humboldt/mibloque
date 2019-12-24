@@ -144,7 +144,7 @@ const GraphLoader = ({
             midColor: '#d66c42',
             maxColor: '#dea857',
             headerHeight: 15,
-            fontColor: 'black',
+            fontColor: '#302a23',
             showScale: true,
             generateTooltip: tooltipGen(tooltipData),
           }}

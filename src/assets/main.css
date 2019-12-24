@@ -741,9 +741,9 @@ footer h2 {
   color: #EDA539;
 }
 
-.graph g > text {
+/* .graph g > text {
   fill: #5C5042 !important;
-}
+} */
 
 /* Media Queries */
 
