@@ -21,7 +21,6 @@ class GColumnChart extends React.Component {
       data,
       width,
       height,
-      labelY,
       padding,
       options,
       withTooltip,
@@ -113,7 +112,6 @@ class GColumnChart extends React.Component {
 
 GColumnChart.propTypes = {
   data: PropTypes.any.isRequired,
-  labelY: PropTypes.string,
   width: PropTypes.number,
   height: PropTypes.number,
   padding: PropTypes.number,
@@ -125,7 +123,6 @@ GColumnChart.propTypes = {
 };
 
 GColumnChart.defaultProps = {
-  labelY: '',
   width: null,
   height: null,
   padding: 0,
