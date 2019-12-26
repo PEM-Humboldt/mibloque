@@ -100,7 +100,10 @@ RenderGraph.propTypes = {
 RenderGraph.defaultProps = {
   title: '',
   subtitle: '',
-  colors: ['blue'],
+  colors: [
+    '#003d59', '#5a1d44', '#902130', '#6d819c', '#db9d6b', '#fb9334', '#fe6625', '#ab5727',
+    '#44857d', '#167070',
+  ],
   labelX: '',
   labelY: '',
   units: 'ha',

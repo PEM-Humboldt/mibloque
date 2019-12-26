@@ -32,7 +32,7 @@ class IndicatorCard extends React.Component {
 
   render() {
     const {
-      code, size, name, values, indicatorIds, areaName,
+      areaName, code, size, name, values, indicatorIds,
     } = this.props;
     const indicatorIdsQuery = indicatorIds.map((ind) => `ids=${ind}`).join('&');
     const className = this.validClassIndicator(size).validClass;
@@ -53,7 +53,6 @@ class IndicatorCard extends React.Component {
           <div className="insidegraph">
             <RenderGraph
               data={results}
-              labelY="Hectáreas"
               graph={GraphData.validGraphType(code).validGraphType}
               title={name}
               padding={0}

@@ -88,7 +88,8 @@ class BarChartData {
     });
     const desc = row.description;
     const { value, perc } = row;
-    const valueTransf = Number(-(((100 - perc) * value) / perc).toFixed(2));
+    let valueTransf = Number(-(((100 - perc) * value) / perc).toFixed(2));
+    valueTransf = valueTransf > 0 ? valueTransf : 0;
     rowComputed.push(desc, value, valueTransf);
     return rowComputed;
   }

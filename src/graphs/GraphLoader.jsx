@@ -1,9 +1,18 @@
-/** eslint verified */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Chart } from 'react-google-charts';
 import SmallBarStackGraph from './SmallBarStackGraph';
 import GColumnChart from './GColumnChart';
+
+const tooltipGen = (data) => (row, size) => {
+  return `
+    <div class='tm_tooltip'>
+      ${data[row][0].v}
+      <br />
+      <b>${Number(size).toFixed(2)}</b>
+    </div>
+  `;
+};
 
 /**
  * Allow to select one of the available graphs
@@ -67,7 +76,10 @@ const GraphLoader = ({
           loader={<div>Cargando...</div>}
           labelY={labelY}
           padding={padding}
-          options={options}
+          options={{
+            ...options,
+            colors,
+          }}
           withTooltip={withTooltip}
           dataGroups={dataGroups}
           title={title}
@@ -86,6 +98,7 @@ const GraphLoader = ({
             legend: { position: 'bottom', maxLines: 5 },
             chartArea: { width: '70%' },
             isStacked: true,
+            colors,
           }}
           // For tests
           rootProps={{ 'data-testid': '3' }}
@@ -102,6 +115,9 @@ const GraphLoader = ({
           loader={<div>Loading Chart</div>}
           data={data}
           options={{
+            sankey: {
+              node: { colors },
+            },
             chartArea: { width: '70%' },
             chart: {
               title,
@@ -112,7 +128,9 @@ const GraphLoader = ({
         />
       );
       break;
-    case 'TreeMap':
+    case 'TreeMap': {
+      const tooltipData = Array.from(data);
+      tooltipData.shift();
       graph = (
         <Chart
           className="p30"
@@ -120,54 +138,21 @@ const GraphLoader = ({
           height={height}
           chartType="TreeMap"
           loader={<div>Loading Chart</div>}
-          data={[
-            [
-              'Location',
-              'Parent',
-              'Market trade volume (size)',
-              'Market increase/decrease (color)',
-            ],
-            ['Global', null, 0, 0],
-            ['America', 'Global', 0, 0],
-            ['Europe', 'Global', 0, 0],
-            ['Asia', 'Global', 0, 0],
-            ['Australia', 'Global', 0, 0],
-            ['Africa', 'Global', 0, 0],
-            ['Brazil', 'America', 11, 10],
-            ['USA', 'America', 52, 31],
-            ['Mexico', 'America', 24, 12],
-            ['Canada', 'America', 16, -23],
-            ['France', 'Europe', 42, -11],
-            ['Germany', 'Europe', 31, -2],
-            ['Sweden', 'Europe', 22, -13],
-            ['Italy', 'Europe', 17, 4],
-            ['UK', 'Europe', 21, -5],
-            ['China', 'Asia', 36, 4],
-            ['Japan', 'Asia', 20, -12],
-            ['India', 'Asia', 40, 63],
-            ['Laos', 'Asia', 4, 34],
-            ['Mongolia', 'Asia', 1, -5],
-            ['Iran', 'Asia', 18, 13],
-            ['Pakistan', 'Asia', 11, -52],
-            ['Egypt', 'Africa', 21, 0],
-            ['S. Africa', 'Africa', 30, 43],
-            ['Sudan', 'Africa', 12, 2],
-            ['Congo', 'Africa', 10, 12],
-            ['Zaire', 'Africa', 8, 10],
-          ]}
+          data={data}
           options={{
-            title,
-            minColor: '#f00',
-            midColor: '#ddd',
-            maxColor: '#0d0',
+            minColor: '#9b3a33',
+            midColor: '#d66c42',
+            maxColor: '#dea857',
             headerHeight: 15,
-            fontColor: 'black',
+            fontColor: '#302a23',
             showScale: true,
+            generateTooltip: tooltipGen(tooltipData),
           }}
           rootProps={{ 'data-testid': '1' }}
         />
       );
       break;
+    }
     default:
       break;
   }
@@ -199,7 +184,10 @@ GraphLoader.propTypes = {
 GraphLoader.defaultProps = {
   title: '',
   subtitle: '',
-  colors: ['blue'],
+  colors: [
+    '#003d59', '#5a1d44', '#902130', '#6d819c', '#db9d6b', '#fb9334', '#fe6625', '#ab5727',
+    '#44857d', '#167070',
+  ],
   labelX: '',
   labelY: '',
   width: null,
