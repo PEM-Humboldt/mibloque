@@ -206,7 +206,7 @@ class Summary extends React.Component {
                 key="indBtn"
                 className={`generalbtn absright ${nogo ? 'nogo' : ''}`}
               >
-                indicadores
+                info
               </button>
             </Link>
             <h1>Sobre el área</h1>
