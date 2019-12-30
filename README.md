@@ -1,5 +1,5 @@
-# Mi Bloque - ANH
-Repositorio que almacena servicio de Front-End del Mi Bloque - ANH.
+# Mi Área - ANH
+Repositorio que almacena servicio de Front-End del Mi Área - ANH.
 
 Este proyecto ha sido desarrollado por el [Instituto Humboldt](http://www.humboldt.org.co). El proyecto usa [Node.js](https://nodejs.org/) versión 10.16.3 y [React.js](https://reactjs.org) versión 16.10.2, junto a paquetes como [Create React App](https://github.com/facebookincubator/create-react-app), [React-scripts](https://www.npmjs.com/package/react-scripts) [D3](https://d3js.org), [Material-UI](https://material-ui.com), [VX](https://vx-demo.now.sh/), [Leaflet](https://leafletjs.com/), [React-leaflet](https://react-leaflet.js.org) y [Axios](https://alligator.io/react/axios-react/)
 
@@ -51,15 +51,15 @@ Tenga en cuenta la configuración de [las variables de entorno](https://github.c
 
 Ejecutar la siguiente instrucción para construir la imagen:
 
-    docker build -t mibloque:<version> .
+    docker build -t miarea:<version> .
 
-Es recomendable usar como versión de la imagen el valor del release actual en [GitHub](https://github.com/PEM-Humboldt/biotablero/releases).
+Es recomendable usar como versión de la imagen el valor del release actual en [GitHub](https://github.com/PEM-Humboldt/miarea/releases).
 
 ### 2.2. Despliegue del servicio
 
 Una vez esté creada la imagen, se despliega de la siguiente manera:
 
-    docker run -it -d  -p <puerto host>:5000 --name <nombre contenedor> mibloque:<version imagen>
+    docker run -it -d  -p <puerto host>:5000 --name <nombre contenedor> miarea:<version imagen>
 
 ***
 
