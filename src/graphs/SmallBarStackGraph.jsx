@@ -27,7 +27,6 @@ export default withTooltip(
   ({
     colors,
     dataJSON,
-    title,
     subtitle,
     width,
     tooltipOpen,

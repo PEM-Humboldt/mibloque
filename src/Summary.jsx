@@ -206,7 +206,7 @@ class Summary extends React.Component {
                 key="indBtn"
                 className={`generalbtn absright ${nogo ? 'nogo' : ''}`}
               >
-                indicadores
+                info
               </button>
             </Link>
             <h1>Sobre el área</h1>
@@ -321,7 +321,18 @@ class Summary extends React.Component {
             <h3>Biomas IAvH con factores de compensación</h3>
             <h4>¿De dónde proviene esta información?</h4>
             <p>
-              Los biomas del Instituto Alexander von Humboldt (IAvH) y los Factores de Compensación (FC) asociados a estos se construyeron a partir de 4 criterios: <b>(i)</b> representatividad del ecosistema en el sistema nacional de áreas protegidas (SINAP); <b>(ii)</b> rareza; <b>(iii)</b> remanencia; <b>(iv)</b> tasa de trasformación anual (TNC, 2017). El valor de FC representa la sumatoria de los 4 factores, la cual está en un rango entre 4 y 10 así:
+              Los biomas del Instituto Alexander von Humboldt (IAvH) y los Factores de
+              Compensación (FC) asociados a estos se construyeron a partir de 4 criterios:
+              <b>(i)</b>
+              representatividad del ecosistema en el sistema nacional de áreas protegidas (SINAP);
+              <b>(ii)</b>
+              rareza;
+              <b>(iii)</b>
+              remanencia;
+              <b>(iv)</b>
+              tasa de trasformación anual (TNC, 2017).
+              El valor de FC representa la sumatoria de los 4 factores,
+              la cual está en un rango entre 4 y 10 así:
             </p>
             <p className="formulacenter">
             FC = Crp + Cra + Crm + Ctt
@@ -345,9 +356,19 @@ class Summary extends React.Component {
               al polígono ANH, este valor es útil para conocer el costo final de la compensación si
               se llega a realizar un proyecto en el bioma en particular. El FC se usa como
               multiplicador al total de hectáreas que afecta el proyecto en el bioma IAvH
-              específico.<br />La ecuación es: <b>Ac = Ai x Fc</b>, donde <b>Ac</b> = Área a compensar por pérdida de
-              biodiversidad. <b>Ai</b> = Área potencialmente impactada del ecosistema natural por el
-              desarrollo del proyecto, obra o actividad. <b>Fc</b> = Factor de compensación.
+              específico.
+              <br />
+              La ecuación es:
+              <b>Ac = Ai x Fc</b>
+              , donde
+              <b>Ac</b>
+              = Área a compensar por pérdida de
+              biodiversidad.
+              <b>Ai</b>
+              = Área potencialmente impactada del ecosistema natural por el
+              desarrollo del proyecto, obra o actividad.
+              <b>Fc</b>
+              = Factor de compensación.
             </p>
             <h4>Referencias</h4>
             <p className="referencias">
