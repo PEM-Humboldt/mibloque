@@ -64,17 +64,7 @@ class Home extends React.Component {
             <h1>Cartografía e indicadores de prefactibilidad y monitoreo</h1>
             <div className="line" />
             <p>
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-              nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam
-              erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci
-              tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
-              consequat. Duis autem vel eum iriure dolor in hendrerit in
-              vulputate velit esse molestie consequat, vel illum dolore eu
-              feugiat nulla facilisis at.
-              <br />
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-              nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam
-              erat volutpat.
+              MiÁrea, es el módulo de consulta para la información socio-ambiental de las áreas de interés a asignar y definidas por la Agencia Nacional de Hidrocarburos (ANH) a través del mapa de tierras (https://geovisor.anh.gov.co/tierras/).
             </p>
           </div>
           <form action="" key="45">
