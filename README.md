@@ -1,4 +1,4 @@
-# Mi Área - ANH
+# Mi Área - ANH v1.0.0
 Repositorio que almacena servicio de Front-End del Mi Área - ANH.
 
 Este proyecto ha sido desarrollado por el [Instituto Humboldt](http://www.humboldt.org.co). El proyecto usa [Node.js](https://nodejs.org/) versión 10.16.3 y [React.js](https://reactjs.org) versión 16.10.2, junto a paquetes como [Create React App](https://github.com/facebookincubator/create-react-app), [React-scripts](https://www.npmjs.com/package/react-scripts) [D3](https://d3js.org), [Material-UI](https://material-ui.com), [VX](https://vx-demo.now.sh/), [Leaflet](https://leafletjs.com/), [React-leaflet](https://react-leaflet.js.org) y [Axios](https://alligator.io/react/axios-react/)
