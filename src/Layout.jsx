@@ -6,40 +6,41 @@ import Footer from './Footer';
 import Header from './Header';
 
 const Layout = ({
-  activeBlock,
-  callbackUser,
+  activeArea,
+  activateHome,
+  activateIndicators,
+  activateSummary,
   children,
-  moduleName,
-  showFooterLogos,
-  userLogged,
-}) => (
-  <div>
-    <Header
-      moduleName={moduleName}
-      activeBlock={activeBlock}
-      userLogged={userLogged}
-      callbackUser={callbackUser}
-    />
-    {children}
-    <Footer showLogos={showFooterLogos} />
-  </div>
-);
+}) => {
+  const className = !activateHome ? 'bgimghome' : '';
+  return (
+    <div className={className}>
+      <Header
+        activeArea={activeArea}
+        activateHome={activateHome}
+        activateIndicators={activateIndicators}
+        activateSummary={activateSummary}
+      />
+      {children}
+      <Footer />
+    </div>
+  );
+};
 
 Layout.propTypes = {
   children: PropTypes.any,
-  activeBlock: PropTypes.string,
-  moduleName: PropTypes.string,
-  showFooterLogos: PropTypes.bool,
-  userLogged: PropTypes.object,
-  callbackUser: PropTypes.func.isRequired,
+  activeArea: PropTypes.object,
+  activateHome: PropTypes.bool,
+  activateIndicators: PropTypes.bool,
+  activateSummary: PropTypes.bool,
 };
 
 Layout.defaultProps = {
   children: null,
-  activeBlock: '',
-  moduleName: '',
-  showFooterLogos: true,
-  userLogged: null,
+  activeArea: {},
+  activateHome: false,
+  activateIndicators: false,
+  activateSummary: false,
 };
 
 export default Layout;
