@@ -47,14 +47,14 @@ class GraphData {
     return { results: dataTransformed, groups: 1 };
   }
 
-  static prepareData(code, rawData, order, totalArea) {
+  static prepareData(code, rawData, order, activeArea) {
     switch (code) {
       case 1:
         return ColumnChartData.prepareData(rawData, order);
       case 2:
         return SankeyChartData.prepareData(rawData);
       case 3:
-        return GraphData.treeMapData(rawData, totalArea);
+        return GraphData.treeMapData(rawData, activeArea);
       case 4:
         return BarChartData.prepareData(rawData);
       default:

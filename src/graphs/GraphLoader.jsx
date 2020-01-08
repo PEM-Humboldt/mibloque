@@ -143,7 +143,7 @@ const GraphLoader = ({
             maxColor: '#dea857',
             headerHeight: 15,
             fontColor: '#302a23',
-            showScale: true,
+            showScale: false,
             generateTooltip: tooltipGen(tooltipData),
           }}
           rootProps={{ 'data-testid': '1' }}

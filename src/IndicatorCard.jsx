@@ -38,7 +38,7 @@ class IndicatorCard extends React.Component {
     const className = this.validClassIndicator(size).validClass;
 
     if (!values) return null;
-    const { results, groups } = GraphData.prepareData(code, values);
+    const { results, groups } = GraphData.prepareData(code, values, 0, activeArea);
     return (
       <Link
         to={{
