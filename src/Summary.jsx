@@ -323,13 +323,13 @@ class Summary extends React.Component {
             <p>
               Los biomas del Instituto Alexander von Humboldt (IAvH) y los Factores de
               Compensación (FC) asociados a estos se construyeron a partir de 4 criterios:
-              <b>(i)</b>
+              <b> (i) </b>
               representatividad del ecosistema en el sistema nacional de áreas protegidas (SINAP);
-              <b>(ii)</b>
+              <b> (ii) </b>
               rareza;
-              <b>(iii)</b>
+              <b> (iii) </b>
               remanencia;
-              <b>(iv)</b>
+              <b> (iv) </b>
               tasa de trasformación anual (TNC, 2017).
               El valor de FC representa la sumatoria de los 4 factores,
               la cual está en un rango entre 4 y 10 así:
@@ -359,16 +359,15 @@ class Summary extends React.Component {
               específico.
               <br />
               La ecuación es:
-              <b>Ac = Ai x Fc</b>
+              <b> Ac = Ai x Fc</b>
               , donde
-              <b>Ac</b>
-              = Área a compensar por pérdida de
-              biodiversidad.
-              <b>Ai</b>
-              = Área potencialmente impactada del ecosistema natural por el
-              desarrollo del proyecto, obra o actividad.
-              <b>Fc</b>
-              = Factor de compensación.
+              <b> Ac </b>
+              es el Área a compensar por pérdida de biodiversidad.
+              <b> Ai </b>
+              es el Área potencialmente impactada del ecosistema natural por el
+              desarrollo del proyecto, obra o actividad, y
+              <b> Fc </b>
+              es el Factor de compensación.
             </p>
             <h4>Referencias</h4>
             <p className="referencias">
