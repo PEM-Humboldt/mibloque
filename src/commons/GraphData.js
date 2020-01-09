@@ -1,17 +1,18 @@
 import ColumnChartData from './ColumnChartData';
 import {
-  firstLevelLabel, firstLevel, secondLevel, thirdLevel, redListColors, title,
+  firstLevelLabel, firstLevel, secondLevel, thirdLevel, redListColors, title, noEndanger,
 } from './TreeMapChartData';
 import BarChartData from './BarChartData';
 import SankeyChartData from './SankeyChartData';
 
 class GraphData {
-  static treeMapData(rawData) {
+  static treeMapData(rawData, activeArea) {
     /* First level */
-    const totalArea = Number(rawData[firstLevel[1]][0].indicator_value);
+    const focusedArea = Number(rawData[firstLevel[1]][0].indicator_value);
     const dataTransformed = [
-      [{ v: title, f: title }, null, totalArea, -10],
-      [{ v: firstLevelLabel, f: firstLevelLabel }, title, totalArea, 5],
+      [{ v: title, f: title }, null, focusedArea, -10],
+      [{ v: noEndanger, f: noEndanger }, title, activeArea.area - focusedArea, 10],
+      [{ v: firstLevelLabel, f: firstLevelLabel }, title, focusedArea, 0],
     ];
     /* Second level */
     const threatAreas = rawData[secondLevel[1]].map((item) => ({

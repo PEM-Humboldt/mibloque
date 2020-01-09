@@ -5,6 +5,7 @@ const thirdLevel = [15, 14];
 
 // Label to name the graph
 const title = 'Ecosistemas en lista roja dentro del área de interés';
+const noEndanger = 'Area sin amenaza identificada';
 
 // Label to first area in the graph
 const firstLevelLabel = 'Área con amenaza';
@@ -16,5 +17,5 @@ const redListColors = [
 ];
 
 export {
-  firstLevelLabel, firstLevel, secondLevel, thirdLevel, redListColors, title,
+  firstLevelLabel, firstLevel, secondLevel, thirdLevel, redListColors, title, noEndanger,
 };

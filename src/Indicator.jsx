@@ -32,8 +32,8 @@ class Indicator extends React.Component {
   }
 
   componentDidMount() {
-    const { areaName, indicatorIds } = this.props;
-    this.loadData(areaName, indicatorIds);
+    const { activeArea, areaName, indicatorIds } = this.props;
+    this.loadData(areaName, indicatorIds, activeArea);
     this.loadAreaGeometry(areaName);
     this.loadMetadata(indicatorIds[0]);
   }
@@ -184,7 +184,7 @@ class Indicator extends React.Component {
    * @param {string} name area name for selected area
    * @param {string} ids indicator ids for selected area
    */
-  loadData = (name, ids) => {
+  loadData = (name, ids, activeArea) => {
     const idsQuery = ids.map((id) => `ids=${id}`).join('&');
     RestAPI.requestIndicatorsByArea(name, idsQuery)
       .then((res) => {
@@ -241,10 +241,9 @@ class Indicator extends React.Component {
         }
         if (geoIds.length > 0) {
           // geometries = GeometryMapper.loadIndicatorGeometry(res.code, geoIds, state.geometries);
-          // console.log('voy voy');
           this.loadIndicatorGeometry(res.code, geoIds);
         }
-        const { results, groups } = GraphData.prepareData(res.code, res.values, res.biomes);
+        const { results, groups } = GraphData.prepareData(res.code, res.values, res.biomes, activeArea);
         state.data = results;
         state.dataGroups = groups;
         state.fullData = state.data;
