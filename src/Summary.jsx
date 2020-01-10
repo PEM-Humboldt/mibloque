@@ -191,6 +191,7 @@ class Summary extends React.Component {
           <div className="map">
             <MapViewer
               layers={layers}
+              padding={{ paddingTopLeft: [-600, 0] }}
             />
           </div>
           <div className={`blockdata ${minibd ? 'minibd' : ''}`}>
