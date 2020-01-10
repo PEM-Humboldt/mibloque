@@ -32,7 +32,12 @@ class Indicator extends React.Component {
   }
 
   componentDidMount() {
-    const { activeArea, areaName, indicatorIds } = this.props;
+    const {
+      activeArea, areaName, indicatorIds, setActiveArea,
+    } = this.props;
+    if (!activeArea) {
+      setActiveArea(areaName);
+    }
     this.loadData(areaName, indicatorIds, activeArea);
     this.loadAreaGeometry(areaName);
     this.loadMetadata(indicatorIds[0]);
