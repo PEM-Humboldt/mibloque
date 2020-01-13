@@ -75,6 +75,7 @@ header h3 {
   padding: 36px 10px 40px 50px;
   text-transform: uppercase;
   font-weight: 300;
+  text-shadow: 1px 0 0 #f5f1f0, -1px 0 0 #f5f1f0, 0 1px 0 #f5f1f0, 0 -1px 0 #f5f1f0, 1px 1px #f5f1f0, -1px -1px 0 #f5f1f0, 1px -1px 0 #f5f1f0, -1px 1px 0 #f5f1f0;
 }
 
 header h3 b {
@@ -296,7 +297,7 @@ h1 {
   font-weight: 500;
   font-size: 20px;
   line-height: 48px;
-  text-shadow: 2px 0 0 #fff, -2px 0 0 #fff, 0 2px 0 #fff, 0 -2px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
+  text-shadow: 1px 0 0 #fff, -1px 0 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
 }
 
 .sidebtnact  {
@@ -911,12 +912,28 @@ footer h2 {
 @media screen and (max-width: 590px){
   .blockdata {
     width: 100%;
+    max-width: 590px;
   }
 
   .blockdata p {
     width: 95%;
   }
+
+  .referencias {
+    width: 95% !important;
+  }
+
+  .formulaexplained {
+    margin-left: 5px;
+  }
+
+  .minibd {
+    width: 10px !important;
+    right: 0;
+    position: absolute;
+  }
 }
+
 @media screen and (max-width: 565px){
   .mapasitio a:first-of-type {
     display: none;
@@ -936,6 +953,12 @@ footer h2 {
   .sideguide .col1, .sideguide .col2 {
     font-size: 13px;
     line-height: 20px;
+  }
+
+  .minibd {
+    width: 10px !important;
+    right: 0;
+    position: absolute;
   }
 
 }
@@ -974,6 +997,7 @@ footer h2 {
 
   .blockdata {
     position: relative;
+    max-width: 421px;
   }
 
   footer {
@@ -1009,12 +1033,27 @@ footer h2 {
     margin: 0 0 15px 45px;
   }
 
+  .minibd {
+    width: 10px !important;
+    right: 0;
+    position: absolute;
+  }
+
 }
 
-@media screen and (max-width: 330px){
+@media screen and (max-width: 360px){
 
   .formbtns {
     padding: 0;
   }
 
+  .blockdata {
+    max-width: 360px;
+  }
+  
+  .minibd {
+    width: 10px !important;
+    right: 0;
+    position: absolute;
+  }
 }

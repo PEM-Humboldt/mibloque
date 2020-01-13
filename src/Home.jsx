@@ -78,7 +78,7 @@ class Home extends React.Component {
               value={selectedElement}
               onChange={this.handleChange}
               options={data}
-              placeholder="Identificador de área de interés"
+              placeholder="Busca tú área"
               isSearchable="true"
               isClearable="true"
             />
