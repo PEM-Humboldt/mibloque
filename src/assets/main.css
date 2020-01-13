@@ -75,6 +75,7 @@ header h3 {
   padding: 36px 10px 40px 50px;
   text-transform: uppercase;
   font-weight: 300;
+  text-shadow: 1px 0 0 #f5f1f0, -1px 0 0 #f5f1f0, 0 1px 0 #f5f1f0, 0 -1px 0 #f5f1f0, 1px 1px #f5f1f0, -1px -1px 0 #f5f1f0, 1px -1px 0 #f5f1f0, -1px 1px 0 #f5f1f0;
 }
 
 header h3 b {
@@ -296,7 +297,7 @@ h1 {
   font-weight: 500;
   font-size: 20px;
   line-height: 48px;
-  text-shadow: 2px 0 0 #fff, -2px 0 0 #fff, 0 2px 0 #fff, 0 -2px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
+  text-shadow: 1px 0 0 #fff, -1px 0 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
 }
 
 .sidebtnact  {
