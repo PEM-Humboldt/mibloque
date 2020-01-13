@@ -912,12 +912,28 @@ footer h2 {
 @media screen and (max-width: 590px){
   .blockdata {
     width: 100%;
+    max-width: 590px;
   }
 
   .blockdata p {
     width: 95%;
   }
+
+  .referencias {
+    width: 95% !important;
+  }
+
+  .formulaexplained {
+    margin-left: 5px;
+  }
+
+  .minibd {
+    width: 10px !important;
+    right: 0;
+    position: absolute;
+  }
 }
+
 @media screen and (max-width: 565px){
   .mapasitio a:first-of-type {
     display: none;
@@ -937,6 +953,12 @@ footer h2 {
   .sideguide .col1, .sideguide .col2 {
     font-size: 13px;
     line-height: 20px;
+  }
+
+  .minibd {
+    width: 10px !important;
+    right: 0;
+    position: absolute;
   }
 
 }
@@ -975,6 +997,7 @@ footer h2 {
 
   .blockdata {
     position: relative;
+    max-width: 421px;
   }
 
   footer {
@@ -1010,12 +1033,27 @@ footer h2 {
     margin: 0 0 15px 45px;
   }
 
+  .minibd {
+    width: 10px !important;
+    right: 0;
+    position: absolute;
+  }
+
 }
 
-@media screen and (max-width: 330px){
+@media screen and (max-width: 360px){
 
   .formbtns {
     padding: 0;
   }
 
+  .blockdata {
+    max-width: 360px;
+  }
+  
+  .minibd {
+    width: 10px !important;
+    right: 0;
+    position: absolute;
+  }
 }
