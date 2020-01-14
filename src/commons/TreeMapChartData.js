@@ -11,9 +11,9 @@ const noEndanger = 'Área sin amenaza identificada';
 const firstLevelLabel = 'Área con amenaza';
 
 const redListColors = [
-  { name: 'CR', value: 10, label: 'CR: Critically Endangered' }, // value: '#EF0928'
+  { name: 'CR', value: 10, label: 'CR: Critically Endangered' }, // value: '#b3433b'
   { name: 'EN', value: 15, label: 'EN: Endangered' }, // value: '#FB6A2A'
-  { name: 'VU', value: 20, label: 'VU: Vulnerable' }, // value: '#DF9735'
+  { name: 'VU', value: 20, label: 'VU: Vulnerable' }, // value: '#dea857'
 ];
 
 const getColor = (name) => redListColors.find((c) => name.includes(c.name)).value;
@@ -21,6 +21,7 @@ const getColor = (name) => redListColors.find((c) => name.includes(c.name)).valu
 const formatData = (data) => {
   // Adding column titles
   data.unshift(['Indicador', 'Padre', 'Area', 'Color']);
+  // Guarantee order with "empty" elements. Minimum value: 1
   redListColors.forEach((color) => {
     if (!data.find((item) => item[3] === color.value)) {
       data.push(
