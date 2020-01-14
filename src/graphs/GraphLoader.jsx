@@ -22,6 +22,7 @@ const tooltipGen = (data) => (row, size) => `
   * @param {string}  labelX information showed in the graph label X,
   * @param {string}  labelY information showed in the graph label Y,
   * @param {string}  graphType Type of graph to render,
+  showaram {boolean} hideHelper allow render graph with helper text,
   * @param {string}  title title to render if the selected graph allows it,
   * @param {string}  subtitle subtitle to render if the selected graph allows it,
   * @param {array}   colors color palette to sort elements inside the graph
@@ -47,6 +48,7 @@ const GraphLoader = ({
   options,
   withTooltip,
   dataGroups,
+  showHelper,
 }) => {
   let graph = ('');
   switch (graphType) {
@@ -130,24 +132,32 @@ const GraphLoader = ({
       const tooltipData = Array.from(data);
       tooltipData.shift();
       graph = (
-        <Chart
-          className="p30"
-          width={width}
-          height={height}
-          chartType="TreeMap"
-          loader={<div>Loading Chart</div>}
-          data={data}
-          options={{
-            minColor: '#9b3a33',
-            midColor: '#d66c42',
-            maxColor: '#dea857',
-            headerHeight: 15,
-            fontColor: '#302a23',
-            showScale: false,
-            generateTooltip: tooltipGen(tooltipData),
-          }}
-          rootProps={{ 'data-testid': '1' }}
-        />
+        <div>
+          <Chart
+            className="p30"
+            width={width}
+            height={height}
+            chartType="TreeMap"
+            loader={<div>Loading Chart</div>}
+            data={data}
+            options={{
+              minColor: '#d1c6c5',
+              midColor: '#b3433b',
+              maxColor: '#dea857',
+              headerHeight: 15,
+              fontColor: '#302a23',
+              showScale: true,
+              showTooltips: true,
+              generateTooltip: tooltipGen(tooltipData),
+            }}
+            rootProps={{ 'data-testid': '1' }}
+          />
+          {showHelper ? (
+            <p className="p10">
+            Haz click derecho para disminuir el zoom
+            </p>
+          ) : ''}
+        </div>
       );
       break;
     }
@@ -163,38 +173,40 @@ const GraphLoader = ({
 
 GraphLoader.propTypes = {
   colors: PropTypes.array,
-  graphType: PropTypes.string.isRequired,
-  title: PropTypes.string,
-  subtitle: PropTypes.string,
   // Array or object, depending on graphType
   data: PropTypes.any.isRequired,
+  dataGroups: PropTypes.number,
+  graphType: PropTypes.string.isRequired,
+  height: PropTypes.number,
+  showHelper: PropTypes.bool,
   labelX: PropTypes.string,
   labelY: PropTypes.string,
-  width: PropTypes.number,
-  height: PropTypes.number,
-  units: PropTypes.string,
   options: PropTypes.object,
   padding: PropTypes.number,
+  subtitle: PropTypes.string,
+  title: PropTypes.string,
+  units: PropTypes.string,
+  width: PropTypes.number,
   withTooltip: PropTypes.bool,
-  dataGroups: PropTypes.number,
 };
 
 GraphLoader.defaultProps = {
-  title: '',
-  subtitle: '',
   colors: [
     '#003d59', '#5a1d44', '#902130', '#6d819c', '#db9d6b', '#fb9334', '#fe6625', '#ab5727',
     '#44857d', '#167070',
   ],
+  dataGroups: 1,
+  height: null,
+  showHelper: true,
   labelX: '',
   labelY: '',
-  width: null,
-  height: null,
-  units: 'ha',
   options: {},
   padding: 0,
+  subtitle: '',
+  title: '',
+  units: 'ha',
+  width: null,
   withTooltip: true,
-  dataGroups: 1,
 };
 
 export default GraphLoader;
