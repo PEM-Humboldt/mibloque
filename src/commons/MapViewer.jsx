@@ -42,9 +42,10 @@ class MapViewer extends React.Component {
 
   componentDidUpdate() {
     const { layers, activeLayers, update } = this.state;
+    const { padding } = this.props;
     if (update) {
       Object.keys(layers).forEach((layerName) => {
-        if (activeLayers.includes(layerName)) this.showLayer(layers[layerName], true);
+        if (activeLayers.includes(layerName)) this.showLayer(layers[layerName], true, padding);
         else this.showLayer(layers[layerName], false);
       });
     }
@@ -77,12 +78,12 @@ class MapViewer extends React.Component {
    * @param {Object} layer receives leaflet object and e.target as the layer
    * @param {Boolean} state if it's false, then the layer should be hidden
    */
-  showLayer = (layer, state) => {
+  showLayer = (layer, state, padding) => {
     if (state === false) {
       this.mapRef.current.leafletElement.removeLayer(layer);
     } else {
       this.mapRef.current.leafletElement.addLayer(layer);
-      this.mapRef.current.leafletElement.fitBounds(layer.getBounds());
+      this.mapRef.current.leafletElement.fitBounds(layer.getBounds(), padding);
     }
   }
 
@@ -109,11 +110,13 @@ class MapViewer extends React.Component {
 MapViewer.propTypes = {
   layers: PropTypes.object,
   controls: PropTypes.bool,
+  padding: PropTypes.object,
 };
 
 MapViewer.defaultProps = {
   layers: {},
   controls: true,
+  padding: {},
 };
 
 export default MapViewer;
