@@ -32,9 +32,12 @@ class IndicatorsDash extends React.Component {
   }
 
   componentDidUpdate() {
+    const { data } = this.state;
     const { activeArea, areaName, setActiveArea } = this.props;
     if (!activeArea) {
       setActiveArea(areaName);
+    } else if (data === null) {
+      this.loadIndicators(areaName);
     }
   }
 
