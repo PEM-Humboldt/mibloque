@@ -18,6 +18,24 @@ const redListColors = [
 
 const getColor = (name) => redListColors.find((c) => name.includes(c.name)).value;
 
+const formatData = (data) => {
+  // Adding column titles
+  data.unshift(['Indicador', 'Padre', 'Area', 'Color']);
+  redListColors.forEach((color) => {
+    if (!data.find((item) => item[3] === color.value)) {
+      data.push(
+        [
+          color.name,
+          firstLevelLabel,
+          1,
+          color.value,
+        ],
+      );
+    }
+  });
+  return data;
+};
+
 const TreeMapChartData = (rawData, activeArea) => {
   /* First level */
   const focusedArea = Number(rawData[firstLevel[1]][0].indicator_value);
@@ -33,7 +51,6 @@ const TreeMapChartData = (rawData, activeArea) => {
   }));
   threatAreas.forEach((data) => {
     const id = redListColors.find((c) => c.name === data.name);
-    console.log(getColor(data.name));
     dataTransformed.push([
       { v: data.name, f: id.label },
       firstLevelLabel,
@@ -45,7 +62,6 @@ const TreeMapChartData = (rawData, activeArea) => {
   rawData[thirdLevel[1]].map((item) => {
     redListColors.forEach((color) => {
       if (item.value_description.includes(`${color.name}:`)) {
-        console.log(color);
         dataTransformed.push(
           [
             { v: item.value_description, f: item.value_description },
@@ -59,9 +75,8 @@ const TreeMapChartData = (rawData, activeArea) => {
     return true;
   });
 
-  // Adding column titles
-  dataTransformed.unshift(['Indicador', 'Padre', 'Area', 'Color']);
-  return { results: dataTransformed, groups: 1 };
+  const response = formatData(dataTransformed);
+  return { results: response, groups: 1 };
 };
 
 export default TreeMapChartData;
