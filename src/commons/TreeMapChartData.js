@@ -21,14 +21,14 @@ const getColor = (name) => redListColors.find((c) => name.includes(c.name)).valu
 const formatData = (data) => {
   // Adding column titles
   data.unshift(['Indicador', 'Padre', 'Area', 'Color']);
-  // Guarantee order with "empty" elements. Minimum value: 1
+  // Guarantee order with "empty" elements. Minimum value: 0.00001
   redListColors.forEach((color) => {
     if (!data.find((item) => item[3] === color.value)) {
       data.push(
         [
           color.name,
           firstLevelLabel,
-          1,
+          0.00001,
           color.value,
         ],
       );

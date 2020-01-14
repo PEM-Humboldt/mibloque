@@ -197,7 +197,7 @@ GraphLoader.defaultProps = {
   ],
   dataGroups: 1,
   height: null,
-  showHelper: true,
+  showHelper: false,
   labelX: '',
   labelY: '',
   options: {},

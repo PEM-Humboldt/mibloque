@@ -393,6 +393,7 @@ class Indicator extends React.Component {
             height={graphHeight - graphHeaderHeight}
             padding={20}
             dataGroups={dataGroups}
+            showHelper
           />
         </div>
       );
