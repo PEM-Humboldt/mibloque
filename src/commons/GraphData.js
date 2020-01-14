@@ -4,7 +4,6 @@ import BarChartData from './BarChartData';
 import SankeyChartData from './SankeyChartData';
 
 class GraphData {
-
   static prepareData(code, rawData, order, activeArea) {
     switch (code) {
       case 1:
