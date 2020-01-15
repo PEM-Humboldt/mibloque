@@ -37,7 +37,7 @@ const formatData = (data) => {
   return data;
 };
 
-const TreeMapChartData = (rawData, activeArea) => {
+const TreeMapChartData = (rawData, areaName, activeArea) => {
   /* First level */
   const focusedArea = Number(rawData[firstLevel[1]][0].indicator_value);
   const dataTransformed = [

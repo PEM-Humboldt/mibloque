@@ -32,12 +32,9 @@ class IndicatorsDash extends React.Component {
   }
 
   componentDidUpdate() {
-    const { data } = this.state;
     const { activeArea, areaName, setActiveArea } = this.props;
     if (!activeArea) {
       setActiveArea(areaName);
-    } else if (data === null) {
-      this.loadIndicators(areaName);
     }
   }
 
@@ -85,7 +82,7 @@ class IndicatorsDash extends React.Component {
       activeTab,
       tabs,
     } = this.state;
-    const { activeArea } = this.props;
+    const { activeArea, areaName } = this.props;
 
     const masonryComp = (
       <Masonry
@@ -99,6 +96,7 @@ class IndicatorsDash extends React.Component {
             name={item.name}
             values={item.values}
             activeArea={activeArea}
+            areaName={areaName}
             indicatorIds={item.ids.map((ind) => ind.id)}
           />
         ))}
