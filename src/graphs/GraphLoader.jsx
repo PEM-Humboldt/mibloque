@@ -22,7 +22,7 @@ const tooltipGen = (data) => (row, size) => `
   * @param {string}  labelX information showed in the graph label X,
   * @param {string}  labelY information showed in the graph label Y,
   * @param {string}  graphType Type of graph to render,
-  showaram {boolean} hideHelper allow render graph with helper text,
+  * @param {boolean} showHelper allow render graph with helper text,
   * @param {string}  title title to render if the selected graph allows it,
   * @param {string}  subtitle subtitle to render if the selected graph allows it,
   * @param {array}   colors color palette to sort elements inside the graph
