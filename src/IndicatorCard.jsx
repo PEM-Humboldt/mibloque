@@ -42,7 +42,7 @@ class IndicatorCard extends React.Component {
     return (
       <Link
         to={{
-          pathname: `/indicator/${activeArea.name || areaName}`,
+          pathname: `/indicator/${areaName}`,
           search: `?${indicatorIdsQuery}`,
         }}
       >
