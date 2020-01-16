@@ -26,7 +26,6 @@
     "react-select": "^3.0.8"
   },
   "devDependencies": {
-    "babel-eslint": "^8.0.1",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-react-app": "^5.0.2",
     "eslint-plugin-import": "^2.18.2",
