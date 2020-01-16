@@ -7,6 +7,7 @@ class GColumnChart extends React.Component {
     super(props);
     this.state = {
       loaded: false,
+      chart: null,
     };
   }
 
@@ -16,7 +17,7 @@ class GColumnChart extends React.Component {
   }
 
   draw = () => {
-    const { google } = this.state;
+    const { google, chart } = this.state;
     const {
       data,
       width,
@@ -25,7 +26,6 @@ class GColumnChart extends React.Component {
       options,
       withTooltip,
       dataGroups,
-      title,
     } = this.props;
     // eslint-disable-next-line new-cap
     const chartData = new google.visualization.arrayToDataTable(data);
@@ -64,8 +64,6 @@ class GColumnChart extends React.Component {
     if (withTooltip) {
       fullOptions.hAxis = { textStyle: { fontSize: 0 }, titleTextStyle: { fontSize: 12 } };
     }
-    // eslint-disable-next-line no-undef
-    const chart = new google.charts.Bar(document.getElementById(`chart-${title}`));
     chart.draw(chartData, google.charts.Bar.convertOptions(fullOptions));
     google.visualization.events.addListener(chart, 'error', (err) => {
       google.visualization.errors.removeError(err.id);
@@ -94,7 +92,12 @@ class GColumnChart extends React.Component {
             const { google } = window;
             google.charts.load('current', { packages: ['corechart', 'bar'] });
             google.charts.setOnLoadCallback(() => {
-              this.setState({ loaded: true, google });
+              this.setState({
+                loaded: true,
+                google,
+                // eslint-disable-next-line no-undef
+                chart: new google.charts.Bar(document.getElementById(`chart-${title}`)),
+              });
             });
           }}
         />
