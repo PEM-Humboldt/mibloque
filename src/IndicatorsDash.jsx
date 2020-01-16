@@ -99,6 +99,29 @@ class IndicatorsDash extends React.Component {
             indicatorIds={item.ids.map((ind) => ind.id)}
           />
         ))}
+        <div className="boxes">
+          <div className="graphtitle">
+            Especies endémicas
+          </div>
+          <div className="insidegraph">
+            <h3 className="endemictitle">Número de especies endémicas:</h3>
+            <div className="endemicnumber">15</div>
+            <ul className="scrolllist">
+              <li>Abarema lehmannii</li>
+              <li>Adelobotrys fuscescens</li>
+              <li>Adenocalymma magdalenense</li>
+              <li>Aechmea nivea</li>
+              <li>Ageratina ampla</li>
+              <li>Ageratina asclepiadea</li>
+              <li>Ageratina gracilis</li>
+              <li>Aiphanes acaulis</li>
+              <li>Aiphanes duquei</li>
+              <li>Aiphanes gelatinosa</li>
+              <li>Aiphanes graminifolia</li>
+              <li>Aiphanes killipii</li>
+            </ul>
+          </div>
+        </div>
       </Masonry>
     );
 
