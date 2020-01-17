@@ -633,11 +633,11 @@ footer h2 {
 }
 
 .box2 {
-  height: 450px;
+  height: 470px;
 }
 
 .box3 {
-  height: 450px;
+  height: 470px;
   width: 830px;
 }
 
@@ -667,6 +667,27 @@ footer h2 {
   border-radius: initial;
   padding: 10px;
   height: auto;
+}
+
+.endemictitle {
+  color: #003d59;
+}
+
+.scrolllist {
+  width: auto;
+  height: 110px;
+  background-color: #f3f3f3;
+  padding: 5px;
+  overflow: scroll;
+  border-radius: 5px;
+  line-height: 1.5;
+}
+
+.endemicnumber {
+  color: #D37750;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 1;
 }
 
 .p30 {
