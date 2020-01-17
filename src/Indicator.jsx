@@ -32,16 +32,25 @@ class Indicator extends React.Component {
   }
 
   componentDidMount() {
-    const { areaName, indicatorIds } = this.props;
-    this.loadData(areaName, indicatorIds);
-    this.loadAreaGeometry(areaName);
-    this.loadMetadata(indicatorIds[0]);
+    const {
+      activeArea, areaName, setActiveArea,
+    } = this.props;
+    if (!activeArea) {
+      setActiveArea(areaName);
+    }
   }
 
   componentDidUpdate() {
-    const { activeArea, areaName, setActiveArea } = this.props;
+    const { data } = this.state;
+    const {
+      activeArea, areaName, indicatorIds, setActiveArea,
+    } = this.props;
     if (!activeArea) {
       setActiveArea(areaName);
+    } else if (data === null) {
+      this.loadData(areaName, indicatorIds, activeArea);
+      this.loadAreaGeometry(areaName);
+      this.loadMetadata(indicatorIds[0]);
     }
   }
 
@@ -184,7 +193,7 @@ class Indicator extends React.Component {
    * @param {string} name area name for selected area
    * @param {string} ids indicator ids for selected area
    */
-  loadData = (name, ids) => {
+  loadData = (name, ids, activeArea) => {
     const idsQuery = ids.map((id) => `ids=${id}`).join('&');
     RestAPI.requestIndicatorsByArea(name, idsQuery)
       .then((res) => {
@@ -241,10 +250,12 @@ class Indicator extends React.Component {
         }
         if (geoIds.length > 0) {
           // geometries = GeometryMapper.loadIndicatorGeometry(res.code, geoIds, state.geometries);
-          // console.log('voy voy');
           this.loadIndicatorGeometry(res.code, geoIds);
         }
-        const { results, groups } = GraphData.prepareData(res.code, res.values, res.biomes);
+        if (!activeArea) return null;
+        const { results, groups } = GraphData.prepareData(
+          res.code, res.values, res.biomes, activeArea.area,
+        );
         state.data = results;
         state.dataGroups = groups;
         state.fullData = state.data;
@@ -385,6 +396,7 @@ class Indicator extends React.Component {
             height={graphHeight - graphHeaderHeight}
             padding={20}
             dataGroups={dataGroups}
+            showHelper
           />
         </div>
       );

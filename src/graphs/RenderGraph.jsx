@@ -21,6 +21,7 @@ import GraphLoader from './GraphLoader';
    * @param {number}  padding to determine chart padding
    * @param {number}  parentWidth parent width according to vx class
    * @param {number}  parentHeight parent height according to vx class
+   * @param {boolean} showHelper used in TreeMapChart, show a helper
    */
 const RenderGraph = ({
   data,
@@ -37,6 +38,7 @@ const RenderGraph = ({
   parentWidth,
   parentHeight,
   options,
+  showHelper,
   withTooltip,
   dataGroups,
 }) => {
@@ -73,6 +75,7 @@ const RenderGraph = ({
       options={options}
       withTooltip={withTooltip}
       dataGroups={dataGroups}
+      showHelper={showHelper}
     />
   );
 };
@@ -93,6 +96,7 @@ RenderGraph.propTypes = {
   data: PropTypes.any.isRequired,
   padding: PropTypes.number,
   options: PropTypes.object,
+  showHelper: PropTypes.bool,
   withTooltip: PropTypes.bool,
   dataGroups: PropTypes.number,
 };
@@ -111,6 +115,7 @@ RenderGraph.defaultProps = {
   height: null,
   padding: 0,
   options: {},
+  showHelper: false,
   withTooltip: true,
   dataGroups: 1,
 };

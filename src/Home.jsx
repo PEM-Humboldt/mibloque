@@ -78,7 +78,7 @@ class Home extends React.Component {
               value={selectedElement}
               onChange={this.handleChange}
               options={data}
-              placeholder="Busca tú área"
+              placeholder="Busca tu área"
               isSearchable="true"
               isClearable="true"
             />

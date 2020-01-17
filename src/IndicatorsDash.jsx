@@ -84,6 +84,8 @@ class IndicatorsDash extends React.Component {
     } = this.state;
     const { activeArea, areaName } = this.props;
 
+    if (!activeArea) return null;
+
     const masonryComp = (
       <Masonry
         options={masonryOptions}
@@ -95,6 +97,7 @@ class IndicatorsDash extends React.Component {
             size={item.size}
             name={item.name}
             values={item.values}
+            totalArea={activeArea.area}
             areaName={areaName}
             indicatorIds={item.ids.map((ind) => ind.id)}
           />

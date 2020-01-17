@@ -670,8 +670,17 @@ footer h2 {
 }
 
 .p30 {
-  padding: 15px;
+  padding: 15px 15px 0;
   box-sizing: border-box;
+  height: calc(100% - 20px)!important;
+}
+
+.p10 {
+  padding-left: 20px;
+  color: #424242;
+  float: left;
+  position: absolute;
+  margin-top: -25px;
 }
 
 .insidegraph {
