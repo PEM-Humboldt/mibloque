@@ -48,7 +48,7 @@ class Indicator extends React.Component {
     if (!activeArea) {
       setActiveArea(areaName);
     } else if (data === null) {
-      this.loadData(areaName, indicatorIds, activeArea, areaName);
+      this.loadData(areaName, indicatorIds, activeArea);
       this.loadAreaGeometry(areaName);
       this.loadMetadata(indicatorIds[0]);
     }
@@ -252,8 +252,9 @@ class Indicator extends React.Component {
           // geometries = GeometryMapper.loadIndicatorGeometry(res.code, geoIds, state.geometries);
           this.loadIndicatorGeometry(res.code, geoIds);
         }
+        if (!activeArea) return null;
         const { results, groups } = GraphData.prepareData(
-          res.code, res.values, res.biomes, activeArea,
+          res.code, res.values, res.biomes, activeArea.area,
         );
         state.data = results;
         state.dataGroups = groups;

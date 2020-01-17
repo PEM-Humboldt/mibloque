@@ -4,14 +4,14 @@ import BarChartData from './BarChartData';
 import SankeyChartData from './SankeyChartData';
 
 class GraphData {
-  static prepareData(code, rawData, order, activeArea) {
+  static prepareData(code, rawData, order, totalArea) {
     switch (code) {
       case 1:
         return ColumnChartData.prepareData(rawData, order);
       case 2:
         return SankeyChartData.prepareData(rawData);
       case 3:
-        return TreeMapChartData(rawData, activeArea);
+        return TreeMapChartData(rawData, totalArea);
       case 4:
         return BarChartData.prepareData(rawData);
       default:

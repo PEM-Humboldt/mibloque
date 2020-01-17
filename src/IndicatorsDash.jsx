@@ -95,7 +95,7 @@ class IndicatorsDash extends React.Component {
             size={item.size}
             name={item.name}
             values={item.values}
-            activeArea={activeArea}
+            totalArea={activeArea.area}
             areaName={areaName}
             indicatorIds={item.ids.map((ind) => ind.id)}
           />

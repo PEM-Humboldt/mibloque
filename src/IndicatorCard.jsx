@@ -32,13 +32,16 @@ class IndicatorCard extends React.Component {
 
   render() {
     const {
-      activeArea, areaName, code, size, name, values, indicatorIds,
+      totalArea, areaName, code, size, name, values, indicatorIds,
     } = this.props;
     const indicatorIdsQuery = indicatorIds.map((ind) => `ids=${ind}`).join('&');
     const className = this.validClassIndicator(size).validClass;
 
     if (!values) return null;
-    const { results, groups } = GraphData.prepareData(code, values, 0, activeArea);
+    if (!totalArea) return null;
+    const { results, groups } = GraphData.prepareData(
+      code, values, 0, totalArea,
+    );
     return (
       <Link
         to={{
@@ -77,7 +80,7 @@ IndicatorCard.propTypes = {
   values: PropTypes.any,
   size: PropTypes.number,
   indicatorIds: PropTypes.array,
-  activeArea: PropTypes.object.isRequired,
+  totalArea: PropTypes.string.isRequired,
   areaName: PropTypes.string.isRequired,
 };
 
