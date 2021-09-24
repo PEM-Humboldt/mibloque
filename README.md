@@ -1,3 +1,5 @@
+*[**Archived project**] This project has been discontinued*
+
 # Mi Área - ANH v1.0.0
 Repositorio que almacena servicio de Front-End del Mi Área - ANH.
 
